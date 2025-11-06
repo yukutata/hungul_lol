@@ -8,6 +8,7 @@ import {
   Box,
   Card,
   CardContent,
+  CardMedia,
   Chip,
   Divider,
   Table,
@@ -66,14 +67,12 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
           {/* チャンピオン画像 */}
           <Box sx={{ flex: '0 0 auto', width: { xs: '100%', md: '280px' }, maxWidth: '280px' }}>
             <Card sx={{ borderRadius: 3, overflow: 'hidden', boxShadow: 3 }}>
-              <Box
+              <CardMedia
                 component="img"
-                src={champion.iconUrl}
+                height="200"
+                image={champion.iconUrl}
                 alt={champion.nameEn}
                 sx={{
-                  width: '100%',
-                  height: 200,
-                  objectFit: 'cover',
                   transition: 'transform 0.2s ease',
                   '&:hover': {
                     transform: 'scale(1.05)'
