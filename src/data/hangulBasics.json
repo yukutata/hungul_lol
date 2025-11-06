@@ -45,26 +45,26 @@
   ],
   "transformationRules": [
     {
-      "rule": "Position-based consonant sounds",
-      "description": "Consonants sound different in initial vs final position",
+      "rule": "位置による子音の音変化",
+      "description": "子音は語頭と語末で音が変わります",
       "examples": [
-        { "hangul": "ㄱ", "initial": "g as in 가렌", "final": "k as in 막" },
-        { "hangul": "ㄷ", "initial": "d as in 다리우스", "final": "t as in 듣다" },
-        { "hangul": "ㅂ", "initial": "b as in 바드", "final": "p as in 밥" }
+        { "hangul": "ㄱ", "initial": "語頭: g （가렌）", "final": "語末: k （막）" },
+        { "hangul": "ㄷ", "initial": "語頭: d （다리우스）", "final": "語末: t （듣다）" },
+        { "hangul": "ㅂ", "initial": "語頭: b （바드）", "final": "語末: p （밥）" }
       ]
     },
     {
-      "rule": "ㄹ (rieul) special case",
-      "description": "Sounds like 'r' at beginning, 'l' at end, or when doubled",
+      "rule": "ㄹ（リウル）の特殊ケース",
+      "description": "語頭では「r」、語末では「l」、母音間では「r」の音になります",
       "examples": [
-        { "context": "Initial", "sound": "r", "example": "라이즈 (Ryze)" },
-        { "context": "Final", "sound": "l", "example": "럼블 (Rumble)" },
-        { "context": "Between vowels", "sound": "r", "example": "가렌 (Garen)" }
+        { "context": "語頭", "sound": "r", "example": "라이즈 (Ryze)" },
+        { "context": "語末", "sound": "l", "example": "럼블 (Rumble)" },
+        { "context": "母音間", "sound": "r", "example": "가렌 (Garen)" }
       ]
     },
     {
-      "rule": "English adaptation",
-      "description": "How Korean sounds map to English spelling in LoL",
+      "rule": "英語への適応",
+      "description": "韓国語の音がLoLの英語表記でどう対応されるか",
       "examples": [
         { "korean": "ㅓ", "english": "e", "example": "가렌 → Garen" },
         { "korean": "ㅗ", "english": "o", "example": "소라카 → Soraka" },
