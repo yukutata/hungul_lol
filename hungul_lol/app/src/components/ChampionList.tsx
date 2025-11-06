@@ -40,7 +40,7 @@ const ChampionList: React.FC = () => {
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box sx={{ mb: 4 }}>
         <Typography variant="h3" component="h1" gutterBottom align="center">
-          LoLで学ぶハングル語
+          LoLで学ぶハングル
         </Typography>
         <Typography variant="h6" color="text.secondary" align="center" sx={{ mb: 3 }}>
           League of Legends チャンピオンの韓国語名を覚えよう

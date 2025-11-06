@@ -26,7 +26,7 @@ const SimpleNavigation: React.FC<SimpleNavigationProps> = ({
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
           <SportsEsportsIcon sx={{ mr: 1 }} />
           <Typography variant="h6" component="div">
-            LoLで学ぶハングル語
+            LoLで学ぶハングル
           </Typography>
         </Box>
         
