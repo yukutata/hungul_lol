@@ -44,7 +44,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
       maxWidth={false}
       sx={{
         '& .MuiDialog-paper': {
-          maxWidth: '1000px',
+          maxWidth: '800px',
           width: '90%',
           margin: 'auto'
         }
