@@ -1,0 +1,142 @@
+[
+  {
+    "id": "garnet",
+    "nameKo": "가넷",
+    "nameEn": "Garnet",
+    "iconUrl": "/images/eternal-return/garnet.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "nadine",
+    "nameKo": "나딘",
+    "nameEn": "Nadine", 
+    "iconUrl": "/images/eternal-return/nadine.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "nathapon",
+    "nameKo": "나타폰",
+    "nameEn": "Nathapon",
+    "iconUrl": "/images/eternal-return/nathapon.png", 
+    "game": "eternal-return"
+  },
+  {
+    "id": "niah",
+    "nameKo": "니아",
+    "nameEn": "Niah",
+    "iconUrl": "/images/eternal-return/niah.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "nicky",
+    "nameKo": "니키", 
+    "nameEn": "Nicky",
+    "iconUrl": "/images/eternal-return/nicky.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "daniel",
+    "nameKo": "다니엘",
+    "nameEn": "Daniel",
+    "iconUrl": "/images/eternal-return/daniel.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "darko",
+    "nameKo": "다르코",
+    "nameEn": "Darko",
+    "iconUrl": "/images/eternal-return/darko.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "debi_marlene",
+    "nameKo": "데비&마를렌",
+    "nameEn": "Debi & Marlene",
+    "iconUrl": "/images/eternal-return/debi_marlene.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "tia",
+    "nameKo": "띠아",
+    "nameEn": "Tia",
+    "iconUrl": "/images/eternal-return/tia.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "laura",
+    "nameKo": "라우라",
+    "nameEn": "Laura",
+    "iconUrl": "/images/eternal-return/laura.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "lenox",
+    "nameKo": "레녹스", 
+    "nameEn": "Lenox",
+    "iconUrl": "/images/eternal-return/lenox.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "leni",
+    "nameKo": "레니",
+    "nameEn": "Leni",
+    "iconUrl": "/images/eternal-return/leni.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "leon",
+    "nameKo": "레온",
+    "nameEn": "Leon", 
+    "iconUrl": "/images/eternal-return/leon.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "rozzi",
+    "nameKo": "로지",
+    "nameEn": "Rozzi",
+    "iconUrl": "/images/eternal-return/rozzi.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "luke",
+    "nameKo": "루크",
+    "nameEn": "Luke",
+    "iconUrl": "/images/eternal-return/luke.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "lenore",
+    "nameKo": "르노어", 
+    "nameEn": "Lenore",
+    "iconUrl": "/images/eternal-return/lenore.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "li_dailin",
+    "nameKo": "리 다이린",
+    "nameEn": "Li Dailin",
+    "iconUrl": "/images/eternal-return/li_dailin.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "rio",
+    "nameKo": "리오",
+    "nameEn": "Rio",
+    "iconUrl": "/images/eternal-return/rio.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "martina",
+    "nameKo": "마르티나",
+    "nameEn": "Martina",
+    "iconUrl": "/images/eternal-return/martina.png",
+    "game": "eternal-return"
+  },
+  {
+    "id": "mai",
+    "nameKo": "마이",
+    "nameEn": "Mai",
+    "iconUrl": "/images/eternal-return/mai.png",
+    "game": "eternal-return"
+  }
+]

@@ -10,24 +10,44 @@ import SearchIcon from '@mui/icons-material/Search';
 import ChampionCard from './ChampionCard';
 import ChampionDetailModal from './ChampionDetailModal';
 import championsData from '../data/champions.json';
-import { Champion } from '../types/champion';
+import eternalReturnData from '../data/eternal-return-characters.json';
+import { Character } from '../types/character';
+import { getGameConfig } from '../data/games';
 
-const ChampionList: React.FC = () => {
+type GameType = 'lol' | 'eternal-return';
+
+interface ChampionListProps {
+  currentGame: GameType;
+}
+
+const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedChampion, setSelectedChampion] = useState<Champion | null>(null);
+  const [selectedChampion, setSelectedChampion] = useState<Character | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const champions: Champion[] = championsData;
+  
+  const gameConfig = getGameConfig(currentGame);
+  
+  // ゲーム別データの読み込み
+  const characters: Character[] = useMemo(() => {
+    if (currentGame === 'eternal-return') {
+      return eternalReturnData as Character[];
+    }
+    return championsData.map(champion => ({
+      ...champion,
+      game: 'lol' as const
+    })) as Character[];
+  }, [currentGame]);
 
-  const filteredChampions = useMemo(() => {
+  const filteredCharacters = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    return champions.filter(champion => 
-      champion.nameKo.includes(searchTerm) || 
-      champion.nameEn.toLowerCase().includes(term)
+    return characters.filter(character => 
+      character.nameKo.includes(searchTerm) || 
+      character.nameEn.toLowerCase().includes(term)
     );
-  }, [searchTerm, champions]);
+  }, [searchTerm, characters]);
 
-  const handleChampionClick = (champion: Champion) => {
-    setSelectedChampion(champion);
+  const handleCharacterClick = (character: Character) => {
+    setSelectedChampion(character);
     setModalOpen(true);
   };
 
@@ -40,17 +60,17 @@ const ChampionList: React.FC = () => {
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box sx={{ mb: 4 }}>
         <Typography variant="h3" component="h1" gutterBottom align="center">
-          LoLで学ぶハングル
+          {gameConfig?.nameKo || 'LoL'}で学ぶハングル
         </Typography>
         <Typography variant="h6" color="text.secondary" align="center" sx={{ mb: 3 }}>
-          League of Legends チャンピオンの韓国語名を覚えよう
+          {gameConfig?.description || 'League of Legends チャンピオンの韓国語名を覚えよう'}
         </Typography>
         
         <Box sx={{ maxWidth: 600, mx: 'auto' }}>
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="チャンピオン名で検索 (日本語/English/한글)"
+            placeholder={`${currentGame === 'lol' ? 'チャンピオン' : 'キャラクター'}名で検索 (日本語/English/한글)`}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{
@@ -65,7 +85,7 @@ const ChampionList: React.FC = () => {
       </Box>
 
       <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 2 }}>
-        {filteredChampions.length} チャンピオン（クリックで音韻分解を表示）🎮
+        {filteredCharacters.length} {currentGame === 'lol' ? 'チャンピオン' : 'キャラクター'}（クリックで音韻分解を表示）🎮
       </Typography>
 
       <Box sx={{ 
@@ -74,11 +94,11 @@ const ChampionList: React.FC = () => {
         justifyContent: 'center',
         gap: 2
       }}>
-        {filteredChampions.map((champion) => (
+        {filteredCharacters.map((character) => (
           <ChampionCard 
-            key={champion.id}
-            champion={champion} 
-            onClick={() => handleChampionClick(champion)}
+            key={character.id}
+            champion={character} 
+            onClick={() => handleCharacterClick(character)}
           />
         ))}
       </Box>

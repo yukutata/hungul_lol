@@ -5,41 +5,46 @@ import { Box } from '@mui/material';
 import SimpleNavigation from './components/SimpleNavigation';
 import ChampionList from './components/ChampionList';
 import HangulBasicsTable from './components/HangulBasicsTable';
-
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-  typography: {
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-    ].join(','),
-  },
-});
+import { getGameConfig } from './data/games';
 
 type PageType = 'champions' | 'hangul-basics';
+type GameType = 'lol' | 'eternal-return';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('champions');
+  const [currentGame, setCurrentGame] = useState<GameType>('lol');
+  
+  const gameConfig = getGameConfig(currentGame);
+  
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: gameConfig?.themeColor || '#1976d2',
+      },
+      secondary: {
+        main: '#dc004e',
+      },
+    },
+    typography: {
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+      ].join(','),
+    },
+  });
 
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'hangul-basics':
         return <HangulBasicsTable />;
       default:
-        return <ChampionList />;
+        return <ChampionList currentGame={currentGame} />;
     }
   };
 
@@ -50,6 +55,8 @@ function App() {
         <SimpleNavigation 
           currentPage={currentPage}
           onPageChange={setCurrentPage}
+          currentGame={currentGame}
+          onGameChange={setCurrentGame}
         />
         {renderCurrentPage()}
       </Box>
