@@ -170,7 +170,7 @@ export function getTransformationExplanation(korean: string, english: string): s
   explanations.push(`${korean} → ${analysis.fullRomanization} → ${english}`);
   
   // 각 음절별 설명
-  analysis.syllables.forEach((syllable, index) => {
+  analysis.syllables.forEach((syllable) => {
     const { consonant, vowel, finalConsonant } = syllable.components;
     let explanation = `${syllable.syllable} = ${consonant}+${vowel}`;
     
