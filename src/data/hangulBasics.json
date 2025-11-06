@@ -48,9 +48,9 @@
       "rule": "位置による子音の音変化",
       "description": "子音は語頭と語末で音が変わります",
       "examples": [
-        { "hangul": "ㄱ", "initial": "語頭: g （가렌）", "final": "語末: k （막）" },
-        { "hangul": "ㄷ", "initial": "語頭: d （다리우스）", "final": "語末: t （듣다）" },
-        { "hangul": "ㅂ", "initial": "語頭: b （바드）", "final": "語末: p （밥）" }
+        { "hangul": "ㄱ", "initial": "g （가렌）", "final": "k （막）" },
+        { "hangul": "ㄷ", "initial": "d （다리우스）", "final": "t （듣다）" },
+        { "hangul": "ㅂ", "initial": "b （바드）", "final": "p （밥）" }
       ]
     },
     {
