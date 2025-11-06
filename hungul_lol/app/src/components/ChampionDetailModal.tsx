@@ -38,7 +38,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
   const explanations = getTransformationExplanation(champion.nameKo, champion.nameEn);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
       <DialogTitle>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant="h5" component="h2">
@@ -50,11 +50,11 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
         </Box>
       </DialogTitle>
       
-      <DialogContent>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3 }}>
+      <DialogContent sx={{ maxWidth: '1000px', mx: 'auto' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, justifyContent: 'center' }}>
           {/* チャンピオン画像 */}
-          <Box sx={{ flex: '0 0 300px' }}>
-            <Card>
+          <Box sx={{ flex: '0 0 auto', width: { xs: '100%', md: '280px' }, maxWidth: '280px' }}>
+            <Card sx={{ borderRadius: 3, overflow: 'hidden', boxShadow: 3 }}>
               <Box
                 component="img"
                 src={champion.iconUrl}
@@ -62,14 +62,18 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 sx={{
                   width: '100%',
                   height: 200,
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  transition: 'transform 0.2s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)'
+                  }
                 }}
               />
-              <CardContent>
-                <Typography variant="h6" align="center">
+              <CardContent sx={{ textAlign: 'center', bgcolor: 'grey.50' }}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
                   {champion.nameKo}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" align="center">
+                <Typography variant="body1" color="text.secondary">
                   {champion.nameEn}
                 </Typography>
               </CardContent>
@@ -77,7 +81,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
           </Box>
 
           {/* 音韻分解分析 */}
-          <Box sx={{ flex: 1 }}>
+          <Box sx={{ flex: '1 1 auto', minWidth: 0, maxWidth: { md: '600px' } }}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -110,10 +114,10 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 <Divider sx={{ my: 2 }} />
 
                 {/* 音節別詳細分析 */}
-                <Typography variant="subtitle1" gutterBottom>
+                <Typography variant="subtitle1" gutterBottom sx={{ mt: 2 }}>
                   音節別分析:
                 </Typography>
-                <TableContainer component={Paper} variant="outlined">
+                <TableContainer component={Paper} variant="outlined" sx={{ mb: 2 }}>
                   <Table size="small">
                     <TableBody>
                       {analysis.syllables.map((syllable, index) => (
@@ -173,11 +177,11 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                   </Table>
                 </TableContainer>
 
-                <Box sx={{ mt: 2 }}>
-                  <Typography variant="body2" color="text.secondary">
+                <Box sx={{ mt: 2, p: 2, bgcolor: 'primary.light', borderRadius: 1 }}>
+                  <Typography variant="body2" sx={{ color: 'white', mb: 1 }}>
                     <strong>完全ローマ字化:</strong> {analysis.fullRomanization}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: 'white' }}>
                     <strong>英語名:</strong> {analysis.english}
                   </Typography>
                 </Box>
@@ -187,7 +191,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
         </Box>
 
         {/* 学習ポイント */}
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3, maxWidth: '900px', mx: 'auto' }}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
