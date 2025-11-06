@@ -12,7 +12,7 @@ export const GAMES: GameConfig[] = [
   {
     id: 'eternal-return',
     name: 'Eternal Return',
-    nameKo: '이터널 리턴',
+    nameKo: 'エターナルリターン',
     description: 'エターナルリターンのキャラクター名でハングルを学習',
     themeColor: '#FF6B6B',
     iconCount: 84
