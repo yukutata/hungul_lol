@@ -7,7 +7,7 @@ services:
       - ./hungul_lol/app:/app
       - /app/node_modules
     ports:
-      - "3000:3000"
+      - "3005:3000"
     environment:
       - NODE_ENV=development
     command: npm start
