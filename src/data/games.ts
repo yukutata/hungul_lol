@@ -15,7 +15,7 @@ export const GAMES: GameConfig[] = [
     nameKo: '이터널 리턴',
     description: 'エターナルリターンのキャラクター名でハングルを学習',
     themeColor: '#FF6B6B',
-    iconCount: 0 // TODO: 実際の数に更新
+    iconCount: 84
   }
 ];
 
