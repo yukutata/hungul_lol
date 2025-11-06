@@ -1,12 +1,18 @@
 {
-  "buildCommand": "cd hungul_lol/app && npm run build",
-  "outputDirectory": "hungul_lol/app/build",
-  "installCommand": "cd hungul_lol/app && npm install",
-  "framework": null,
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "hungul_lol/app/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/hungul_lol/app/$1"
     }
   ]
 }
