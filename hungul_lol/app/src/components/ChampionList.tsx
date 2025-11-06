@@ -4,16 +4,18 @@ import {
   TextField, 
   Box, 
   Typography,
-  Grid,
   InputAdornment
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ChampionCard from './ChampionCard';
+import ChampionDetailModal from './ChampionDetailModal';
 import championsData from '../data/champions.json';
 import { Champion } from '../types/champion';
 
 const ChampionList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedChampion, setSelectedChampion] = useState<Champion | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const champions: Champion[] = championsData;
 
   const filteredChampions = useMemo(() => {
@@ -23,6 +25,16 @@ const ChampionList: React.FC = () => {
       champion.nameEn.toLowerCase().includes(term)
     );
   }, [searchTerm, champions]);
+
+  const handleChampionClick = (champion: Champion) => {
+    setSelectedChampion(champion);
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedChampion(null);
+  };
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -53,16 +65,29 @@ const ChampionList: React.FC = () => {
       </Box>
 
       <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 2 }}>
-        {filteredChampions.length} チャンピオン
+        {filteredChampions.length} チャンピオン（クリックで音韻分解を表示）🎮
       </Typography>
 
-      <Grid container justifyContent="center">
+      <Box sx={{ 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        justifyContent: 'center',
+        gap: 2
+      }}>
         {filteredChampions.map((champion) => (
-          <Grid item key={champion.id}>
-            <ChampionCard champion={champion} />
-          </Grid>
+          <ChampionCard 
+            key={champion.id}
+            champion={champion} 
+            onClick={() => handleChampionClick(champion)}
+          />
         ))}
-      </Grid>
+      </Box>
+
+      <ChampionDetailModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        champion={selectedChampion}
+      />
     </Container>
   );
 };

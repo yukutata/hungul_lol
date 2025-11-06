@@ -28,7 +28,8 @@
     "eject": "react-scripts eject",
     "vercel-build": "npm run build",
     "download-images": "node scripts/downloadImages.js",
-    "update-json": "node scripts/updateChampionsJson.js"
+    "update-json": "node scripts/updateChampionsJson.js",
+    "update-specific-images": "node scripts/updateSpecificImages.js"
   },
   "eslintConfig": {
     "extends": [

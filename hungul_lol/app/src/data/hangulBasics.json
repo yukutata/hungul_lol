@@ -1,0 +1,75 @@
+{
+  "consonants": [
+    { "hangul": "ㄱ", "romanization": "g/k", "sound": "g (initial), k (final)", "examples": ["가게 (gage)", "국 (guk)"] },
+    { "hangul": "ㄴ", "romanization": "n", "sound": "n", "examples": ["나무 (namu)", "산 (san)"] },
+    { "hangul": "ㄷ", "romanization": "d/t", "sound": "d (initial), t (final)", "examples": ["다리 (dari)", "듣다 (deut-da)"] },
+    { "hangul": "ㄹ", "romanization": "r/l", "sound": "r (initial), l (final)", "examples": ["라면 (ramyeon)", "실 (sil)"] },
+    { "hangul": "ㅁ", "romanization": "m", "sound": "m", "examples": ["마음 (maeum)", "엄마 (eomma)"] },
+    { "hangul": "ㅂ", "romanization": "b/p", "sound": "b (initial), p (final)", "examples": ["바다 (bada)", "밥 (bap)"] },
+    { "hangul": "ㅅ", "romanization": "s", "sound": "s", "examples": ["사과 (sagwa)", "옷 (ot)"] },
+    { "hangul": "ㅇ", "romanization": "-/ng", "sound": "silent (initial), ng (final)", "examples": ["아이 (ai)", "강 (gang)"] },
+    { "hangul": "ㅈ", "romanization": "j", "sound": "j", "examples": ["자동차 (jadongcha)", "밖 (bakk)"] },
+    { "hangul": "ㅊ", "romanization": "ch", "sound": "ch", "examples": ["치즈 (chijeu)", "꽃 (kkot)"] },
+    { "hangul": "ㅋ", "romanization": "k", "sound": "k", "examples": ["키 (ki)", "부엌 (bueok)"] },
+    { "hangul": "ㅌ", "romanization": "t", "sound": "t", "examples": ["타다 (tada)", "밭 (bat)"] },
+    { "hangul": "ㅍ", "romanization": "p", "sound": "p", "examples": ["파일 (pail)", "앞 (ap)"] },
+    { "hangul": "ㅎ", "romanization": "h", "sound": "h", "examples": ["하늘 (haneul)", "좋다 (joh-da)"] },
+    { "hangul": "ㄲ", "romanization": "kk", "sound": "kk", "examples": ["깨다 (kkaeda)", "닦다 (dakk-da)"] },
+    { "hangul": "ㄸ", "romanization": "tt", "sound": "tt", "examples": ["따뜻하다 (ttatteut-hada)"] },
+    { "hangul": "ㅃ", "romanization": "pp", "sound": "pp", "examples": ["빠르다 (ppareuda)"] },
+    { "hangul": "ㅆ", "romanization": "ss", "sound": "ss", "examples": ["쓰다 (sseuda)"] },
+    { "hangul": "ㅉ", "romanization": "jj", "sound": "jj", "examples": ["짜다 (jjada)"] }
+  ],
+  "vowels": [
+    { "hangul": "ㅏ", "romanization": "a", "sound": "a", "examples": ["아버지 (abeoji)"] },
+    { "hangul": "ㅑ", "romanization": "ya", "sound": "ya", "examples": ["야구 (yagu)"] },
+    { "hangul": "ㅓ", "romanization": "eo", "sound": "eo", "examples": ["어머니 (eomeoni)"] },
+    { "hangul": "ㅕ", "romanization": "yeo", "sound": "yeo", "examples": ["여자 (yeoja)"] },
+    { "hangul": "ㅗ", "romanization": "o", "sound": "o", "examples": ["오늘 (oneul)"] },
+    { "hangul": "ㅛ", "romanization": "yo", "sound": "yo", "examples": ["요리 (yori)"] },
+    { "hangul": "ㅜ", "romanization": "u", "sound": "u", "examples": ["우리 (uri)"] },
+    { "hangul": "ㅠ", "romanization": "yu", "sound": "yu", "examples": ["유리 (yuri)"] },
+    { "hangul": "ㅡ", "romanization": "eu", "sound": "eu", "examples": ["으음 (eueum)"] },
+    { "hangul": "ㅣ", "romanization": "i", "sound": "i", "examples": ["이름 (ireum)"] },
+    { "hangul": "ㅐ", "romanization": "ae", "sound": "ae", "examples": ["애정 (aejeong)"] },
+    { "hangul": "ㅒ", "romanization": "yae", "sound": "yae", "examples": ["얘기 (yaegi)"] },
+    { "hangul": "ㅔ", "romanization": "e", "sound": "e", "examples": ["에너지 (eneoji)"] },
+    { "hangul": "ㅖ", "romanization": "ye", "sound": "ye", "examples": ["예쁘다 (yeppeuda)"] },
+    { "hangul": "ㅘ", "romanization": "wa", "sound": "wa", "examples": ["과일 (gwail)"] },
+    { "hangul": "ㅙ", "romanization": "wae", "sound": "wae", "examples": ["왜 (wae)"] },
+    { "hangul": "ㅚ", "romanization": "oe", "sound": "oe", "examples": ["외국 (oeguk)"] },
+    { "hangul": "ㅝ", "romanization": "wo", "sound": "wo", "examples": ["워터 (woteo)"] },
+    { "hangul": "ㅞ", "romanization": "we", "sound": "we", "examples": ["웨딩 (weding)"] },
+    { "hangul": "ㅟ", "romanization": "wi", "sound": "wi", "examples": ["위 (wi)"] },
+    { "hangul": "ㅢ", "romanization": "ui", "sound": "ui", "examples": ["의사 (uisa)"] }
+  ],
+  "transformationRules": [
+    {
+      "rule": "Position-based consonant sounds",
+      "description": "Consonants sound different in initial vs final position",
+      "examples": [
+        { "hangul": "ㄱ", "initial": "g as in 가렌", "final": "k as in 막" },
+        { "hangul": "ㄷ", "initial": "d as in 다리우스", "final": "t as in 듣다" },
+        { "hangul": "ㅂ", "initial": "b as in 바드", "final": "p as in 밥" }
+      ]
+    },
+    {
+      "rule": "ㄹ (rieul) special case",
+      "description": "Sounds like 'r' at beginning, 'l' at end, or when doubled",
+      "examples": [
+        { "context": "Initial", "sound": "r", "example": "라이즈 (Ryze)" },
+        { "context": "Final", "sound": "l", "example": "럼블 (Rumble)" },
+        { "context": "Between vowels", "sound": "r", "example": "가렌 (Garen)" }
+      ]
+    },
+    {
+      "rule": "English adaptation",
+      "description": "How Korean sounds map to English spelling in LoL",
+      "examples": [
+        { "korean": "ㅓ", "english": "e", "example": "가렌 → Garen" },
+        { "korean": "ㅗ", "english": "o", "example": "소라카 → Soraka" },
+        { "korean": "ㅜ", "english": "u", "example": "누누 → Nunu" }
+      ]
+    }
+  ]
+}
