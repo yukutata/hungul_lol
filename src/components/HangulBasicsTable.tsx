@@ -47,7 +47,7 @@ const HangulBasicsTable: React.FC = () => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', paddingTop: '32px' }}>
       <Typography variant="h4" component="h2" gutterBottom align="center">
         ハングル基礎表
       </Typography>
