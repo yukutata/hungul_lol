@@ -38,7 +38,18 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
   const explanations = getTransformationExplanation(champion.nameKo, champion.nameEn);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      maxWidth={false}
+      sx={{
+        '& .MuiDialog-paper': {
+          maxWidth: '1000px',
+          width: '90%',
+          margin: 'auto'
+        }
+      }}
+    >
       <DialogTitle>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant="h5" component="h2">
