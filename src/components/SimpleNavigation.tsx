@@ -11,26 +11,25 @@ import {
 } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import HomeIcon from '@mui/icons-material/Home';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GAMES, getGameConfig } from '../data/games';
 
-type PageType = 'champions' | 'hangul-basics';
 type GameType = 'lol' | 'eternal-return';
 
-interface SimpleNavigationProps {
-  currentPage: PageType;
-  onPageChange: (page: PageType) => void;
-  currentGame: GameType;
-  onGameChange: (game: GameType) => void;
-}
-
-const SimpleNavigation: React.FC<SimpleNavigationProps> = ({ 
-  currentPage, 
-  onPageChange,
-  currentGame,
-  onGameChange
-}) => {
+const SimpleNavigation: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // 現在のパスからゲームタイプを判定
+  const getCurrentGame = (): GameType => {
+    if (location.pathname.includes('eternal-return')) return 'eternal-return';
+    return 'lol';
+  };
+  
+  const currentGame = getCurrentGame();
   const gameConfig = getGameConfig(currentGame);
   
   const handleGameMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -41,8 +40,8 @@ const SimpleNavigation: React.FC<SimpleNavigationProps> = ({
     setAnchorEl(null);
   };
   
-  const handleGameSelect = (game: GameType) => {
-    onGameChange(game);
+  const handleGameSelect = (gameId: string) => {
+    navigate(`/${gameId}`);
     handleGameMenuClose();
   };
 
@@ -51,8 +50,8 @@ const SimpleNavigation: React.FC<SimpleNavigationProps> = ({
       <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1, gap: 2 }}>
           <SportsEsportsIcon sx={{ mr: 1 }} />
-          <Typography variant="h6" component="div">
-            {gameConfig?.nameKo || 'LoL'}で学ぶハングル
+          <Typography variant="h6" component={Link} to="/" sx={{ textDecoration: 'none', color: 'inherit' }}>
+            ハングル学習アプリ
           </Typography>
           
           {/* ゲーム選択ドロップダウン */}
@@ -94,16 +93,18 @@ const SimpleNavigation: React.FC<SimpleNavigationProps> = ({
         <Box sx={{ display: 'flex', gap: 1 }}>
           <Button
             color="inherit"
-            onClick={() => onPageChange('champions')}
-            variant={currentPage === 'champions' ? 'outlined' : 'text'}
-            startIcon={<SportsEsportsIcon />}
+            component={Link}
+            to="/"
+            variant={location.pathname === '/' ? 'outlined' : 'text'}
+            startIcon={<HomeIcon />}
           >
-            キャラクター一覧
+            ホーム
           </Button>
           <Button
             color="inherit"
-            onClick={() => onPageChange('hangul-basics')}
-            variant={currentPage === 'hangul-basics' ? 'outlined' : 'text'}
+            component={Link}
+            to="/hangul-basics"
+            variant={location.pathname === '/hangul-basics' ? 'outlined' : 'text'}
             startIcon={<SchoolIcon />}
           >
             ハングル基礎表
