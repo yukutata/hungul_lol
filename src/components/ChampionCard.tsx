@@ -27,6 +27,14 @@ const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
         height="200"
         image={champion.iconUrl}
         alt={champion.nameEn}
+        onError={(e) => {
+          console.log('Image failed to load:', champion.iconUrl);
+          e.currentTarget.style.backgroundColor = '#f0f0f0';
+          e.currentTarget.style.display = 'flex';
+          e.currentTarget.style.alignItems = 'center';
+          e.currentTarget.style.justifyContent = 'center';
+          e.currentTarget.innerHTML = `<div>${champion.nameEn}</div>`;
+        }}
         sx={{ objectFit: 'cover' }}
       />
       <CardContent>
