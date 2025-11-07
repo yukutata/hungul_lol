@@ -13,6 +13,7 @@ import championsData from '../data/champions.json';
 import eternalReturnData from '../data/eternal-return-characters.json';
 import { Character } from '../types/character';
 import { getGameConfig } from '../data/games';
+import { japaneseNames } from '../data/japaneseNames';
 
 type GameType = 'lol' | 'eternal-return';
 
@@ -27,14 +28,19 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
   
   const gameConfig = getGameConfig(currentGame);
   
-  // ゲーム別データの読み込み
+  // ゲーム別データの読み込み（日本語名を追加）
   const characters: Character[] = useMemo(() => {
-    if (currentGame === 'eternal-return') {
-      return eternalReturnData as Character[];
-    }
-    return championsData.map(champion => ({
-      ...champion,
-      game: 'lol' as const
+    const baseCharacters = currentGame === 'eternal-return' 
+      ? eternalReturnData 
+      : championsData.map(champion => ({
+          ...champion,
+          game: 'lol' as const
+        }));
+    
+    // 日本語名を追加
+    return baseCharacters.map(char => ({
+      ...char,
+      nameJa: japaneseNames[char.id] || char.nameEn
     })) as Character[];
   }, [currentGame]);
 
@@ -42,7 +48,8 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
     const term = searchTerm.toLowerCase();
     return characters.filter(character => 
       character.nameKo.includes(searchTerm) || 
-      character.nameEn.toLowerCase().includes(term)
+      character.nameEn.toLowerCase().includes(term) ||
+      (character.nameJa && character.nameJa.includes(searchTerm))
     );
   }, [searchTerm, characters]);
 
