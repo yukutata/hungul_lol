@@ -13,9 +13,12 @@ import {
   Tab,
   Chip,
   Card,
-  CardContent
+  CardContent,
+  IconButton
 } from '@mui/material';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import hangulBasics from '../data/hangulBasics.json';
+import koreanTTS from '../utils/koreanTTS';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,9 +78,18 @@ const HangulBasicsTable: React.FC = () => {
               {hangulBasics.consonants.map((consonant) => (
                 <TableRow key={consonant.hangul}>
                   <TableCell>
-                    <Typography variant="h5" component="span" sx={{ fontWeight: 'bold' }}>
-                      {consonant.hangul}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="h5" component="span" sx={{ fontWeight: 'bold' }}>
+                        {consonant.hangul}
+                      </Typography>
+                      <IconButton
+                        size="small"
+                        onClick={() => koreanTTS.speak(consonant.hangul)}
+                        aria-label={`Speak ${consonant.hangul}`}
+                      >
+                        <VolumeUpIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     <Chip label={consonant.romanization} color="primary" variant="outlined" />
@@ -112,9 +124,18 @@ const HangulBasicsTable: React.FC = () => {
               {hangulBasics.vowels.map((vowel) => (
                 <TableRow key={vowel.hangul}>
                   <TableCell>
-                    <Typography variant="h5" component="span" sx={{ fontWeight: 'bold' }}>
-                      {vowel.hangul}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="h5" component="span" sx={{ fontWeight: 'bold' }}>
+                        {vowel.hangul}
+                      </Typography>
+                      <IconButton
+                        size="small"
+                        onClick={() => koreanTTS.speak(vowel.hangul)}
+                        aria-label={`Speak ${vowel.hangul}`}
+                      >
+                        <VolumeUpIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
                   </TableCell>
                   <TableCell>
                     <Chip label={vowel.romanization} color="secondary" variant="outlined" />
@@ -156,9 +177,19 @@ const HangulBasicsTable: React.FC = () => {
                         {/* 位置による変化の例 */}
                         {'initial' in example && (
                           <Box>
-                            <Typography variant="body2">
-                              <strong>{example.hangul}</strong>
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                              <Typography variant="body2">
+                                <strong>{example.hangul}</strong>
+                              </Typography>
+                              <IconButton
+                                size="small"
+                                onClick={() => koreanTTS.speak(example.hangul)}
+                                aria-label={`Speak ${example.hangul}`}
+                                sx={{ padding: '2px' }}
+                              >
+                                <VolumeUpIcon sx={{ fontSize: '16px' }} />
+                              </IconButton>
+                            </Box>
                             <Typography variant="body2">
                               語頭: {example.initial}
                             </Typography>

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, IconButton, Box } from '@mui/material';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Character } from '../types/character';
+import koreanTTS from '../utils/koreanTTS';
 
 interface ChampionCardProps {
   champion: Character;
@@ -8,6 +10,10 @@ interface ChampionCardProps {
 }
 
 const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
+  const handleSpeak = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    koreanTTS.speak(champion.nameKo);
+  };
   return (
     <Card
       sx={{
@@ -30,9 +36,29 @@ const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
         sx={{ objectFit: 'cover' }}
       />
       <CardContent>
-        <Typography variant="h5" component="div" align="center" gutterBottom>
-          {champion.nameKo}
-        </Typography>
+        <Box sx={{ position: 'relative' }}>
+          <Typography variant="h5" component="div" align="center" gutterBottom>
+            {champion.nameKo}
+          </Typography>
+          <IconButton
+            onClick={handleSpeak}
+            sx={{
+              position: 'absolute',
+              top: -8,
+              right: -8,
+              backgroundColor: 'background.paper',
+              boxShadow: 1,
+              '&:hover': {
+                backgroundColor: 'primary.light',
+                color: 'white'
+              }
+            }}
+            size="small"
+            aria-label={`Speak ${champion.nameKo}`}
+          >
+            <VolumeUpIcon fontSize="small" />
+          </IconButton>
+        </Box>
         <Typography variant="body2" color="text.secondary" align="center">
           {champion.nameEn}
         </Typography>

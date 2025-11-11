@@ -16,12 +16,16 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Paper
+  Paper,
+  Button
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { Character } from '../types/character';
 import { analyzeChampionName, getTransformationExplanation } from '../utils/hangulAnalyzer';
 import { generateLearningPoints } from '../utils/learningPoints';
+import koreanTTS from '../utils/koreanTTS';
 
 interface ChampionDetailModalProps {
   open: boolean;
@@ -85,9 +89,18 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 }}
               />
               <CardContent sx={{ textAlign: 'center', bgcolor: 'grey.50' }}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                  {champion.nameKo}
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 1 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                    {champion.nameKo}
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => koreanTTS.speak(champion.nameKo)}
+                    aria-label={`Speak ${champion.nameKo}`}
+                  >
+                    <VolumeUpIcon />
+                  </IconButton>
+                </Box>
                 <Typography variant="body1" color="text.secondary">
                   {champion.nameEn}
                 </Typography>
@@ -104,9 +117,22 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
           <Box sx={{ flex: '1 1 auto', minWidth: 0, maxWidth: { md: '600px' } }}>
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  音韻分解分析
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                  <Typography variant="h6">
+                    音韻分解分析
+                  </Typography>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    startIcon={<PlayArrowIcon />}
+                    onClick={() => {
+                      const syllables = analysis.syllables.map(s => s.syllable);
+                      koreanTTS.speakSyllables(syllables, 600);
+                    }}
+                  >
+                    音節ごとに再生
+                  </Button>
+                </Box>
 
                 {/* 変換プロセス */}
                 <Box sx={{ mb: 3 }}>
@@ -143,9 +169,19 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                       {analysis.syllables.map((syllable, index) => (
                         <TableRow key={index}>
                           <TableCell>
-                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                              {syllable.syllable}
-                            </Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                {syllable.syllable}
+                              </Typography>
+                              <IconButton
+                                size="small"
+                                onClick={() => koreanTTS.speak(syllable.syllable)}
+                                aria-label={`Speak ${syllable.syllable}`}
+                                sx={{ padding: '4px' }}
+                              >
+                                <VolumeUpIcon fontSize="small" />
+                              </IconButton>
+                            </Box>
                           </TableCell>
                           <TableCell>
                             <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
@@ -219,29 +255,29 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   {learningPoints.map((point, index) => (
-                    <Box key={index} sx={{ 
-                      p: 2, 
-                      borderRadius: 1, 
-                      bgcolor: 
-                        point.type === 'consonant' ? 'primary.light' : 
-                        point.type === 'vowel' ? 'secondary.light' : 
-                        point.type === 'special' ? 'info.light' : 
+                    <Box key={index} sx={{
+                      p: 2,
+                      borderRadius: 1,
+                      bgcolor:
+                        point.type === 'consonant' ? 'primary.light' :
+                        point.type === 'vowel' ? 'secondary.light' :
+                        point.type === 'special' ? 'info.light' :
                         'grey.100'
                     }}>
-                      <Typography variant="subtitle2" sx={{ 
+                      <Typography variant="subtitle2" sx={{
                         color: point.type === 'pattern' ? 'text.primary' : 'white',
                         fontWeight: 'bold',
                         mb: 0.5
                       }}>
                         {point.title}
                       </Typography>
-                      <Typography variant="body2" sx={{ 
+                      <Typography variant="body2" sx={{
                         color: point.type === 'pattern' ? 'text.secondary' : 'white'
                       }}>
                         {point.description}
                       </Typography>
                       {point.examples && point.examples.length > 0 && (
-                        <Typography variant="caption" sx={{ 
+                        <Typography variant="caption" sx={{
                           display: 'block',
                           mt: 0.5,
                           fontFamily: 'monospace',
