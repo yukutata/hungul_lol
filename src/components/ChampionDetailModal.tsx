@@ -21,6 +21,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Character } from '../types/character';
 import { analyzeChampionName, getTransformationExplanation } from '../utils/hangulAnalyzer';
+import { generateLearningPoints } from '../utils/learningPoints';
 
 interface ChampionDetailModalProps {
   open: boolean;
@@ -37,6 +38,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
 
   const analysis = analyzeChampionName(champion.nameKo, champion.nameEn);
   const explanations = getTransformationExplanation(champion.nameKo, champion.nameEn);
+  const learningPoints = generateLearningPoints(analysis);
 
   return (
     <Dialog
@@ -213,31 +215,42 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 <Typography variant="h6" gutterBottom>
                   学習ポイント
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                  <Box>
-                    <Typography variant="subtitle2" color="primary">
-                      子音の位置による音変化:
-                    </Typography>
-                    <Typography variant="body2">
-                      ㄱ は語頭で「g」、語末で「k」になります（例: 가렌の「가」は語頭なので「ga」）
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="subtitle2" color="secondary">
-                      母音の英語音写:
-                    </Typography>
-                    <Typography variant="body2">
-                      ㅓ は「eo」と表記されますが、英語では「e」になることが多いです
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="subtitle2" color="info.main">
-                      ㄹ の特殊性:
-                    </Typography>
-                    <Typography variant="body2">
-                      ㄹ は語頭で「r」、語末で「l」、語中で「r」の音になります
-                    </Typography>
-                  </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  {learningPoints.map((point, index) => (
+                    <Box key={index} sx={{ 
+                      p: 2, 
+                      borderRadius: 1, 
+                      bgcolor: 
+                        point.type === 'consonant' ? 'primary.light' : 
+                        point.type === 'vowel' ? 'secondary.light' : 
+                        point.type === 'special' ? 'info.light' : 
+                        'grey.100'
+                    }}>
+                      <Typography variant="subtitle2" sx={{ 
+                        color: point.type === 'pattern' ? 'text.primary' : 'white',
+                        fontWeight: 'bold',
+                        mb: 0.5
+                      }}>
+                        {point.title}
+                      </Typography>
+                      <Typography variant="body2" sx={{ 
+                        color: point.type === 'pattern' ? 'text.secondary' : 'white'
+                      }}>
+                        {point.description}
+                      </Typography>
+                      {point.examples && point.examples.length > 0 && (
+                        <Typography variant="caption" sx={{ 
+                          display: 'block',
+                          mt: 0.5,
+                          fontFamily: 'monospace',
+                          color: point.type === 'pattern' ? 'text.secondary' : 'white',
+                          opacity: 0.9
+                        }}>
+                          例: {point.examples.join(', ')}
+                        </Typography>
+                      )}
+                    </Box>
+                  ))}
                 </Box>
               </CardContent>
             </Card>
