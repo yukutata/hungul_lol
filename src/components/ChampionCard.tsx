@@ -17,10 +17,13 @@ const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
   return (
     <Card
       sx={{
-        maxWidth: 200,
+        width: 200,
+        height: '100%',
         m: 1,
         cursor: 'pointer',
         transition: 'transform 0.2s, box-shadow 0.2s',
+        display: 'flex',
+        flexDirection: 'column',
         '&:hover': {
           transform: 'translateY(-4px)',
           boxShadow: 3
@@ -35,29 +38,43 @@ const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
         alt={champion.nameEn}
         sx={{ objectFit: 'cover' }}
       />
-      <CardContent>
-        <Box sx={{ position: 'relative' }}>
-          <Typography variant="h5" component="div" align="center" gutterBottom>
+      <CardContent sx={{ position: 'relative', pt: 1, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <IconButton
+          onClick={handleSpeak}
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            backgroundColor: 'background.paper',
+            boxShadow: 1,
+            '&:hover': {
+              backgroundColor: 'primary.light',
+              color: 'white'
+            },
+            zIndex: 1
+          }}
+          size="small"
+          aria-label={`Speak ${champion.nameKo}`}
+        >
+          <VolumeUpIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+        <Box sx={{ px: 3, pt: 2 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            align="center"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              minHeight: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              wordBreak: 'keep-all'
+            }}
+          >
             {champion.nameKo}
           </Typography>
-          <IconButton
-            onClick={handleSpeak}
-            sx={{
-              position: 'absolute',
-              top: -8,
-              right: -8,
-              backgroundColor: 'background.paper',
-              boxShadow: 1,
-              '&:hover': {
-                backgroundColor: 'primary.light',
-                color: 'white'
-              }
-            }}
-            size="small"
-            aria-label={`Speak ${champion.nameKo}`}
-          >
-            <VolumeUpIcon fontSize="small" />
-          </IconButton>
         </Box>
         <Typography variant="body2" color="text.secondary" align="center">
           {champion.nameEn}
