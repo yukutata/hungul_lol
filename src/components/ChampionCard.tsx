@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { Champion } from '../types/champion';
+import { Character } from '../types/character';
 
 interface ChampionCardProps {
-  champion: Champion;
+  champion: Character;
   onClick?: () => void;
 }
 
@@ -36,6 +36,11 @@ const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
         <Typography variant="body2" color="text.secondary" align="center">
           {champion.nameEn}
         </Typography>
+        {champion.nameJa && (
+          <Typography variant="body2" color="text.secondary" align="center">
+            {champion.nameJa}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );
