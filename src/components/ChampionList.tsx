@@ -122,6 +122,7 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        alignItems: 'stretch',
         gap: 2
       }}>
         {filteredCharacters.map((character) => (

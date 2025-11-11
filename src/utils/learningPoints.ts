@@ -9,12 +9,12 @@ export interface LearningPoint {
 
 export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[] {
   const points: LearningPoint[] = [];
-  
+
   // 子音の音変化を分析
   for (const syllable of analysis.syllables) {
     const consonant = syllable.components.consonant;
     const position = syllable.position;
-    
+
     // ㄱ の変化
     if (consonant === 'ㄱ') {
       if (position === 'initial' && syllable.romanization.startsWith('g')) {
@@ -33,7 +33,7 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
         });
       }
     }
-    
+
     // ㄷ の変化
     if (consonant === 'ㄷ') {
       if (position === 'initial' && syllable.romanization.startsWith('d')) {
@@ -52,15 +52,15 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
         });
       }
     }
-    
+
     // ㄹ の特殊な変化
     if (consonant === 'ㄹ') {
-      const description = position === 'initial' 
+      const description = position === 'initial'
         ? `「${syllable.syllable}」のㄹは語頭で「r」と発音されます`
         : position === 'final'
         ? `語末のㄹは「l」と発音されます`
         : `語中のㄹは「r」と発音されます`;
-        
+
       points.push({
         type: 'special',
         title: 'ㄹ の発音位置',
@@ -68,7 +68,7 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
         examples: [`${syllable.syllable} → ${syllable.romanization}`]
       });
     }
-    
+
     // 母音の変換パターン
     const vowel = syllable.components.vowel;
     if (vowel === 'ㅓ' && analysis.english.toLowerCase().includes('e')) {
@@ -79,7 +79,7 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
         examples: [`${analysis.fullRomanization} → ${analysis.english}`]
       });
     }
-    
+
     if (vowel === 'ㅗ' && analysis.english.toLowerCase().includes('o')) {
       points.push({
         type: 'vowel',
@@ -88,7 +88,7 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
         examples: [`${syllable.syllable} → ${syllable.romanization}`]
       });
     }
-    
+
     if (vowel === 'ㅜ' && analysis.english.toLowerCase().includes('u')) {
       points.push({
         type: 'vowel',
@@ -97,26 +97,43 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
         examples: [`${syllable.syllable} → ${syllable.romanization}`]
       });
     }
-    
-    // 終声（パッチム）
+
+    // 終声（音節末の子音）- 日本語にない概念
     if (syllable.components.finalConsonant) {
       const final = syllable.components.finalConsonant;
+      let finalDescription = '';
+      let finalTitle = '';
+
       if (final === 'ㄴ') {
+        finalTitle = 'ㄴ の終声';
+        finalDescription = `「${syllable.syllable}」の音節末のㄴは「n」と発音されます。日本語と違い、韓国語は子音で音節が終わることができます`;
+      } else if (final === 'ㅁ') {
+        finalTitle = 'ㅁ の終声';
+        finalDescription = `「${syllable.syllable}」の音節末のㅁは「m」と発音されます`;
+      } else if (final === 'ㄱ') {
+        finalTitle = 'ㄱ の終声';
+        finalDescription = `「${syllable.syllable}」の音節末のㄱは「k」と発音されます`;
+      } else if (final === 'ㅇ') {
+        finalTitle = 'ㅇ の終声';
+        finalDescription = `「${syllable.syllable}」の音節末のㅇは「ng」と発音されます`;
+      }
+
+      if (finalTitle) {
         points.push({
           type: 'pattern',
-          title: 'ㄴ パッチム',
-          description: `「${syllable.syllable}」の終声ㄴは「n」と発音されます`,
+          title: finalTitle,
+          description: finalDescription,
           examples: [`${syllable.syllable} → ${syllable.romanization}`]
         });
       }
     }
   }
-  
+
   // 重複を除去し最大3つまで
-  const uniquePoints = points.filter((point, index, self) => 
+  const uniquePoints = points.filter((point, index, self) =>
     index === self.findIndex(p => p.title === point.title)
   ).slice(0, 3);
-  
+
   // 学習ポイントが少ない場合は一般的なポイントを追加
   if (uniquePoints.length === 0) {
     uniquePoints.push({
@@ -126,6 +143,6 @@ export function generateLearningPoints(analysis: HangulAnalysis): LearningPoint[
       examples: [`${analysis.fullRomanization} → ${analysis.english}`]
     });
   }
-  
+
   return uniquePoints;
 }
