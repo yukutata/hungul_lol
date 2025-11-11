@@ -4,6 +4,7 @@ export interface Character {
   nameKo: string;
   nameEn: string;
   nameJa?: string; // 日本語名（オプショナル）
+  nameJaReading?: string; // 日本語名の読み方（カタカナ、オプショナル）
   iconUrl: string;
   game: 'lol' | 'eternal-return';
 }

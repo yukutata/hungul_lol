@@ -29,7 +29,7 @@
     "nameEn": "Adriana",
     "iconUrl": "/images/eternal-return/adriana.png",
     "game": "eternal-return",
-    "nameJa": "アドリアーナ"
+    "nameJa": "アドリアナ"
   },
   {
     "id": "aiden",
@@ -85,7 +85,7 @@
     "nameEn": "Bernice",
     "iconUrl": "/images/eternal-return/bernice.png",
     "game": "eternal-return",
-    "nameJa": "バニース"
+    "nameJa": "バニス"
   },
   {
     "id": "bianca",
@@ -173,7 +173,7 @@
     "nameEn": "Debi & Marlene",
     "iconUrl": "/images/eternal-return/debi_marlene.png",
     "game": "eternal-return",
-    "nameJa": "デビ&マレーネ"
+    "nameJa": "デビー&マーリン"
   },
   {
     "id": "echion",
@@ -181,7 +181,7 @@
     "nameEn": "Echion",
     "iconUrl": "/images/eternal-return/echion.png",
     "game": "eternal-return",
-    "nameJa": "エチオン"
+    "nameJa": "エキオン"
   },
   {
     "id": "elena",
@@ -277,7 +277,7 @@
     "nameEn": "Hisui",
     "iconUrl": "/images/eternal-return/hisui.png",
     "game": "eternal-return",
-    "nameJa": "翡翠"
+    "nameJa": "ヒスイ"
   },
   {
     "id": "hyejin",
@@ -381,7 +381,7 @@
     "nameEn": "Katja",
     "iconUrl": "/images/eternal-return/katja.png",
     "game": "eternal-return",
-    "nameJa": "カーチャ"
+    "nameJa": "カティア"
   },
   {
     "id": "kenneth",
@@ -437,7 +437,7 @@
     "nameEn": "Li Dailin",
     "iconUrl": "/images/eternal-return/li_dailin.png",
     "game": "eternal-return",
-    "nameJa": "リ・ダイリン"
+    "nameJa": "ダイリン"
   },
   {
     "id": "luke",
@@ -453,7 +453,7 @@
     "nameEn": "Ly Anh",
     "iconUrl": "/images/eternal-return/ly_anh.png",
     "game": "eternal-return",
-    "nameJa": "リ・アン"
+    "nameJa": "イアン"
   },
   {
     "id": "magnus",
@@ -477,7 +477,7 @@
     "nameEn": "Markus",
     "iconUrl": "/images/eternal-return/markus.png",
     "game": "eternal-return",
-    "nameJa": "マルクス"
+    "nameJa": "マーカス"
   },
   {
     "id": "martina",
@@ -541,7 +541,8 @@
     "nameEn": "Rio",
     "iconUrl": "/images/eternal-return/rio.png",
     "game": "eternal-return",
-    "nameJa": "リオ"
+    "nameJa": "莉央",
+    "nameJaReading": "リオ"
   },
   {
     "id": "rozzi",
@@ -557,7 +558,8 @@
     "nameEn": "Shoichi",
     "iconUrl": "/images/eternal-return/shoichi.png",
     "game": "eternal-return",
-    "nameJa": "彰一"
+    "nameJa": "彰一",
+    "nameJaReading": "ショウイチ"
   },
   {
     "id": "silvia",
@@ -653,7 +655,8 @@
     "nameEn": "Yuki",
     "iconUrl": "/images/eternal-return/yuki.png",
     "game": "eternal-return",
-    "nameJa": "ユキ"
+    "nameJa": "雪",
+    "nameJaReading": "ユキ"
   },
   {
     "id": "yumin",

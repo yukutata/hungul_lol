@@ -54,10 +54,21 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
         if (containsKana(searchTerm)) {
           // 検索語がかなを含む場合、カタカナに正規化して比較
           const normalizedNameJa = normalizeKanaForSearch(character.nameJa);
-          return normalizedNameJa.includes(normalizedSearchTerm);
+          if (normalizedNameJa.includes(normalizedSearchTerm)) return true;
+
+          // 読み方での検索もチェック
+          if (character.nameJaReading) {
+            const normalizedReading = normalizeKanaForSearch(character.nameJaReading);
+            return normalizedReading.includes(normalizedSearchTerm);
+          }
         } else {
           // 通常の部分一致
-          return character.nameJa.includes(searchTerm);
+          if (character.nameJa.includes(searchTerm)) return true;
+
+          // 読み方での検索もチェック
+          if (character.nameJaReading && character.nameJaReading.includes(searchTerm)) {
+            return true;
+          }
         }
       }
 
