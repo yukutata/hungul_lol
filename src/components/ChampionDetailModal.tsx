@@ -19,13 +19,13 @@ import {
   Paper
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Champion } from '../types/champion';
+import { Character } from '../types/character';
 import { analyzeChampionName, getTransformationExplanation } from '../utils/hangulAnalyzer';
 
 interface ChampionDetailModalProps {
   open: boolean;
   onClose: () => void;
-  champion: Champion | null;
+  champion: Character | null;
 }
 
 const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
@@ -55,6 +55,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant="h5" component="h2">
             {champion.nameKo} - {champion.nameEn}
+            {champion.nameJa && ` (${champion.nameJa})`}
           </Typography>
           <IconButton onClick={onClose} size="small">
             <CloseIcon />
@@ -86,6 +87,11 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 <Typography variant="body1" color="text.secondary">
                   {champion.nameEn}
                 </Typography>
+                {champion.nameJa && (
+                  <Typography variant="body1" color="text.secondary">
+                    {champion.nameJa}
+                  </Typography>
+                )}
               </CardContent>
             </Card>
           </Box>

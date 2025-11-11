@@ -3,1008 +3,1176 @@
     "id": "garen",
     "nameKo": "가렌",
     "nameEn": "Garen",
-    "iconUrl": "/images/champions/garen.png"
+    "iconUrl": "/images/champions/garen.png",
+    "nameJa": "ガレン"
   },
   {
     "id": "galio",
     "nameKo": "갈리오",
     "nameEn": "Galio",
-    "iconUrl": "/images/champions/galio.png"
+    "iconUrl": "/images/champions/galio.png",
+    "nameJa": "ガリオ"
   },
   {
     "id": "gangplank",
     "nameKo": "갱플랭크",
     "nameEn": "Gangplank",
-    "iconUrl": "/images/champions/gangplank.png"
+    "iconUrl": "/images/champions/gangplank.png",
+    "nameJa": "ガングプランク"
   },
   {
     "id": "gragas",
     "nameKo": "그라가스",
     "nameEn": "Gragas",
-    "iconUrl": "/images/champions/gragas.png"
+    "iconUrl": "/images/champions/gragas.png",
+    "nameJa": "グラガス"
   },
   {
     "id": "graves",
     "nameKo": "그레이브즈",
     "nameEn": "Graves",
-    "iconUrl": "/images/champions/graves.png"
+    "iconUrl": "/images/champions/graves.png",
+    "nameJa": "グレイブス"
   },
   {
     "id": "gwen",
     "nameKo": "그웬",
     "nameEn": "Gwen",
-    "iconUrl": "/images/champions/gwen.png"
+    "iconUrl": "/images/champions/gwen.png",
+    "nameJa": "グウェン"
   },
   {
     "id": "nami",
     "nameKo": "나미",
     "nameEn": "Nami",
-    "iconUrl": "/images/champions/nami.png"
+    "iconUrl": "/images/champions/nami.png",
+    "nameJa": "ナミ"
   },
   {
     "id": "nasus",
     "nameKo": "나서스",
     "nameEn": "Nasus",
-    "iconUrl": "/images/champions/nasus.png"
+    "iconUrl": "/images/champions/nasus.png",
+    "nameJa": "ナサス"
   },
   {
     "id": "nautilus",
     "nameKo": "노틸러스",
     "nameEn": "Nautilus",
-    "iconUrl": "/images/champions/nautilus.png"
+    "iconUrl": "/images/champions/nautilus.png",
+    "nameJa": "ノーチラス"
   },
   {
     "id": "nocturne",
     "nameKo": "녹턴",
     "nameEn": "Nocturne",
-    "iconUrl": "/images/champions/nocturne.png"
+    "iconUrl": "/images/champions/nocturne.png",
+    "nameJa": "ノクターン"
   },
   {
     "id": "nunu",
     "nameKo": "누누와 윌럼프",
     "nameEn": "Nunu & Willump",
-    "iconUrl": "/images/champions/nunu.png"
+    "iconUrl": "/images/champions/nunu.png",
+    "nameJa": "ヌヌ&ウィルンプ"
   },
   {
     "id": "nidalee",
     "nameKo": "니달리",
     "nameEn": "Nidalee",
-    "iconUrl": "/images/champions/nidalee.png"
+    "iconUrl": "/images/champions/nidalee.png",
+    "nameJa": "ニダリー"
   },
   {
     "id": "neeko",
     "nameKo": "니코",
     "nameEn": "Neeko",
-    "iconUrl": "/images/champions/neeko.png"
+    "iconUrl": "/images/champions/neeko.png",
+    "nameJa": "ニーコ"
   },
   {
     "id": "nilah",
     "nameKo": "닐라",
     "nameEn": "Nilah",
-    "iconUrl": "/images/champions/nilah.png"
+    "iconUrl": "/images/champions/nilah.png",
+    "nameJa": "ニーラ"
   },
   {
     "id": "diana",
     "nameKo": "다이애나",
     "nameEn": "Diana",
-    "iconUrl": "/images/champions/diana.png"
+    "iconUrl": "/images/champions/diana.png",
+    "nameJa": "ダイアナ"
   },
   {
     "id": "darius",
     "nameKo": "다리우스",
     "nameEn": "Darius",
-    "iconUrl": "/images/champions/darius.png"
+    "iconUrl": "/images/champions/darius.png",
+    "nameJa": "ダリウス"
   },
   {
     "id": "draven",
     "nameKo": "드레이븐",
     "nameEn": "Draven",
-    "iconUrl": "/images/champions/draven.png"
+    "iconUrl": "/images/champions/draven.png",
+    "nameJa": "ドレイヴン"
   },
   {
     "id": "ryze",
     "nameKo": "라이즈",
     "nameEn": "Ryze",
-    "iconUrl": "/images/champions/ryze.png"
+    "iconUrl": "/images/champions/ryze.png",
+    "nameJa": "ライズ"
   },
   {
     "id": "rakan",
     "nameKo": "라칸",
     "nameEn": "Rakan",
-    "iconUrl": "/images/champions/rakan.png"
+    "iconUrl": "/images/champions/rakan.png",
+    "nameJa": "ラカン"
   },
   {
     "id": "rammus",
     "nameKo": "람머스",
     "nameEn": "Rammus",
-    "iconUrl": "/images/champions/rammus.png"
+    "iconUrl": "/images/champions/rammus.png",
+    "nameJa": "ラムス"
   },
   {
     "id": "lux",
     "nameKo": "럭스",
     "nameEn": "Lux",
-    "iconUrl": "/images/champions/lux.png"
+    "iconUrl": "/images/champions/lux.png",
+    "nameJa": "ラックス"
   },
   {
     "id": "rumble",
     "nameKo": "럼블",
     "nameEn": "Rumble",
-    "iconUrl": "/images/champions/rumble.png"
+    "iconUrl": "/images/champions/rumble.png",
+    "nameJa": "ランブル"
   },
   {
     "id": "renekton",
     "nameKo": "레넥톤",
     "nameEn": "Renekton",
-    "iconUrl": "/images/champions/renekton.png"
+    "iconUrl": "/images/champions/renekton.png",
+    "nameJa": "レネクトン"
   },
   {
     "id": "rengar",
     "nameKo": "렝가",
     "nameEn": "Rengar",
-    "iconUrl": "/images/champions/rengar.png"
+    "iconUrl": "/images/champions/rengar.png",
+    "nameJa": "レンガー"
   },
   {
     "id": "leona",
     "nameKo": "레오나",
     "nameEn": "Leona",
-    "iconUrl": "/images/champions/leona.png"
+    "iconUrl": "/images/champions/leona.png",
+    "nameJa": "レオナ"
   },
   {
     "id": "reksai",
     "nameKo": "렉사이",
     "nameEn": "Rek'Sai",
-    "iconUrl": "/images/champions/reksai.png"
+    "iconUrl": "/images/champions/reksai.png",
+    "nameJa": "レク＝サイ"
   },
   {
     "id": "rell",
     "nameKo": "렐",
     "nameEn": "Rell",
-    "iconUrl": "/images/champions/rell.png"
+    "iconUrl": "/images/champions/rell.png",
+    "nameJa": "レル"
   },
   {
     "id": "renata",
     "nameKo": "레나타 글라스크",
     "nameEn": "Renata Glasc",
-    "iconUrl": "/images/champions/renata.png"
+    "iconUrl": "/images/champions/renata.png",
+    "nameJa": "レナータ・グラスク"
   },
   {
     "id": "lulu",
     "nameKo": "룰루",
     "nameEn": "Lulu",
-    "iconUrl": "/images/champions/lulu.png"
+    "iconUrl": "/images/champions/lulu.png",
+    "nameJa": "ルル"
   },
   {
     "id": "leblanc",
     "nameKo": "르블랑",
     "nameEn": "LeBlanc",
-    "iconUrl": "/images/champions/leblanc.png"
+    "iconUrl": "/images/champions/leblanc.png",
+    "nameJa": "ルブラン"
   },
   {
     "id": "leesin",
     "nameKo": "리 신",
     "nameEn": "Lee Sin",
-    "iconUrl": "/images/champions/leesin.png"
+    "iconUrl": "/images/champions/leesin.png",
+    "nameJa": "リー・シン"
   },
   {
     "id": "riven",
     "nameKo": "리븐",
     "nameEn": "Riven",
-    "iconUrl": "/images/champions/riven.png"
+    "iconUrl": "/images/champions/riven.png",
+    "nameJa": "リヴェン"
   },
   {
     "id": "lissandra",
     "nameKo": "리산드라",
     "nameEn": "Lissandra",
-    "iconUrl": "/images/champions/lissandra.png"
+    "iconUrl": "/images/champions/lissandra.png",
+    "nameJa": "リサンドラ"
   },
   {
     "id": "lillia",
     "nameKo": "릴리아",
     "nameEn": "Lillia",
-    "iconUrl": "/images/champions/lillia.png"
+    "iconUrl": "/images/champions/lillia.png",
+    "nameJa": "リリア"
   },
   {
     "id": "masteryi",
     "nameKo": "마스터 이",
     "nameEn": "Master Yi",
-    "iconUrl": "/images/champions/masteryi.png"
+    "iconUrl": "/images/champions/masteryi.png",
+    "nameJa": "マスター・イー"
   },
   {
     "id": "maokai",
     "nameKo": "마오카이",
     "nameEn": "Maokai",
-    "iconUrl": "/images/champions/maokai.png"
+    "iconUrl": "/images/champions/maokai.png",
+    "nameJa": "マオカイ"
   },
   {
     "id": "malzahar",
     "nameKo": "말자하",
     "nameEn": "Malzahar",
-    "iconUrl": "/images/champions/malzahar.png"
+    "iconUrl": "/images/champions/malzahar.png",
+    "nameJa": "マルザハール"
   },
   {
     "id": "malphite",
     "nameKo": "말파이트",
     "nameEn": "Malphite",
-    "iconUrl": "/images/champions/malphite.png"
+    "iconUrl": "/images/champions/malphite.png",
+    "nameJa": "マルファイト"
   },
   {
     "id": "mordekaiser",
     "nameKo": "모데카이저",
     "nameEn": "Mordekaiser",
-    "iconUrl": "/images/champions/mordekaiser.png"
+    "iconUrl": "/images/champions/mordekaiser.png",
+    "nameJa": "モルデカイザー"
   },
   {
     "id": "morgana",
     "nameKo": "모르가나",
     "nameEn": "Morgana",
-    "iconUrl": "/images/champions/morgana.png"
+    "iconUrl": "/images/champions/morgana.png",
+    "nameJa": "モルガナ"
   },
   {
     "id": "drmundo",
     "nameKo": "문도 박사",
     "nameEn": "Dr. Mundo",
-    "iconUrl": "/images/champions/drmundo.png"
+    "iconUrl": "/images/champions/drmundo.png",
+    "nameJa": "Dr.ムンド"
   },
   {
     "id": "missfortune",
     "nameKo": "미스 포츈",
     "nameEn": "Miss Fortune",
-    "iconUrl": "/images/champions/missfortune.png"
+    "iconUrl": "/images/champions/missfortune.png",
+    "nameJa": "ミス・フォーチュン"
   },
   {
     "id": "milio",
     "nameKo": "밀리오",
     "nameEn": "Milio",
-    "iconUrl": "/images/champions/milio.png"
+    "iconUrl": "/images/champions/milio.png",
+    "nameJa": "ミリオ"
   },
   {
     "id": "bard",
     "nameKo": "바드",
     "nameEn": "Bard",
-    "iconUrl": "/images/champions/bard.png"
+    "iconUrl": "/images/champions/bard.png",
+    "nameJa": "バード"
   },
   {
     "id": "varus",
     "nameKo": "바루스",
     "nameEn": "Varus",
-    "iconUrl": "/images/champions/varus.png"
+    "iconUrl": "/images/champions/varus.png",
+    "nameJa": "ヴァルス"
   },
   {
     "id": "vi",
     "nameKo": "바이",
     "nameEn": "Vi",
-    "iconUrl": "/images/champions/vi.png"
+    "iconUrl": "/images/champions/vi.png",
+    "nameJa": "ヴァイ"
   },
   {
     "id": "veigar",
     "nameKo": "베이가",
     "nameEn": "Veigar",
-    "iconUrl": "/images/champions/veigar.png"
+    "iconUrl": "/images/champions/veigar.png",
+    "nameJa": "ベイガー"
   },
   {
     "id": "vayne",
     "nameKo": "베인",
     "nameEn": "Vayne",
-    "iconUrl": "/images/champions/vayne.png"
+    "iconUrl": "/images/champions/vayne.png",
+    "nameJa": "ヴェイン"
   },
   {
     "id": "vex",
     "nameKo": "벡스",
     "nameEn": "Vex",
-    "iconUrl": "/images/champions/vex.png"
+    "iconUrl": "/images/champions/vex.png",
+    "nameJa": "ベックス"
   },
   {
     "id": "velkoz",
     "nameKo": "벨코즈",
     "nameEn": "Vel'Koz",
-    "iconUrl": "/images/champions/velkoz.png"
+    "iconUrl": "/images/champions/velkoz.png",
+    "nameJa": "ヴェル＝コズ"
   },
   {
     "id": "belveth",
     "nameKo": "벨베스",
     "nameEn": "Bel'Veth",
-    "iconUrl": "/images/champions/belveth.png"
+    "iconUrl": "/images/champions/belveth.png",
+    "nameJa": "ベル＝ヴェス"
   },
   {
     "id": "volibear",
     "nameKo": "볼리베어",
     "nameEn": "Volibear",
-    "iconUrl": "/images/champions/volibear.png"
+    "iconUrl": "/images/champions/volibear.png",
+    "nameJa": "ボリベア"
   },
   {
     "id": "braum",
     "nameKo": "브라움",
     "nameEn": "Braum",
-    "iconUrl": "/images/champions/braum.png"
+    "iconUrl": "/images/champions/braum.png",
+    "nameJa": "ブラウム"
   },
   {
     "id": "brand",
     "nameKo": "브랜드",
     "nameEn": "Brand",
-    "iconUrl": "/images/champions/brand.png"
+    "iconUrl": "/images/champions/brand.png",
+    "nameJa": "ブランド"
   },
   {
     "id": "vladimir",
     "nameKo": "블라디미르",
     "nameEn": "Vladimir",
-    "iconUrl": "/images/champions/vladimir.png"
+    "iconUrl": "/images/champions/vladimir.png",
+    "nameJa": "ブラッドミア"
   },
   {
     "id": "blitzcrank",
     "nameKo": "블리츠크랭크",
     "nameEn": "Blitzcrank",
-    "iconUrl": "/images/champions/blitzcrank.png"
+    "iconUrl": "/images/champions/blitzcrank.png",
+    "nameJa": "ブリッツクランク"
   },
   {
     "id": "viego",
     "nameKo": "비에고",
     "nameEn": "Viego",
-    "iconUrl": "/images/champions/viego.png"
+    "iconUrl": "/images/champions/viego.png",
+    "nameJa": "ヴィエゴ"
   },
   {
     "id": "viktor",
     "nameKo": "빅토르",
     "nameEn": "Viktor",
-    "iconUrl": "/images/champions/viktor.png"
+    "iconUrl": "/images/champions/viktor.png",
+    "nameJa": "ビクター"
   },
   {
     "id": "poppy",
     "nameKo": "뽀삐",
     "nameEn": "Poppy",
-    "iconUrl": "/images/champions/poppy.png"
+    "iconUrl": "/images/champions/poppy.png",
+    "nameJa": "ポッピー"
   },
   {
     "id": "samira",
     "nameKo": "사미라",
     "nameEn": "Samira",
-    "iconUrl": "/images/champions/samira.png"
+    "iconUrl": "/images/champions/samira.png",
+    "nameJa": "サミーラ"
   },
   {
     "id": "sion",
     "nameKo": "사이온",
     "nameEn": "Sion",
-    "iconUrl": "/images/champions/sion.png"
+    "iconUrl": "/images/champions/sion.png",
+    "nameJa": "サイオン"
   },
   {
     "id": "sylas",
     "nameKo": "사일러스",
     "nameEn": "Sylas",
-    "iconUrl": "/images/champions/sylas.png"
+    "iconUrl": "/images/champions/sylas.png",
+    "nameJa": "サイラス"
   },
   {
     "id": "shaco",
     "nameKo": "샤코",
     "nameEn": "Shaco",
-    "iconUrl": "/images/champions/shaco.png"
+    "iconUrl": "/images/champions/shaco.png",
+    "nameJa": "シャコ"
   },
   {
     "id": "senna",
     "nameKo": "세나",
     "nameEn": "Senna",
-    "iconUrl": "/images/champions/senna.png"
+    "iconUrl": "/images/champions/senna.png",
+    "nameJa": "セナ"
   },
   {
     "id": "seraphine",
     "nameKo": "세라핀",
     "nameEn": "Seraphine",
-    "iconUrl": "/images/champions/seraphine.png"
+    "iconUrl": "/images/champions/seraphine.png",
+    "nameJa": "セラフィーン"
   },
   {
     "id": "sejuani",
     "nameKo": "세주아니",
     "nameEn": "Sejuani",
-    "iconUrl": "/images/champions/sejuani.png"
+    "iconUrl": "/images/champions/sejuani.png",
+    "nameJa": "セジュアニ"
   },
   {
     "id": "sett",
     "nameKo": "세트",
     "nameEn": "Sett",
-    "iconUrl": "/images/champions/sett.png"
+    "iconUrl": "/images/champions/sett.png",
+    "nameJa": "セト"
   },
   {
     "id": "soraka",
     "nameKo": "소라카",
     "nameEn": "Soraka",
-    "iconUrl": "/images/champions/soraka.png"
+    "iconUrl": "/images/champions/soraka.png",
+    "nameJa": "ソラカ"
   },
   {
     "id": "sona",
     "nameKo": "소나",
     "nameEn": "Sona",
-    "iconUrl": "/images/champions/sona.png"
+    "iconUrl": "/images/champions/sona.png",
+    "nameJa": "ソナ"
   },
   {
     "id": "shyvana",
     "nameKo": "쉬바나",
     "nameEn": "Shyvana",
-    "iconUrl": "/images/champions/shyvana.png"
+    "iconUrl": "/images/champions/shyvana.png",
+    "nameJa": "シヴァーナ"
   },
   {
     "id": "swain",
     "nameKo": "스웨인",
     "nameEn": "Swain",
-    "iconUrl": "/images/champions/swain.png"
+    "iconUrl": "/images/champions/swain.png",
+    "nameJa": "スウェイン"
   },
   {
     "id": "skarner",
     "nameKo": "스카너",
     "nameEn": "Skarner",
-    "iconUrl": "/images/champions/skarner.png"
+    "iconUrl": "/images/champions/skarner.png",
+    "nameJa": "スカーナー"
   },
   {
     "id": "sivir",
     "nameKo": "시비르",
     "nameEn": "Sivir",
-    "iconUrl": "/images/champions/sivir.png"
+    "iconUrl": "/images/champions/sivir.png",
+    "nameJa": "シヴィア"
   },
   {
     "id": "xayah",
     "nameKo": "자야",
     "nameEn": "Xayah",
-    "iconUrl": "/images/champions/xayah.png"
+    "iconUrl": "/images/champions/xayah.png",
+    "nameJa": "ザヤ"
   },
   {
     "id": "ziggs",
     "nameKo": "직스",
     "nameEn": "Ziggs",
-    "iconUrl": "/images/champions/ziggs.png"
+    "iconUrl": "/images/champions/ziggs.png",
+    "nameJa": "ジグス"
   },
   {
     "id": "jhin",
     "nameKo": "진",
     "nameEn": "Jhin",
-    "iconUrl": "/images/champions/jhin.png"
+    "iconUrl": "/images/champions/jhin.png",
+    "nameJa": "ジン"
   },
   {
     "id": "zilean",
     "nameKo": "질리언",
     "nameEn": "Zilean",
-    "iconUrl": "/images/champions/zilean.png"
+    "iconUrl": "/images/champions/zilean.png",
+    "nameJa": "ジリアン"
   },
   {
     "id": "jinx",
     "nameKo": "징크스",
     "nameEn": "Jinx",
-    "iconUrl": "/images/champions/jinx.png"
+    "iconUrl": "/images/champions/jinx.png",
+    "nameJa": "ジンクス"
   },
   {
     "id": "chogath",
     "nameKo": "초가스",
     "nameEn": "Cho'Gath",
-    "iconUrl": "/images/champions/chogath.png"
+    "iconUrl": "/images/champions/chogath.png",
+    "nameJa": "チョ＝ガス"
   },
   {
     "id": "karma",
     "nameKo": "카르마",
     "nameEn": "Karma",
-    "iconUrl": "/images/champions/karma.png"
+    "iconUrl": "/images/champions/karma.png",
+    "nameJa": "カルマ"
   },
   {
     "id": "camille",
     "nameKo": "카밀",
     "nameEn": "Camille",
-    "iconUrl": "/images/champions/camille.png"
+    "iconUrl": "/images/champions/camille.png",
+    "nameJa": "カミール"
   },
   {
     "id": "kassadin",
     "nameKo": "카사딘",
     "nameEn": "Kassadin",
-    "iconUrl": "/images/champions/kassadin.png"
+    "iconUrl": "/images/champions/kassadin.png",
+    "nameJa": "カサディン"
   },
   {
     "id": "karthus",
     "nameKo": "카서스",
     "nameEn": "Karthus",
-    "iconUrl": "/images/champions/karthus.png"
+    "iconUrl": "/images/champions/karthus.png",
+    "nameJa": "カーサス"
   },
   {
     "id": "cassiopeia",
     "nameKo": "카시오페아",
     "nameEn": "Cassiopeia",
-    "iconUrl": "/images/champions/cassiopeia.png"
+    "iconUrl": "/images/champions/cassiopeia.png",
+    "nameJa": "カシオペア"
   },
   {
     "id": "kaisa",
     "nameKo": "카이사",
     "nameEn": "Kai'Sa",
-    "iconUrl": "/images/champions/kaisa.png"
+    "iconUrl": "/images/champions/kaisa.png",
+    "nameJa": "カイ＝サ"
   },
   {
     "id": "khazix",
     "nameKo": "카직스",
     "nameEn": "Kha'Zix",
-    "iconUrl": "/images/champions/khazix.png"
+    "iconUrl": "/images/champions/khazix.png",
+    "nameJa": "カ＝ジックス"
   },
   {
     "id": "katarina",
     "nameKo": "카타리나",
     "nameEn": "Katarina",
-    "iconUrl": "/images/champions/katarina.png"
+    "iconUrl": "/images/champions/katarina.png",
+    "nameJa": "カタリナ"
   },
   {
     "id": "kalista",
     "nameKo": "칼리스타",
     "nameEn": "Kalista",
-    "iconUrl": "/images/champions/kalista.png"
+    "iconUrl": "/images/champions/kalista.png",
+    "nameJa": "カリスタ"
   },
   {
     "id": "kennen",
     "nameKo": "케넨",
     "nameEn": "Kennen",
-    "iconUrl": "/images/champions/kennen.png"
+    "iconUrl": "/images/champions/kennen.png",
+    "nameJa": "ケネン"
   },
   {
     "id": "caitlyn",
     "nameKo": "케이틀린",
     "nameEn": "Caitlyn",
-    "iconUrl": "/images/champions/caitlyn.png"
+    "iconUrl": "/images/champions/caitlyn.png",
+    "nameJa": "ケイトリン"
   },
   {
     "id": "kayn",
     "nameKo": "케인",
     "nameEn": "Kayn",
-    "iconUrl": "/images/champions/kayn.png"
+    "iconUrl": "/images/champions/kayn.png",
+    "nameJa": "ケイン"
   },
   {
     "id": "kayle",
     "nameKo": "케일",
     "nameEn": "Kayle",
-    "iconUrl": "/images/champions/kayle.png"
+    "iconUrl": "/images/champions/kayle.png",
+    "nameJa": "ケイル"
   },
   {
     "id": "kogmaw",
     "nameKo": "코그모",
     "nameEn": "Kog'Maw",
-    "iconUrl": "/images/champions/kogmaw.png"
+    "iconUrl": "/images/champions/kogmaw.png",
+    "nameJa": "コグ＝マウ"
   },
   {
     "id": "corki",
     "nameKo": "코르키",
     "nameEn": "Corki",
-    "iconUrl": "/images/champions/corki.png"
+    "iconUrl": "/images/champions/corki.png",
+    "nameJa": "コーキ"
   },
   {
     "id": "quinn",
     "nameKo": "퀸",
     "nameEn": "Quinn",
-    "iconUrl": "/images/champions/quinn.png"
+    "iconUrl": "/images/champions/quinn.png",
+    "nameJa": "クイン"
   },
   {
     "id": "qiyana",
     "nameKo": "키아나",
     "nameEn": "Qiyana",
-    "iconUrl": "/images/champions/qiyana.png"
+    "iconUrl": "/images/champions/qiyana.png",
+    "nameJa": "キヤナ"
   },
   {
     "id": "kindred",
     "nameKo": "킨드레드",
     "nameEn": "Kindred",
-    "iconUrl": "/images/champions/kindred.png"
+    "iconUrl": "/images/champions/kindred.png",
+    "nameJa": "キンドレッド"
   },
   {
     "id": "taric",
     "nameKo": "타릭",
     "nameEn": "Taric",
-    "iconUrl": "/images/champions/taric.png"
+    "iconUrl": "/images/champions/taric.png",
+    "nameJa": "タリック"
   },
   {
     "id": "talon",
     "nameKo": "탈론",
     "nameEn": "Talon",
-    "iconUrl": "/images/champions/talon.png"
+    "iconUrl": "/images/champions/talon.png",
+    "nameJa": "タロン"
   },
   {
     "id": "taliyah",
     "nameKo": "탈리야",
     "nameEn": "Taliyah",
-    "iconUrl": "/images/champions/taliyah.png"
+    "iconUrl": "/images/champions/taliyah.png",
+    "nameJa": "タリヤ"
   },
   {
     "id": "tahmkench",
     "nameKo": "탐 켄치",
     "nameEn": "Tahm Kench",
-    "iconUrl": "/images/champions/tahmkench.png"
+    "iconUrl": "/images/champions/tahmkench.png",
+    "nameJa": "タム・ケンチ"
   },
   {
     "id": "trundle",
     "nameKo": "트런들",
     "nameEn": "Trundle",
-    "iconUrl": "/images/champions/trundle.png"
+    "iconUrl": "/images/champions/trundle.png",
+    "nameJa": "トランドル"
   },
   {
     "id": "tristana",
     "nameKo": "트리스타나",
     "nameEn": "Tristana",
-    "iconUrl": "/images/champions/tristana.png"
+    "iconUrl": "/images/champions/tristana.png",
+    "nameJa": "トリスターナ"
   },
   {
     "id": "tryndamere",
     "nameKo": "트린다미어",
     "nameEn": "Tryndamere",
-    "iconUrl": "/images/champions/tryndamere.png"
+    "iconUrl": "/images/champions/tryndamere.png",
+    "nameJa": "トリンダメア"
   },
   {
     "id": "twistedfate",
     "nameKo": "트위스티드 페이트",
     "nameEn": "Twisted Fate",
-    "iconUrl": "/images/champions/twistedfate.png"
+    "iconUrl": "/images/champions/twistedfate.png",
+    "nameJa": "ツイステッド・フェイト"
   },
   {
     "id": "twitch",
     "nameKo": "트위치",
     "nameEn": "Twitch",
-    "iconUrl": "/images/champions/twitch.png"
+    "iconUrl": "/images/champions/twitch.png",
+    "nameJa": "トゥイッチ"
   },
   {
     "id": "teemo",
     "nameKo": "티모",
     "nameEn": "Teemo",
-    "iconUrl": "/images/champions/teemo.png"
+    "iconUrl": "/images/champions/teemo.png",
+    "nameJa": "ティーモ"
   },
   {
     "id": "pyke",
     "nameKo": "파이크",
     "nameEn": "Pyke",
-    "iconUrl": "/images/champions/pyke.png"
+    "iconUrl": "/images/champions/pyke.png",
+    "nameJa": "パイク"
   },
   {
     "id": "pantheon",
     "nameKo": "판테온",
     "nameEn": "Pantheon",
-    "iconUrl": "/images/champions/pantheon.png"
+    "iconUrl": "/images/champions/pantheon.png",
+    "nameJa": "パンテオン"
   },
   {
     "id": "fiddlesticks",
     "nameKo": "피들스틱",
     "nameEn": "Fiddlesticks",
-    "iconUrl": "/images/champions/fiddlesticks.png"
+    "iconUrl": "/images/champions/fiddlesticks.png",
+    "nameJa": "フィドルスティックス"
   },
   {
     "id": "fiora",
     "nameKo": "피오라",
     "nameEn": "Fiora",
-    "iconUrl": "/images/champions/fiora.png"
+    "iconUrl": "/images/champions/fiora.png",
+    "nameJa": "フィオラ"
   },
   {
     "id": "fizz",
     "nameKo": "피즈",
     "nameEn": "Fizz",
-    "iconUrl": "/images/champions/fizz.png"
+    "iconUrl": "/images/champions/fizz.png",
+    "nameJa": "フィズ"
   },
   {
     "id": "heimerdinger",
     "nameKo": "하이머딩거",
     "nameEn": "Heimerdinger",
-    "iconUrl": "/images/champions/heimerdinger.png"
+    "iconUrl": "/images/champions/heimerdinger.png",
+    "nameJa": "ハイマーディンガー"
   },
   {
     "id": "hecarim",
     "nameKo": "헤카림",
     "nameEn": "Hecarim",
-    "iconUrl": "/images/champions/hecarim.png"
+    "iconUrl": "/images/champions/hecarim.png",
+    "nameJa": "ヘカリム"
   },
   {
     "id": "hwei",
     "nameKo": "흐웨이",
     "nameEn": "Hwei",
-    "iconUrl": "/images/champions/hwei.png"
+    "iconUrl": "/images/champions/hwei.png",
+    "nameJa": "フェイ"
   },
   {
     "id": "aatrox",
     "nameKo": "아트록스",
     "nameEn": "Aatrox",
-    "iconUrl": "/images/champions/aatrox.png"
+    "iconUrl": "/images/champions/aatrox.png",
+    "nameJa": "エイトロックス"
   },
   {
     "id": "ahri",
     "nameKo": "아리",
     "nameEn": "Ahri",
-    "iconUrl": "/images/champions/ahri.png"
+    "iconUrl": "/images/champions/ahri.png",
+    "nameJa": "アーリ"
   },
   {
     "id": "akali",
     "nameKo": "아칼리",
     "nameEn": "Akali",
-    "iconUrl": "/images/champions/akali.png"
+    "iconUrl": "/images/champions/akali.png",
+    "nameJa": "アカリ"
   },
   {
     "id": "akshan",
     "nameKo": "아크샨",
     "nameEn": "Akshan",
-    "iconUrl": "/images/champions/akshan.png"
+    "iconUrl": "/images/champions/akshan.png",
+    "nameJa": "アクシャン"
   },
   {
     "id": "alistar",
     "nameKo": "알리스타",
     "nameEn": "Alistar",
-    "iconUrl": "/images/champions/alistar.png"
+    "iconUrl": "/images/champions/alistar.png",
+    "nameJa": "アリスター"
   },
   {
     "id": "amumu",
     "nameKo": "아무무",
     "nameEn": "Amumu",
-    "iconUrl": "/images/champions/amumu.png"
+    "iconUrl": "/images/champions/amumu.png",
+    "nameJa": "アムム"
   },
   {
     "id": "anivia",
     "nameKo": "애니비아",
     "nameEn": "Anivia",
-    "iconUrl": "/images/champions/anivia.png"
+    "iconUrl": "/images/champions/anivia.png",
+    "nameJa": "アニビア"
   },
   {
     "id": "annie",
     "nameKo": "애니",
     "nameEn": "Annie",
-    "iconUrl": "/images/champions/annie.png"
+    "iconUrl": "/images/champions/annie.png",
+    "nameJa": "アニー"
   },
   {
     "id": "aphelios",
     "nameKo": "아펠리오스",
     "nameEn": "Aphelios",
-    "iconUrl": "/images/champions/aphelios.png"
+    "iconUrl": "/images/champions/aphelios.png",
+    "nameJa": "アフェリオス"
   },
   {
     "id": "ashe",
     "nameKo": "애쉬",
     "nameEn": "Ashe",
-    "iconUrl": "/images/champions/ashe.png"
+    "iconUrl": "/images/champions/ashe.png",
+    "nameJa": "アッシュ"
   },
   {
     "id": "azir",
     "nameKo": "아지르",
     "nameEn": "Azir",
-    "iconUrl": "/images/champions/azir.png"
+    "iconUrl": "/images/champions/azir.png",
+    "nameJa": "アジール"
   },
   {
     "id": "aurelionsol",
     "nameKo": "아우렐리온 솔",
     "nameEn": "Aurelion Sol",
-    "iconUrl": "/images/champions/aurelionsol.png"
+    "iconUrl": "/images/champions/aurelionsol.png",
+    "nameJa": "オレリオン・ソル"
   },
   {
     "id": "aurora",
     "nameKo": "오로라",
     "nameEn": "Aurora",
-    "iconUrl": "/images/champions/aurora.png"
+    "iconUrl": "/images/champions/aurora.png",
+    "nameJa": "オーロラ"
   },
   {
     "id": "briar",
     "nameKo": "브라이어",
     "nameEn": "Briar",
-    "iconUrl": "/images/champions/briar.png"
+    "iconUrl": "/images/champions/briar.png",
+    "nameJa": "ブライアー"
   },
   {
     "id": "ekko",
     "nameKo": "에코",
     "nameEn": "Ekko",
-    "iconUrl": "/images/champions/ekko.png"
+    "iconUrl": "/images/champions/ekko.png",
+    "nameJa": "エコー"
   },
   {
     "id": "elise",
     "nameKo": "엘리스",
     "nameEn": "Elise",
-    "iconUrl": "/images/champions/elise.png"
+    "iconUrl": "/images/champions/elise.png",
+    "nameJa": "エリス"
   },
   {
     "id": "evelynn",
     "nameKo": "이블린",
     "nameEn": "Evelynn",
-    "iconUrl": "/images/champions/evelynn.png"
+    "iconUrl": "/images/champions/evelynn.png",
+    "nameJa": "イブリン"
   },
   {
     "id": "ezreal",
     "nameKo": "이즈리얼",
     "nameEn": "Ezreal",
-    "iconUrl": "/images/champions/ezreal.png"
+    "iconUrl": "/images/champions/ezreal.png",
+    "nameJa": "エズリアル"
   },
   {
     "id": "gnar",
     "nameKo": "나르",
     "nameEn": "Gnar",
-    "iconUrl": "/images/champions/gnar.png"
+    "iconUrl": "/images/champions/gnar.png",
+    "nameJa": "ナー"
   },
   {
     "id": "illaoi",
     "nameKo": "일라오이",
     "nameEn": "Illaoi",
-    "iconUrl": "/images/champions/illaoi.png"
+    "iconUrl": "/images/champions/illaoi.png",
+    "nameJa": "イラオイ"
   },
   {
     "id": "irelia",
     "nameKo": "이렐리아",
     "nameEn": "Irelia",
-    "iconUrl": "/images/champions/irelia.png"
+    "iconUrl": "/images/champions/irelia.png",
+    "nameJa": "イレリア"
   },
   {
     "id": "ivern",
     "nameKo": "아이번",
     "nameEn": "Ivern",
-    "iconUrl": "/images/champions/ivern.png"
+    "iconUrl": "/images/champions/ivern.png",
+    "nameJa": "アイバーン"
   },
   {
     "id": "janna",
     "nameKo": "잔나",
     "nameEn": "Janna",
-    "iconUrl": "/images/champions/janna.png"
+    "iconUrl": "/images/champions/janna.png",
+    "nameJa": "ジャンナ"
   },
   {
     "id": "jarvaniv",
     "nameKo": "자르반 4세",
     "nameEn": "Jarvan IV",
-    "iconUrl": "/images/champions/jarvaniv.png"
+    "iconUrl": "/images/champions/jarvaniv.png",
+    "nameJa": "ジャーヴァンⅣ"
   },
   {
     "id": "jax",
     "nameKo": "잭스",
     "nameEn": "Jax",
-    "iconUrl": "/images/champions/jax.png"
+    "iconUrl": "/images/champions/jax.png",
+    "nameJa": "ジャックス"
   },
   {
     "id": "jayce",
     "nameKo": "제이스",
     "nameEn": "Jayce",
-    "iconUrl": "/images/champions/jayce.png"
+    "iconUrl": "/images/champions/jayce.png",
+    "nameJa": "ジェイス"
   },
   {
     "id": "ksante",
     "nameKo": "크산테",
     "nameEn": "K'Sante",
-    "iconUrl": "/images/champions/ksante.png"
+    "iconUrl": "/images/champions/ksante.png",
+    "nameJa": "クサンテ"
   },
   {
     "id": "kled",
     "nameKo": "클레드",
     "nameEn": "Kled",
-    "iconUrl": "/images/champions/kled.png"
+    "iconUrl": "/images/champions/kled.png",
+    "nameJa": "クレッド"
   },
   {
     "id": "lucian",
     "nameKo": "루시안",
     "nameEn": "Lucian",
-    "iconUrl": "/images/champions/lucian.png"
+    "iconUrl": "/images/champions/lucian.png",
+    "nameJa": "ルシアン"
   },
   {
     "id": "naafiri",
     "nameKo": "나피리",
     "nameEn": "Naafiri",
-    "iconUrl": "/images/champions/naafiri.png"
+    "iconUrl": "/images/champions/naafiri.png",
+    "nameJa": "ナフィーリ"
   },
   {
     "id": "olaf",
     "nameKo": "올라프",
     "nameEn": "Olaf",
-    "iconUrl": "/images/champions/olaf.png"
+    "iconUrl": "/images/champions/olaf.png",
+    "nameJa": "オラフ"
   },
   {
     "id": "orianna",
     "nameKo": "오리아나",
     "nameEn": "Orianna",
-    "iconUrl": "/images/champions/orianna.png"
+    "iconUrl": "/images/champions/orianna.png",
+    "nameJa": "オリアナ"
   },
   {
     "id": "ornn",
     "nameKo": "오른",
     "nameEn": "Ornn",
-    "iconUrl": "/images/champions/ornn.png"
+    "iconUrl": "/images/champions/ornn.png",
+    "nameJa": "オーン"
   },
   {
     "id": "smolder",
     "nameKo": "스몰더",
     "nameEn": "Smolder",
-    "iconUrl": "/images/champions/smolder.png"
+    "iconUrl": "/images/champions/smolder.png",
+    "nameJa": "スモルダー"
   },
   {
     "id": "syndra",
     "nameKo": "신드라",
     "nameEn": "Syndra",
-    "iconUrl": "/images/champions/syndra.png"
+    "iconUrl": "/images/champions/syndra.png",
+    "nameJa": "シンドラ"
   },
   {
     "id": "singed",
     "nameKo": "신지드",
     "nameEn": "Singed",
-    "iconUrl": "/images/champions/singed.png"
+    "iconUrl": "/images/champions/singed.png",
+    "nameJa": "シンジド"
   },
   {
     "id": "thresh",
     "nameKo": "쓰레쉬",
     "nameEn": "Thresh",
-    "iconUrl": "/images/champions/thresh.png"
+    "iconUrl": "/images/champions/thresh.png",
+    "nameJa": "スレッシュ"
   },
   {
     "id": "udyr",
     "nameKo": "우디르",
     "nameEn": "Udyr",
-    "iconUrl": "/images/champions/udyr.png"
+    "iconUrl": "/images/champions/udyr.png",
+    "nameJa": "ウディア"
   },
   {
     "id": "urgot",
     "nameKo": "우르곳",
     "nameEn": "Urgot",
-    "iconUrl": "/images/champions/urgot.png"
+    "iconUrl": "/images/champions/urgot.png",
+    "nameJa": "アーゴット"
   },
   {
     "id": "wukong",
     "nameKo": "오공",
     "nameEn": "Wukong",
-    "iconUrl": "/images/champions/wukong.png"
+    "iconUrl": "/images/champions/wukong.png",
+    "nameJa": "ウーコン"
   },
   {
     "id": "warwick",
     "nameKo": "워윅",
     "nameEn": "Warwick",
-    "iconUrl": "/images/champions/warwick.png"
+    "iconUrl": "/images/champions/warwick.png",
+    "nameJa": "ワーウィック"
   },
   {
     "id": "xinzhao",
     "nameKo": "신 짜오",
     "nameEn": "Xin Zhao",
-    "iconUrl": "/images/champions/xinzhao.png"
+    "iconUrl": "/images/champions/xinzhao.png",
+    "nameJa": "シン・ジャオ"
   },
   {
     "id": "xerath",
     "nameKo": "제라스",
     "nameEn": "Xerath",
-    "iconUrl": "/images/champions/xerath.png"
+    "iconUrl": "/images/champions/xerath.png",
+    "nameJa": "ゼラス"
   },
   {
     "id": "yasuo",
     "nameKo": "야스오",
     "nameEn": "Yasuo",
-    "iconUrl": "/images/champions/yasuo.png"
+    "iconUrl": "/images/champions/yasuo.png",
+    "nameJa": "ヤスオ"
   },
   {
     "id": "yone",
     "nameKo": "요네",
     "nameEn": "Yone",
-    "iconUrl": "/images/champions/yone.png"
+    "iconUrl": "/images/champions/yone.png",
+    "nameJa": "ヨネ"
   },
   {
     "id": "yorick",
     "nameKo": "요릭",
     "nameEn": "Yorick",
-    "iconUrl": "/images/champions/yorick.png"
+    "iconUrl": "/images/champions/yorick.png",
+    "nameJa": "ヨリック"
   },
   {
     "id": "yuumi",
     "nameKo": "유미",
     "nameEn": "Yuumi",
-    "iconUrl": "/images/champions/yuumi.png"
+    "iconUrl": "/images/champions/yuumi.png",
+    "nameJa": "ユーミ"
   },
   {
     "id": "zac",
     "nameKo": "자크",
     "nameEn": "Zac",
-    "iconUrl": "/images/champions/zac.png"
+    "iconUrl": "/images/champions/zac.png",
+    "nameJa": "ザック"
   },
   {
     "id": "zed",
     "nameKo": "제드",
     "nameEn": "Zed",
-    "iconUrl": "/images/champions/zed.png"
+    "iconUrl": "/images/champions/zed.png",
+    "nameJa": "ゼド"
   },
   {
     "id": "zeri",
     "nameKo": "제리",
     "nameEn": "Zeri",
-    "iconUrl": "/images/champions/zeri.png"
+    "iconUrl": "/images/champions/zeri.png",
+    "nameJa": "ゼリ"
   },
   {
     "id": "zoe",
     "nameKo": "조이",
     "nameEn": "Zoe",
-    "iconUrl": "/images/champions/zoe.png"
+    "iconUrl": "/images/champions/zoe.png",
+    "nameJa": "ゾーイ"
   },
   {
     "id": "zyra",
     "nameKo": "자이라",
     "nameEn": "Zyra",
-    "iconUrl": "/images/champions/zyra.png"
+    "iconUrl": "/images/champions/zyra.png",
+    "nameJa": "ザイラ"
   },
   {
     "id": "ambessa",
     "nameKo": "암베사",
     "nameEn": "Ambessa",
-    "iconUrl": "/images/champions/ambessa.png"
+    "iconUrl": "/images/champions/ambessa.png",
+    "nameJa": "アンベッサ"
   }
 ]

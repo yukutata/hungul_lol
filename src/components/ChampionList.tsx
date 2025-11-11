@@ -13,7 +13,7 @@ import championsData from '../data/champions.json';
 import eternalReturnData from '../data/eternal-return-characters.json';
 import { Character } from '../types/character';
 import { getGameConfig } from '../data/games';
-import { japaneseNames } from '../data/japaneseNames';
+import { normalizeKanaForSearch, containsKana } from '../utils/kanaConverter';
 
 type GameType = 'lol' | 'eternal-return';
 
@@ -28,29 +28,41 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
   
   const gameConfig = getGameConfig(currentGame);
   
-  // ゲーム別データの読み込み（日本語名を追加）
+  // ゲーム別データの読み込み
   const characters: Character[] = useMemo(() => {
-    const baseCharacters = currentGame === 'eternal-return' 
+    return currentGame === 'eternal-return' 
       ? eternalReturnData 
       : championsData.map(champion => ({
           ...champion,
           game: 'lol' as const
         }));
-    
-    // 日本語名を追加
-    return baseCharacters.map(char => ({
-      ...char,
-      nameJa: japaneseNames[char.id] || char.nameEn
-    })) as Character[];
   }, [currentGame]);
 
   const filteredCharacters = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    return characters.filter(character => 
-      character.nameKo.includes(searchTerm) || 
-      character.nameEn.toLowerCase().includes(term) ||
-      (character.nameJa && character.nameJa.includes(searchTerm))
-    );
+    const normalizedSearchTerm = containsKana(searchTerm) ? normalizeKanaForSearch(searchTerm) : searchTerm;
+    
+    return characters.filter(character => {
+      // 韓国語名での検索
+      if (character.nameKo.includes(searchTerm)) return true;
+      
+      // 英語名での検索（大文字小文字を区別しない）
+      if (character.nameEn.toLowerCase().includes(term)) return true;
+      
+      // 日本語名での検索（ひらがな・カタカナ両対応）
+      if (character.nameJa) {
+        if (containsKana(searchTerm)) {
+          // 検索語がかなを含む場合、カタカナに正規化して比較
+          const normalizedNameJa = normalizeKanaForSearch(character.nameJa);
+          return normalizedNameJa.includes(normalizedSearchTerm);
+        } else {
+          // 通常の部分一致
+          return character.nameJa.includes(searchTerm);
+        }
+      }
+      
+      return false;
+    });
   }, [searchTerm, characters]);
 
   const handleCharacterClick = (character: Character) => {
