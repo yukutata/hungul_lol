@@ -3,6 +3,7 @@ export interface Character {
   id: string;
   nameKo: string;
   nameEn: string;
+  nameJa?: string; // 日本語名（オプショナル）
   iconUrl: string;
   game: 'lol' | 'eternal-return';
 }
