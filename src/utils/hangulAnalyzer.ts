@@ -81,17 +81,17 @@ const VOWEL_TO_ROMAN: { [key: string]: string } = {
 // ハングル文字を音素に分解
 export function decomposeSyllable(syllable: string): HangulComponent | null {
   const code = syllable.charCodeAt(0);
-  
+
   // 한글 음절 범위 확인 (가-힣)
   if (code < 0xAC00 || code > 0xD7A3) {
     return null;
   }
-  
+
   const syllableIndex = code - 0xAC00;
   const initialIndex = Math.floor(syllableIndex / (21 * 28));
   const vowelIndex = Math.floor((syllableIndex % (21 * 28)) / 28);
   const finalIndex = syllableIndex % 28;
-  
+
   return {
     consonant: INITIAL_CONSONANTS[initialIndex],
     vowel: VOWELS[vowelIndex],
@@ -103,28 +103,28 @@ export function decomposeSyllable(syllable: string): HangulComponent | null {
 export function syllableToRomanization(syllable: string, position: 'initial' | 'medial' | 'final'): string {
   const components = decomposeSyllable(syllable);
   if (!components) return syllable;
-  
+
   const { consonant, vowel, finalConsonant } = components;
-  
+
   let result = '';
-  
+
   // 초성
   if (consonant && CONSONANT_TO_ROMAN[consonant]) {
     result += CONSONANT_TO_ROMAN[consonant].initial;
   }
-  
+
   // 중성
   if (vowel && VOWEL_TO_ROMAN[vowel]) {
     result += VOWEL_TO_ROMAN[vowel];
   }
-  
+
   // 종성 (단어 끝이거나 다음 음절이 있을 때)
   if (finalConsonant && CONSONANT_TO_ROMAN[finalConsonant]) {
     if (position === 'final') {
       result += CONSONANT_TO_ROMAN[finalConsonant].final;
     }
   }
-  
+
   return result;
 }
 
@@ -132,17 +132,17 @@ export function syllableToRomanization(syllable: string, position: 'initial' | '
 export function analyzeChampionName(korean: string, english: string): ChampionBreakdown {
   const syllables: SyllableBreakdown[] = [];
   const koreanSyllables = korean.split('');
-  
+
   koreanSyllables.forEach((syllable, index) => {
     const components = decomposeSyllable(syllable);
     if (!components) return;
-    
-    const position: 'initial' | 'medial' | 'final' = 
-      index === 0 ? 'initial' : 
+
+    const position: 'initial' | 'medial' | 'final' =
+      index === 0 ? 'initial' :
       index === koreanSyllables.length - 1 ? 'final' : 'medial';
-    
+
     const romanization = syllableToRomanization(syllable, position);
-    
+
     syllables.push({
       syllable,
       components,
@@ -150,9 +150,9 @@ export function analyzeChampionName(korean: string, english: string): ChampionBr
       position
     });
   });
-  
+
   const fullRomanization = syllables.map(s => s.romanization).join('');
-  
+
   return {
     korean,
     english,
@@ -165,23 +165,23 @@ export function analyzeChampionName(korean: string, english: string): ChampionBr
 export function getTransformationExplanation(korean: string, english: string): string[] {
   const analysis = analyzeChampionName(korean, english);
   const explanations: string[] = [];
-  
+
   // 기본 음성학적 변환
   explanations.push(`${korean} → ${analysis.fullRomanization} → ${english}`);
-  
+
   // 각 음절별 설명
   analysis.syllables.forEach((syllable) => {
     const { consonant, vowel, finalConsonant } = syllable.components;
     let explanation = `${syllable.syllable} = ${consonant}+${vowel}`;
-    
+
     if (finalConsonant) {
       explanation += `+${finalConsonant}`;
     }
-    
+
     explanation += ` → ${syllable.romanization}`;
     explanations.push(explanation);
   });
-  
+
   return explanations;
 }
 

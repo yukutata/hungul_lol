@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Container, 
-  TextField, 
-  Box, 
+import {
+  Container,
+  TextField,
+  Box,
   Typography,
   InputAdornment
 } from '@mui/material';
@@ -25,13 +25,13 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedChampion, setSelectedChampion] = useState<Character | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   const gameConfig = getGameConfig(currentGame);
-  
+
   // ゲーム別データの読み込み
   const characters: Character[] = useMemo(() => {
-    return currentGame === 'eternal-return' 
-      ? eternalReturnData 
+    return currentGame === 'eternal-return'
+      ? eternalReturnData
       : championsData.map(champion => ({
           ...champion,
           game: 'lol' as const
@@ -41,14 +41,14 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
   const filteredCharacters = useMemo(() => {
     const term = searchTerm.toLowerCase();
     const normalizedSearchTerm = containsKana(searchTerm) ? normalizeKanaForSearch(searchTerm) : searchTerm;
-    
+
     return characters.filter(character => {
       // 韓国語名での検索
       if (character.nameKo.includes(searchTerm)) return true;
-      
+
       // 英語名での検索（大文字小文字を区別しない）
       if (character.nameEn.toLowerCase().includes(term)) return true;
-      
+
       // 日本語名での検索（ひらがな・カタカナ両対応）
       if (character.nameJa) {
         if (containsKana(searchTerm)) {
@@ -60,7 +60,7 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
           return character.nameJa.includes(searchTerm);
         }
       }
-      
+
       return false;
     });
   }, [searchTerm, characters]);
@@ -84,7 +84,7 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
         <Typography variant="h6" color="text.secondary" align="center" sx={{ mb: 3 }}>
           {gameConfig?.description || 'League of Legends チャンピオンの韓国語名を覚えよう'}
         </Typography>
-        
+
         <Box sx={{ maxWidth: 600, mx: 'auto' }}>
           <TextField
             fullWidth
@@ -107,16 +107,16 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
         {filteredCharacters.length} {currentGame === 'lol' ? 'チャンピオン' : 'キャラクター'}（クリックで音韻分解を表示）🎮
       </Typography>
 
-      <Box sx={{ 
-        display: 'flex', 
-        flexWrap: 'wrap', 
+      <Box sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
         justifyContent: 'center',
         gap: 2
       }}>
         {filteredCharacters.map((character) => (
-          <ChampionCard 
+          <ChampionCard
             key={character.id}
-            champion={character} 
+            champion={character}
             onClick={() => handleCharacterClick(character)}
           />
         ))}

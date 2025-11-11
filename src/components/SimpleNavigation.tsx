@@ -29,34 +29,34 @@ const SimpleNavigation: React.FC = () => {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
   // 現在のパスからゲームタイプを判定
   const getCurrentGame = (): GameType => {
     if (location.pathname.includes('eternal-return')) return 'eternal-return';
     return 'lol';
   };
-  
+
   const currentGame = getCurrentGame();
   const gameConfig = getGameConfig(currentGame);
-  
+
   const handleGameMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleGameMenuClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleGameSelect = (gameId: string) => {
     navigate(`/${gameId}`);
     handleGameMenuClose();
     handleMobileMenuClose();
   };
-  
+
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMenuAnchor(event.currentTarget);
   };
-  
+
   const handleMobileMenuClose = () => {
     setMobileMenuAnchor(null);
   };
@@ -66,12 +66,12 @@ const SimpleNavigation: React.FC = () => {
       <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1, gap: { xs: 1, sm: 2 } }}>
           <SportsEsportsIcon sx={{ display: { xs: 'none', sm: 'block' }, mr: 1 }} />
-          <Typography 
-            variant={isMobile ? "subtitle1" : "h6"} 
-            component={Link} 
-            to="/" 
-            sx={{ 
-              textDecoration: 'none', 
+          <Typography
+            variant={isMobile ? "subtitle1" : "h6"}
+            component={Link}
+            to="/"
+            sx={{
+              textDecoration: 'none',
               color: 'inherit',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -81,7 +81,7 @@ const SimpleNavigation: React.FC = () => {
           >
             ハングル学習アプリ
           </Typography>
-          
+
           {/* ゲーム選択ドロップダウン - デスクトップのみ */}
           {!isMobile && (
             <Chip
@@ -90,14 +90,14 @@ const SimpleNavigation: React.FC = () => {
               onDelete={handleGameMenuOpen}
               deleteIcon={<KeyboardArrowDownIcon />}
               variant="outlined"
-              sx={{ 
+              sx={{
                 color: 'white',
                 borderColor: 'white',
                 '& .MuiChip-deleteIcon': { color: 'white' }
               }}
             />
           )}
-          
+
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -119,7 +119,7 @@ const SimpleNavigation: React.FC = () => {
             ))}
           </Menu>
         </Box>
-        
+
         {/* デスクトップメニュー */}
         {!isMobile ? (
           <Box sx={{ display: 'flex', gap: 1 }}>
@@ -152,7 +152,7 @@ const SimpleNavigation: React.FC = () => {
             <MenuIcon />
           </IconButton>
         )}
-        
+
         {/* モバイルメニュー */}
         <Menu
           anchorEl={mobileMenuAnchor}

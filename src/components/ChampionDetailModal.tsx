@@ -39,9 +39,9 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
   const explanations = getTransformationExplanation(champion.nameKo, champion.nameEn);
 
   return (
-    <Dialog 
-      open={open} 
-      onClose={onClose} 
+    <Dialog
+      open={open}
+      onClose={onClose}
       maxWidth={false}
       sx={{
         '& .MuiDialog-paper': {
@@ -62,7 +62,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
           </IconButton>
         </Box>
       </DialogTitle>
-      
+
       <DialogContent sx={{ maxWidth: '1000px', mx: 'auto' }}>
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, justifyContent: 'center' }}>
           {/* チャンピオン画像 */}
@@ -103,7 +103,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 <Typography variant="h6" gutterBottom>
                   音韻分解分析
                 </Typography>
-                
+
                 {/* 変換プロセス */}
                 <Box sx={{ mb: 3 }}>
                   <Typography variant="subtitle1" gutterBottom>
