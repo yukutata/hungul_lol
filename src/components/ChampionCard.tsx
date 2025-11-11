@@ -9,10 +9,10 @@ interface ChampionCardProps {
 
 const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
   return (
-    <Card 
-      sx={{ 
-        maxWidth: 200, 
-        m: 1, 
+    <Card
+      sx={{
+        maxWidth: 200,
+        m: 1,
         cursor: 'pointer',
         transition: 'transform 0.2s, box-shadow 0.2s',
         '&:hover': {

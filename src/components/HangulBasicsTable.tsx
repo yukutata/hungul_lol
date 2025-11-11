@@ -51,7 +51,7 @@ const HangulBasicsTable: React.FC = () => {
       <Typography variant="h4" component="h2" gutterBottom align="center">
         ハングル基礎表
       </Typography>
-      
+
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={handleTabChange} aria-label="hangul basics tabs" centered>
           <Tab label="子音 (Consonants)" />
@@ -146,7 +146,7 @@ const HangulBasicsTable: React.FC = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     {rule.description}
                   </Typography>
-                  
+
                   <Box sx={{ mt: 2 }}>
                     <Typography variant="subtitle2" gutterBottom>
                       例:
@@ -167,14 +167,14 @@ const HangulBasicsTable: React.FC = () => {
                             </Typography>
                           </Box>
                         )}
-                        
+
                         {/* ㄹ特殊ケースの例 */}
                         {'context' in example && (
                           <Typography variant="body2">
                             {example.context}: <strong>{example.sound}</strong> - {example.example}
                           </Typography>
                         )}
-                        
+
                         {/* 英語適応の例 */}
                         {'korean' in example && (
                           <Typography variant="body2">

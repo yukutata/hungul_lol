@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Container, 
-  TextField, 
-  Box, 
+import {
+  Container,
+  TextField,
+  Box,
   Typography,
   InputAdornment
 } from '@mui/material';
@@ -24,9 +24,9 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedChampion, setSelectedChampion] = useState<Character | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   const gameConfig = getGameConfig(currentGame);
-  
+
   // ゲーム別データの読み込み
   const characters: Character[] = useMemo(() => {
     if (currentGame === 'eternal-return') {
@@ -40,8 +40,8 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
 
   const filteredCharacters = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    return characters.filter(character => 
-      character.nameKo.includes(searchTerm) || 
+    return characters.filter(character =>
+      character.nameKo.includes(searchTerm) ||
       character.nameEn.toLowerCase().includes(term)
     );
   }, [searchTerm, characters]);
@@ -65,7 +65,7 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
         <Typography variant="h6" color="text.secondary" align="center" sx={{ mb: 3 }}>
           {gameConfig?.description || 'League of Legends チャンピオンの韓国語名を覚えよう'}
         </Typography>
-        
+
         <Box sx={{ maxWidth: 600, mx: 'auto' }}>
           <TextField
             fullWidth
@@ -88,16 +88,16 @@ const ChampionList: React.FC<ChampionListProps> = ({ currentGame }) => {
         {filteredCharacters.length} {currentGame === 'lol' ? 'チャンピオン' : 'キャラクター'}（クリックで音韻分解を表示）🎮
       </Typography>
 
-      <Box sx={{ 
-        display: 'flex', 
-        flexWrap: 'wrap', 
+      <Box sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
         justifyContent: 'center',
         gap: 2
       }}>
         {filteredCharacters.map((character) => (
-          <ChampionCard 
+          <ChampionCard
             key={character.id}
-            champion={character} 
+            champion={character}
             onClick={() => handleCharacterClick(character)}
           />
         ))}
