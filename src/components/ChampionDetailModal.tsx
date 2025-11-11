@@ -68,14 +68,16 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
       <DialogContent sx={{ maxWidth: '1000px', mx: 'auto' }}>
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, justifyContent: 'center' }}>
           {/* チャンピオン画像 */}
-          <Box sx={{ flex: '0 0 auto', width: { xs: '100%', md: '280px' }, maxWidth: '280px' }}>
+          <Box sx={{ flex: '0 0 auto', width: { xs: '100%', md: '280px' }, maxWidth: { xs: '100%', md: '280px' } }}>
             <Card sx={{ borderRadius: 3, overflow: 'hidden', boxShadow: 3 }}>
               <CardMedia
                 component="img"
-                height="200"
                 image={champion.iconUrl}
                 alt={champion.nameEn}
                 sx={{
+                  height: { xs: '300px', sm: '200px' },
+                  width: '100%',
+                  objectFit: 'cover',
                   transition: 'transform 0.2s ease',
                   '&:hover': {
                     transform: 'scale(1.05)'
