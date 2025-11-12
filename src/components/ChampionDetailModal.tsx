@@ -88,7 +88,7 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                   }
                 }}
               />
-              <CardContent sx={{ textAlign: 'center', bgcolor: 'grey.50' }}>
+              <CardContent sx={{ textAlign: 'center', bgcolor: 'background.paper' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 1 }}>
                   <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                     {champion.nameKo}
@@ -145,8 +145,14 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                       variant="body2"
                       sx={{
                         fontFamily: 'monospace',
-                        backgroundColor: index === 0 ? 'primary.light' : 'grey.100',
-                        color: index === 0 ? 'white' : 'text.primary',
+                        backgroundColor: (theme) => index === 0
+                          ? theme.palette.primary.main
+                          : theme.palette.mode === 'dark'
+                            ? theme.palette.grey[800]
+                            : theme.palette.grey[100],
+                        color: (theme) => index === 0
+                          ? theme.palette.primary.contrastText
+                          : theme.palette.text.primary,
                         p: 1,
                         borderRadius: 1,
                         mb: 1
@@ -233,11 +239,21 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                   </Table>
                 </TableContainer>
 
-                <Box sx={{ mt: 2, p: 2, bgcolor: 'primary.light', borderRadius: 1 }}>
-                  <Typography variant="body2" sx={{ color: 'white', mb: 1 }}>
+                <Box sx={{
+                  mt: 2,
+                  p: 2,
+                  bgcolor: (theme) => theme.palette.primary.main,
+                  borderRadius: 1
+                }}>
+                  <Typography variant="body2" sx={{
+                    color: (theme) => theme.palette.primary.contrastText,
+                    mb: 1
+                  }}>
                     <strong>完全ローマ字化:</strong> {analysis.fullRomanization}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'white' }}>
+                  <Typography variant="body2" sx={{
+                    color: (theme) => theme.palette.primary.contrastText
+                  }}>
                     <strong>英語名:</strong> {analysis.english}
                   </Typography>
                 </Box>
@@ -255,35 +271,41 @@ const ChampionDetailModal: React.FC<ChampionDetailModalProps> = ({
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   {learningPoints.map((point, index) => (
-                    <Box key={index} sx={{
+                    <Box key={index} sx={(theme) => ({
                       p: 2,
                       borderRadius: 1,
                       bgcolor:
-                        point.type === 'consonant' ? 'primary.light' :
-                        point.type === 'vowel' ? 'secondary.light' :
-                        point.type === 'special' ? 'info.light' :
-                        'grey.100'
-                    }}>
-                      <Typography variant="subtitle2" sx={{
-                        color: point.type === 'pattern' ? 'text.primary' : 'white',
+                        point.type === 'consonant' ? theme.palette.primary.main :
+                        point.type === 'vowel' ? theme.palette.secondary.main :
+                        point.type === 'special' ? theme.palette.info.main :
+                        theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.grey[100]
+                    })}>
+                      <Typography variant="subtitle2" sx={(theme) => ({
+                        color: point.type === 'pattern'
+                          ? theme.palette.text.primary
+                          : theme.palette.primary.contrastText,
                         fontWeight: 'bold',
                         mb: 0.5
-                      }}>
+                      })}>
                         {point.title}
                       </Typography>
-                      <Typography variant="body2" sx={{
-                        color: point.type === 'pattern' ? 'text.secondary' : 'white'
-                      }}>
+                      <Typography variant="body2" sx={(theme) => ({
+                        color: point.type === 'pattern'
+                          ? theme.palette.text.secondary
+                          : theme.palette.primary.contrastText
+                      })}>
                         {point.description}
                       </Typography>
                       {point.examples && point.examples.length > 0 && (
-                        <Typography variant="caption" sx={{
+                        <Typography variant="caption" sx={(theme) => ({
                           display: 'block',
                           mt: 0.5,
                           fontFamily: 'monospace',
-                          color: point.type === 'pattern' ? 'text.secondary' : 'white',
+                          color: point.type === 'pattern'
+                            ? theme.palette.text.secondary
+                            : theme.palette.primary.contrastText,
                           opacity: 0.9
-                        }}>
+                        })}>
                           例: {point.examples.join(', ')}
                         </Typography>
                       )}

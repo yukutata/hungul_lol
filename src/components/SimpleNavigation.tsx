@@ -17,8 +17,11 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import HomeIcon from '@mui/icons-material/Home';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GAMES, getGameConfig } from '../data/games';
+import { useTheme as useCustomTheme } from '../contexts/ThemeContext';
 
 type GameType = 'lol' | 'eternal-return';
 
@@ -28,6 +31,7 @@ const SimpleNavigation: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
+  const { isDarkMode, toggleTheme } = useCustomTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   // 現在のパスからゲームタイプを判定
@@ -122,7 +126,7 @@ const SimpleNavigation: React.FC = () => {
 
         {/* デスクトップメニュー */}
         {!isMobile ? (
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <Button
               color="inherit"
               component={Link}
@@ -141,6 +145,14 @@ const SimpleNavigation: React.FC = () => {
             >
               ハングル基礎表
             </Button>
+            <IconButton
+              sx={{ ml: 1 }}
+              onClick={toggleTheme}
+              color="inherit"
+              aria-label="テーマ切り替え"
+            >
+              {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
           </Box>
         ) : (
           /* モバイルメニューボタン */
@@ -181,6 +193,10 @@ const SimpleNavigation: React.FC = () => {
               <SportsEsportsIcon sx={{ mr: 1 }} /> {game.name}
             </MenuItem>
           ))}
+          <MenuItem onClick={() => { toggleTheme(); handleMobileMenuClose(); }}>
+            {isDarkMode ? <Brightness7Icon sx={{ mr: 1 }} /> : <Brightness4Icon sx={{ mr: 1 }} />}
+            {isDarkMode ? 'ライトモード' : 'ダークモード'}に切り替え
+          </MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
