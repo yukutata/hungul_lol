@@ -21,12 +21,15 @@ const ChampionCard: React.FC<ChampionCardProps> = ({ champion, onClick }) => {
         height: '100%',
         m: 1,
         cursor: 'pointer',
-        transition: 'transform 0.2s, box-shadow 0.2s',
+        transition: 'transform 0.2s, box-shadow 0.2s, background-color 0.3s',
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: 'background.paper',
         '&:hover': {
           transform: 'translateY(-4px)',
-          boxShadow: 3
+          boxShadow: (theme) => theme.palette.mode === 'dark'
+            ? '0px 8px 24px rgba(255, 255, 255, 0.1)'
+            : 3
         }
       }}
       onClick={onClick}

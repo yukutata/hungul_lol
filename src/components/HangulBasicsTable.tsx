@@ -173,7 +173,12 @@ const HangulBasicsTable: React.FC = () => {
                       例:
                     </Typography>
                     {rule.examples.map((example, exampleIndex) => (
-                      <Box key={exampleIndex} sx={{ mb: 1, p: 1, bgcolor: 'grey.50', borderRadius: 1 }}>
+                      <Box key={exampleIndex} sx={(theme) => ({
+                        mb: 1,
+                        p: 1,
+                        bgcolor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.grey[50],
+                        borderRadius: 1
+                      })}>
                         {/* 位置による変化の例 */}
                         {'initial' in example && (
                           <Box>
