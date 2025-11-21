@@ -162,6 +162,22 @@ const HomePage: React.FC = () => {
           ハングル基礎表を見る
         </Button>
       </Box>
+
+      {/* 開発環境でのみAPIエクスプローラーボタンを表示 */}
+      {import.meta.env.DEV && (
+        <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+          <Button
+            variant="outlined"
+            onClick={() => navigate('/api-explorer')}
+            sx={{
+              textTransform: 'none',
+              borderRadius: '2px'
+            }}
+          >
+            API エクスプローラーを開く
+          </Button>
+        </Box>
+      )}
     </Container>
   );
 };
