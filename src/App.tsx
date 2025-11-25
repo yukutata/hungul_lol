@@ -9,6 +9,8 @@ import LoLPage from './pages/LoLPage';
 import EternalReturnPage from './pages/EternalReturnPage';
 import HangulBasicsPage from './pages/HangulBasicsPage';
 import ApiExplorer from './pages/ApiExplorer';
+import CharacterStatsPage from './pages/CharacterStatsPage';
+import CharacterStatsAdvancedPage from './pages/CharacterStatsAdvancedPage';
 import { CustomThemeProvider, useTheme } from './contexts/ThemeContext';
 import { getTheme } from './utils/theme';
 
@@ -33,6 +35,8 @@ function ThemedApp() {
             <Route path="/eternal-return" element={<EternalReturnPage />} />
             <Route path="/hangul-basics" element={<HangulBasicsPage />} />
             <Route path="/api-explorer" element={<ApiExplorer />} />
+            <Route path="/character-stats" element={<CharacterStatsPage />} />
+            <Route path="/character-stats-advanced" element={<CharacterStatsAdvancedPage />} />
           </Routes>
         </Box>
       </Router>

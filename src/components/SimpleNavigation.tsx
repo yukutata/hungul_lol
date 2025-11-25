@@ -145,6 +145,14 @@ const SimpleNavigation: React.FC = () => {
             >
               ハングル基礎表
             </Button>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/character-stats"
+              variant={location.pathname === '/character-stats' ? 'outlined' : 'text'}
+            >
+              ステータス一覧
+            </Button>
             <IconButton
               sx={{ ml: 1 }}
               onClick={toggleTheme}
@@ -184,6 +192,9 @@ const SimpleNavigation: React.FC = () => {
           </MenuItem>
           <MenuItem onClick={() => { navigate('/hangul-basics'); handleMobileMenuClose(); }}>
             <SchoolIcon sx={{ mr: 1 }} /> ハングル基礎表
+          </MenuItem>
+          <MenuItem onClick={() => { navigate('/character-stats'); handleMobileMenuClose(); }}>
+            ステータス一覧
           </MenuItem>
           {GAMES.map((game) => (
             <MenuItem

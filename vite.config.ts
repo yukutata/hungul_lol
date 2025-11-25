@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   plugins: [react()],
   server: {
     host: 'localhost',
-    port: 3005,
+    port: 3006,
     open: true,
     proxy: {
       '/api/eternal-return': {
@@ -26,6 +26,11 @@ export default defineConfig(({ mode }) => {
             proxyReq.setHeader('accept', 'application/json');
           });
         },
+      },
+      '/api/l10n': {
+        target: 'https://d1wkxvul68bth9.cloudfront.net',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

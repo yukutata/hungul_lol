@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Typography, Box, Button, Card, CardContent, CircularProgress, Alert, Accordion, AccordionSummary, AccordionDetails, Chip } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import eternalReturnAPI from '../api/eternalReturn';
+import { fetchWithCache } from '../utils/apiCache';
+import { fetchWeaponTypeMappings, getWeaponMappingStats } from '../utils/weaponMapping';
 
 interface ApiEndpoint {
   name: string;
@@ -18,139 +20,251 @@ const ApiExplorer: React.FC = () => {
   const apiEndpoints: ApiEndpoint[] = [
     {
       name: 'データハッシュ',
-      endpoint: '/v1/data/hash',
+      endpoint: '/v2/data/hash',
       description: 'ゲームデータのハッシュ値を取得',
+      testFunction: () => fetchWithCache('dataHash', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/hash', {
+          headers: { 'accept': 'application/json' }
+        });
+        return await response.json();
+      })
+    },
+    {
+      name: 'キャラクター一覧',
+      endpoint: '/v2/data/Character',
+      description: '全キャラクターの情報を取得',
+      testFunction: () => fetchWithCache('characters', () => eternalReturnAPI.getCharacters())
+    },
+    {
+      name: 'アイテム - 武器',
+      endpoint: '/v2/data/ItemWeapon',
+      description: '武器アイテムの情報を取得',
+      testFunction: () => fetchWithCache('itemWeapon', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/ItemWeapon', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'アイテム - 防具',
+      endpoint: '/v2/data/ItemArmor',
+      description: '防具アイテムの情報を取得',
+      testFunction: () => fetchWithCache('itemArmor', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/ItemArmor', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'アイテム - 消耗品',
+      endpoint: '/v2/data/ItemConsumable',
+      description: '消耗品アイテムの情報を取得',
+      testFunction: () => fetchWithCache('itemConsumable', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/ItemConsumable', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'アイテム - 特殊',
+      endpoint: '/v2/data/ItemSpecial',
+      description: '特殊アイテムの情報を取得',
+      testFunction: () => fetchWithCache('itemSpecial', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/ItemSpecial', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'アイテム - その他',
+      endpoint: '/v2/data/ItemMisc',
+      description: 'その他のアイテム情報を取得',
+      testFunction: () => fetchWithCache('itemMisc', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/ItemMisc', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'エリア情報',
+      endpoint: '/v2/data/Area',
+      description: 'ゲームマップのエリア情報を取得',
+      testFunction: () => fetchWithCache('area', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/Area', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'モンスター情報',
+      endpoint: '/v2/data/Monster',
+      description: 'モンスター情報を取得',
+      testFunction: () => fetchWithCache('monster', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/Monster', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'スキル情報',
+      endpoint: '/v2/data/Skill',
+      description: 'キャラクタースキルの情報を取得',
+      testFunction: () => fetchWithCache('skill', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/Skill', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'キャラクターステータス',
+      endpoint: '/v2/data/CharacterAttributes',
+      description: 'キャラクターの詳細ステータス情報',
+      testFunction: () => fetchWithCache('characterAttributes', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/CharacterAttributes', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'キャラクタースキン',
+      endpoint: '/v2/data/CharacterSkin',
+      description: 'キャラクタースキンの情報を取得',
+      testFunction: () => fetchWithCache('characterSkin', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/CharacterSkin', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'キャラクター熟練度',
+      endpoint: '/v2/data/CharacterMastery',
+      description: '各キャラクターが使用可能な武器・探索・生存熟練度',
+      testFunction: () => fetchWithCache('characterMastery', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/CharacterMastery', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: '熟練度ステータス',
+      endpoint: '/v2/data/MasteryStat',
+      description: 'キャラクターごとの武器熟練度によるステータスボーナス',
+      testFunction: () => fetchWithCache('masteryStat', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/MasteryStat', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: '熟練度レベル',
+      endpoint: '/v2/data/MasteryLevel',
+      description: '熟練度レベルごとの必要経験値',
+      testFunction: () => fetchWithCache('masteryLevel', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/MasteryLevel', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: '武器タイプ情報',
+      endpoint: '/v2/data/WeaponTypeInfo',
+      description: '各武器タイプの基本情報',
+      testFunction: () => fetchWithCache('weaponTypeInfo', async () => {
+        const response = await fetch('/api/eternal-return/v2/data/WeaponTypeInfo', {
+          headers: { 'accept': 'application/json' }
+        });
+        const data = await response.json();
+        return data.data;
+      })
+    },
+    {
+      name: 'ローカライゼーションパス - 韓国語',
+      endpoint: '/v2/l10n/Korean',
+      description: '韓国語ローカライゼーションファイルのパスを取得',
       testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/hash', {
+        const response = await fetch('/api/eternal-return/v2/l10n/Korean', {
           headers: { 'accept': 'application/json' }
         });
         return await response.json();
       }
     },
     {
-      name: 'キャラクター一覧',
-      endpoint: '/v1/data/Character',
-      description: '全キャラクターの情報を取得',
-      testFunction: () => eternalReturnAPI.getCharacters()
-    },
-    {
-      name: 'アイテム - 武器',
-      endpoint: '/v1/data/ItemWeapon',
-      description: '武器アイテムの情報を取得',
+      name: 'ローカライゼーションパス - 日本語',
+      endpoint: '/v2/l10n/Japanese',
+      description: '日本語ローカライゼーションファイルのパスを取得',
       testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/ItemWeapon', {
+        const response = await fetch('/api/eternal-return/v2/l10n/Japanese', {
           headers: { 'accept': 'application/json' }
         });
-        const data = await response.json();
-        return data.data;
+        return await response.json();
       }
     },
     {
-      name: 'アイテム - 防具',
-      endpoint: '/v1/data/ItemArmor',
-      description: '防具アイテムの情報を取得',
+      name: '武器マッピング（カスタム）',
+      endpoint: 'カスタム処理',
+      description: '武器タイプとローカライゼーションの統合マッピング',
       testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/ItemArmor', {
-          headers: { 'accept': 'application/json' }
+        const mappings = await fetchWeaponTypeMappings();
+        const stats = await getWeaponMappingStats();
+
+        // Map を JSONシリアライズ可能な形式に変換
+        const mappingsObject: Record<string, {
+          weaponType: string;
+          localizedNames: {
+            jp: string;
+            kr: string;
+            en: string;
+          };
+          sampleWeapons: Array<{
+            code: number;
+            name: string;
+          }>;
+        }> = {};
+        mappings.forEach((mapping, weaponType) => {
+          mappingsObject[weaponType] = {
+            ...mapping,
+            weaponType: mapping.weaponType,
+            localizedNames: mapping.localizedNames,
+            sampleWeapons: mapping.sampleWeapons.slice(0, 3), // 最初の3つのみ表示
+          };
         });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'アイテム - 消耗品',
-      endpoint: '/v1/data/ItemConsumable',
-      description: '消耗品アイテムの情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/ItemConsumable', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'アイテム - 特殊',
-      endpoint: '/v1/data/ItemSpecial',
-      description: '特殊アイテムの情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/ItemSpecial', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'アイテム - その他',
-      endpoint: '/v1/data/ItemMisc',
-      description: 'その他のアイテム情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/ItemMisc', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'エリア情報',
-      endpoint: '/v1/data/Area',
-      description: 'ゲームマップのエリア情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/Area', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'モンスター情報',
-      endpoint: '/v1/data/Monster',
-      description: 'モンスター情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/Monster', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'スキル情報',
-      endpoint: '/v1/data/Skill',
-      description: 'キャラクタースキルの情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/Skill', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'キャラクターステータス',
-      endpoint: '/v1/data/CharacterAttributes',
-      description: 'キャラクターの詳細ステータス情報',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/CharacterAttributes', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
-      }
-    },
-    {
-      name: 'キャラクタースキン',
-      endpoint: '/v1/data/CharacterSkin',
-      description: 'キャラクタースキンの情報を取得',
-      testFunction: async () => {
-        const response = await fetch('/api/eternal-return/v1/data/CharacterSkin', {
-          headers: { 'accept': 'application/json' }
-        });
-        const data = await response.json();
-        return data.data;
+
+        return {
+          stats,
+          mappings: mappingsObject,
+          summary: {
+            totalMappings: Object.keys(mappingsObject).length,
+            hasJapaneseLoc: stats.weaponTypesWithLocalization.jp,
+            hasKoreanLoc: stats.weaponTypesWithLocalization.kr,
+            hasEnglishLoc: stats.weaponTypesWithLocalization.en,
+          }
+        };
       }
     }
   ];
