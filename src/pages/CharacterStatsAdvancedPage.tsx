@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Container,
   Typography,
@@ -15,14 +15,12 @@ import {
   Alert,
   ToggleButton,
   ToggleButtonGroup,
-  Chip,
   Tooltip,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
-  Slider,
-  Divider
+  TableSortLabel
 } from '@mui/material';
 import eternalReturnAPI, {
   type ERCharacterLevelUpStat,
@@ -56,11 +54,16 @@ interface CharacterStats {
   finalDefense: number;
   finalAttackSpeed: number;
   finalMoveSpeed: number;
+  finalSkillAmp: number; // スキル増幅
   // Mastery info
   availableWeapons: string[];
+  weaponType?: string; // 特定の武器タイプ（組み合わせ表示用）
 }
 
 type Language = LanguageCode;
+
+type OrderBy = 'name' | 'hp' | 'attackPower' | 'defense' | 'attackSpeed' | 'moveSpeed' | 'skillAmp';
+type Order = 'asc' | 'desc';
 
 // 武器タイプの日本語名
 const weaponTypeNames: Record<string, { jp: string; kr: string; en: string }> = {
@@ -97,8 +100,16 @@ const CharacterStatsAdvancedPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [language, setLanguage] = useState<Language>('jp');
-  const [selectedWeapon, setSelectedWeapon] = useState<string>('all');
-  const [masteryLevel, setMasteryLevel] = useState<number>(1);
+
+  // レベル設定
+  const [characterLevel, setCharacterLevel] = useState<number>(20);
+  const [weaponMasteryLevel, setWeaponMasteryLevel] = useState<number>(20);
+  const [explorationMasteryLevel, setExplorationMasteryLevel] = useState<number>(20);
+  const [defenseMasteryLevel, setDefenseMasteryLevel] = useState<number>(20);
+
+  // ソート設定
+  const [orderBy, setOrderBy] = useState<OrderBy>('name');
+  const [order, setOrder] = useState<Order>('asc');
 
   // 熟練度関連のデータ
   const [masteryStat, setMasteryStat] = useState<ERMasteryStat[]>([]);
@@ -125,7 +136,15 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           fetchWithCache('localization-japanese', () => eternalReturnAPI.getLocalizationData('Japanese')),
           fetchWithCache('localization-english', () => eternalReturnAPI.getLocalizationData('English')),
           fetchWithCache('characterMastery', () => eternalReturnAPI.getCharacterMastery()),
-          fetchWithCache('masteryStat', () => eternalReturnAPI.getMasteryStat())
+          fetchWithCache('masteryStat', async () => {
+            const data = await eternalReturnAPI.getMasteryStat();
+            console.log('MasteryStat API Response:', data);
+            if (data && data.length > 0) {
+              console.log('First MasteryStat item:', data[0]);
+              console.log('Sample MasteryStat for Sissela:', data.find(d => d.characterCode === 15));
+            }
+            return data;
+          })
         ]);
 
         console.log('Advanced Page - Localization data loaded:', {
@@ -150,8 +169,22 @@ const CharacterStatsAdvancedPage: React.FC = () => {
         masteryData.forEach(mastery => {
           masteryMap.set(mastery.code, mastery);
         });
-        setCharacterMastery(masteryMap);
         setMasteryStat(masteryStatData);
+
+        // MasteryStat データの構造を確認
+        console.log('=== MASTERY STAT DATA STRUCTURE CHECK ===');
+        console.log('Total MasteryStat items:', masteryStatData.length);
+        if (masteryStatData.length > 0) {
+          console.log('First item full structure:', JSON.stringify(masteryStatData[0], null, 2));
+          console.log('First item keys:', Object.keys(masteryStatData[0]));
+
+          // シセラの熟練度データを確認
+          const sisselaMasteryStats = masteryStatData.filter(stat => stat.characterCode === 15);
+          console.log('Sissela mastery stats:', sisselaMasteryStats);
+          sisselaMasteryStats.forEach((stat, index) => {
+            console.log(`Sissela stat [${index}]:`, JSON.stringify(stat, null, 2));
+          });
+        }
 
         // 全武器タイプを収集
         const weaponTypesSet = new Set<string>();
@@ -163,25 +196,8 @@ const CharacterStatsAdvancedPage: React.FC = () => {
         });
         setAllWeaponTypes(Array.from(weaponTypesSet).sort());
 
-        // 武器タイプのローカライゼーションを設定
-        const weaponLocMap = {
-          jp: new Map<string, string>(),
-          kr: new Map<string, string>(),
-          en: new Map<string, string>()
-        };
-
-        // 武器タイプごとにローカライゼーションデータを取得
-        weaponTypesSet.forEach(weaponType => {
-          const jpName = (japaneseLoc instanceof Map ? japaneseLoc.get(`WeaponType/Name/${weaponType}`) : null);
-          const krName = (koreanLoc instanceof Map ? koreanLoc.get(`WeaponType/Name/${weaponType}`) : null);
-          const enName = (englishLoc instanceof Map ? englishLoc.get(`WeaponType/Name/${weaponType}`) : null);
-
-          if (jpName) weaponLocMap.jp.set(weaponType, jpName);
-          if (krName) weaponLocMap.kr.set(weaponType, krName);
-          if (enName) weaponLocMap.en.set(weaponType, enName);
-        });
-
-        setWeaponLocalization(weaponLocMap);
+        // 武器タイプのローカライゼーションは getWeaponTypeName 関数で個別に取得するため
+        // ここでの一括取得は不要
 
         // キャラクターデータを処理
         const processedData: CharacterStats[] = charactersData.map((char) => {
@@ -248,6 +264,7 @@ const CharacterStatsAdvancedPage: React.FC = () => {
             finalDefense: baseStats.defense,
             finalAttackSpeed: baseStats.attackSpeed,
             finalMoveSpeed: baseStats.moveSpeed,
+            finalSkillAmp: 0, // 初期値は0
             // Mastery info
             availableWeapons: availableWeapons,
           };
@@ -293,75 +310,228 @@ const CharacterStatsAdvancedPage: React.FC = () => {
     }
   }, [language, allWeaponTypes]);
 
-  // 選択された武器と熟練度レベルに基づいてステータスを再計算
+  // キャラクター×武器の組み合わせごとにデータを生成
   const charactersWithMastery = useMemo(() => {
-    return characters.map(char => {
-      // 選択された武器がキャラクターで使用可能か確認
-      if (selectedWeapon === 'all' || !char.availableWeapons.includes(selectedWeapon)) {
-        return char;
-      }
+    const result: CharacterStats[] = [];
 
-      // 熟練度ボーナスを計算
-      const relevantMasteryStats = masteryStat.filter(stat =>
-        stat.characterCode === char.code &&
-        stat.type === selectedWeapon
-      );
+    // シセラのみのデバッグ
+    const SISSELA_CODE = 15;
 
-      if (relevantMasteryStats.length === 0) {
-        return char;
-      }
+    characters.forEach(char => {
+      // レベルに応じた基本ステータスを再計算
+      const levelMultiplier = (characterLevel - 1) / 19; // 0-1の範囲
 
-      // 熟練度レベルに応じたボーナスを適用（簡易計算）
-      const masteryMultiplier = masteryLevel / 20; // 1-20レベルを0-1の倍率に変換
-      const updatedChar = { ...char };
+      // 各キャラクターの使用可能な武器ごとに行を生成
+      char.availableWeapons.forEach(weaponType => {
+        // 熟練度ボーナスを計算
+        const relevantMasteryStats = masteryStat.filter(stat =>
+          stat.characterCode === char.code &&
+          stat.type === weaponType
+        );
 
-      relevantMasteryStats.forEach(stat => {
-        // 各オプションを適用
-        const applyOption = (option: string, value: number) => {
-          const scaledValue = value * masteryMultiplier;
-          switch (option) {
-            case 'AttackPower':
-              updatedChar.finalAttackPower += scaledValue;
-              break;
-            case 'Defense':
-              updatedChar.finalDefense += scaledValue;
-              break;
-            case 'AttackSpeedRatio':
-              updatedChar.finalAttackSpeed += scaledValue;
-              break;
-            case 'MaxHp':
-              updatedChar.finalMaxHp += scaledValue;
-              break;
-            case 'HpRegen':
-              // HP再生は基本値に対する割合で増加
-              updatedChar.finalMaxHp += updatedChar.maxHp * scaledValue;
-              break;
-            case 'IncreaseBasicAttackDamageRatio':
-              // 基本攻撃ダメージ増加は攻撃力に反映
-              updatedChar.finalAttackPower *= (1 + scaledValue);
-              break;
-            case 'SkillAmpRatio':
-              // スキル増幅は表示しない（別途計算が必要）
-              break;
+        // シセラのみデバッグログを表示
+        if (char.code === SISSELA_CODE) {
+          console.log('=== WEAPON MASTERY DEBUG ===');
+          console.log(`Character: ${char.nameEn || char.name} (Code: ${char.code})`);
+          console.log(`  Names: JP=${char.nameJpn}, KR=${char.nameKr}, EN=${char.nameEn}`);
+          console.log(`  Weapon Type: ${weaponType}`);
+          console.log(`  Available Weapons: [${char.availableWeapons.join(', ')}]`);
+          console.log(`  Total mastery stats in system: ${masteryStat.length}`);
+          console.log(`  Filtering for characterCode=${char.code} AND type=${weaponType}`);
+          console.log(`  Relevant mastery stats found: ${relevantMasteryStats.length}`);
+
+          // Show all mastery stats for this character
+          const characterMasteryStats = masteryStat.filter(stat => stat.characterCode === char.code);
+          console.log(`  All mastery stats for this character (${characterMasteryStats.length} total):`);
+          characterMasteryStats.forEach((stat, index) => {
+            console.log(`    [${index}] Type: ${stat.type}, Options: ${stat.firstOption}=${stat.firstOptionSection4Value}, ${stat.secondOption}=${stat.secondOptionSection4Value}, ${stat.thirdOption}=${stat.thirdOptionSection4Value}`);
+          });
+
+          // Show specific relevant mastery stats
+          if (relevantMasteryStats.length > 0) {
+            console.log(`  Relevant mastery stats for ${weaponType}:`);
+            relevantMasteryStats.forEach((stat, index) => {
+              console.log(`    [${index}] Code: ${stat.code}, Type: ${stat.type}`);
+              console.log(`      FirstOption: ${stat.firstOption} = Sec1:${stat.firstOptionSection1Value}, Sec2:${stat.firstOptionSection2Value}, Sec3:${stat.firstOptionSection3Value}, Sec4:${stat.firstOptionSection4Value}`);
+              console.log(`      SecondOption: ${stat.secondOption} = Sec1:${stat.secondOptionSection1Value}, Sec2:${stat.secondOptionSection2Value}, Sec3:${stat.secondOptionSection3Value}, Sec4:${stat.secondOptionSection4Value}`);
+              console.log(`      ThirdOption: ${stat.thirdOption} = Sec1:${stat.thirdOptionSection1Value}, Sec2:${stat.thirdOptionSection2Value}, Sec3:${stat.thirdOptionSection3Value}, Sec4:${stat.thirdOptionSection4Value}`);
+            });
+          } else {
+            console.log(`  ❌ NO relevant mastery stats found for ${weaponType}!`);
           }
-        };
+        }
 
-        applyOption(stat.option1, stat.optionValue1);
-        applyOption(stat.option2, stat.optionValue2);
-        applyOption(stat.option3, stat.optionValue3);
+        // レベルに応じたステータスを計算
+        const updatedChar = { ...char, weaponType };
+
+        // キャラクターレベルによる成長を反映
+        updatedChar.finalMaxHp = Math.floor(char.maxHp + (char.finalMaxHp - char.maxHp) * levelMultiplier);
+        updatedChar.finalAttackPower = Math.floor(char.attackPower + (char.finalAttackPower - char.attackPower) * levelMultiplier);
+        updatedChar.finalDefense = Math.floor(char.defense + (char.finalDefense - char.defense) * levelMultiplier);
+        updatedChar.finalAttackSpeed = char.attackSpeed + (char.finalAttackSpeed - char.attackSpeed) * levelMultiplier;
+        updatedChar.finalMoveSpeed = char.moveSpeed + (char.finalMoveSpeed - char.moveSpeed) * levelMultiplier;
+
+        // 武器熟練度によるボーナス（セクション値を直接使用するため、乗算は不要）
+        const weaponMasteryMultiplier = 1; // セクション値を直接使用
+
+        if (char.code === SISSELA_CODE) {
+          console.log(`  Weapon Mastery Level: ${weaponMasteryLevel}, Multiplier: ${weaponMasteryMultiplier}`);
+          console.log(`  Base stats before mastery application:`);
+          console.log(`    HP: ${updatedChar.finalMaxHp}`);
+          console.log(`    Attack Power: ${updatedChar.finalAttackPower}`);
+          console.log(`    Defense: ${updatedChar.finalDefense}`);
+          console.log(`    Attack Speed: ${updatedChar.finalAttackSpeed}`);
+          console.log(`    Skill Amp: ${updatedChar.finalSkillAmp}`);
+
+          // 実際のオブジェクト構造を確認
+          if (relevantMasteryStats.length > 0) {
+            console.log('  === ACTUAL MASTERY STAT OBJECT STRUCTURE ===');
+            console.log('  Full object:', relevantMasteryStats[0]);
+            console.log('  Object keys:', Object.keys(relevantMasteryStats[0]));
+            console.log('  JSON:', JSON.stringify(relevantMasteryStats[0], null, 2));
+          }
+        }
+
+        relevantMasteryStats.forEach((stat, statIndex) => {
+          // 各オプションを適用
+          const applyOption = (option: string, value: number, optionName: string) => {
+            const scaledValue = value * weaponMasteryMultiplier;
+            const oldValue = { ...updatedChar };
+
+            switch (option) {
+              case 'AttackPower':
+                updatedChar.finalAttackPower += scaledValue;
+                break;
+              case 'Defense':
+                updatedChar.finalDefense += scaledValue;
+                break;
+              case 'AttackSpeedRatio':
+                updatedChar.finalAttackSpeed += scaledValue;
+                break;
+              case 'MaxHp':
+                updatedChar.finalMaxHp += scaledValue;
+                break;
+              case 'HpRegen':
+                // HP再生は基本値に対する割合で増加
+                updatedChar.finalMaxHp += updatedChar.maxHp * scaledValue;
+                break;
+              case 'IncreaseBasicAttackDamageRatio':
+                // 基本攻撃ダメージ増加は攻撃力に反映
+                updatedChar.finalAttackPower *= (1 + scaledValue);
+                break;
+              case 'SkillAmpRatio':
+                // スキル増幅を追加
+                updatedChar.finalSkillAmp += scaledValue;
+                break;
+            }
+
+            if (char.code === SISSELA_CODE && option && value !== 0) {
+              console.log(`    Applying ${optionName}: ${option} = ${value} (scaled: ${scaledValue})`);
+              switch (option) {
+                case 'AttackPower':
+                  console.log(`      Attack Power: ${oldValue.finalAttackPower} → ${updatedChar.finalAttackPower} (+${scaledValue})`);
+                  break;
+                case 'Defense':
+                  console.log(`      Defense: ${oldValue.finalDefense} → ${updatedChar.finalDefense} (+${scaledValue})`);
+                  break;
+                case 'AttackSpeedRatio':
+                  console.log(`      Attack Speed: ${oldValue.finalAttackSpeed} → ${updatedChar.finalAttackSpeed} (+${scaledValue})`);
+                  break;
+                case 'MaxHp':
+                  console.log(`      Max HP: ${oldValue.finalMaxHp} → ${updatedChar.finalMaxHp} (+${scaledValue})`);
+                  break;
+                case 'HpRegen':
+                  console.log(`      HP Regen (to Max HP): ${oldValue.finalMaxHp} → ${updatedChar.finalMaxHp} (+${updatedChar.maxHp * scaledValue})`);
+                  break;
+                case 'IncreaseBasicAttackDamageRatio':
+                  console.log(`      Basic Attack Damage Ratio: ${oldValue.finalAttackPower} → ${updatedChar.finalAttackPower} (*${1 + scaledValue})`);
+                  break;
+                case 'SkillAmpRatio':
+                  console.log(`      Skill Amp: ${oldValue.finalSkillAmp} → ${updatedChar.finalSkillAmp} (+${scaledValue})`);
+                  break;
+                default:
+                  console.log(`      ⚠️ UNKNOWN OPTION: ${option} with value ${scaledValue}`);
+                  break;
+              }
+            }
+          };
+
+          if (char.code === SISSELA_CODE) {
+            console.log(`  Processing mastery stat [${statIndex}] with code ${stat.code}:`);
+          }
+
+          // 熟練度レベルに応じたセクションの値を使用
+          const getSectionValue = (level: number, sec1: number, sec2: number, sec3: number, sec4: number): number => {
+            if (level <= 5) return sec1;
+            else if (level <= 10) return sec2;
+            else if (level <= 15) return sec3;
+            else return sec4;
+          };
+
+          // 各オプションを適用
+          if (stat.firstOption && stat.firstOption !== 'None') {
+            const value = getSectionValue(weaponMasteryLevel,
+              stat.firstOptionSection1Value,
+              stat.firstOptionSection2Value,
+              stat.firstOptionSection3Value,
+              stat.firstOptionSection4Value
+            );
+            applyOption(stat.firstOption, value, 'FirstOption');
+          }
+
+          if (stat.secondOption && stat.secondOption !== 'None') {
+            const value = getSectionValue(weaponMasteryLevel,
+              stat.secondOptionSection1Value,
+              stat.secondOptionSection2Value,
+              stat.secondOptionSection3Value,
+              stat.secondOptionSection4Value
+            );
+            applyOption(stat.secondOption, value, 'SecondOption');
+          }
+
+          if (stat.thirdOption && stat.thirdOption !== 'None') {
+            const value = getSectionValue(weaponMasteryLevel,
+              stat.thirdOptionSection1Value,
+              stat.thirdOptionSection2Value,
+              stat.thirdOptionSection3Value,
+              stat.thirdOptionSection4Value
+            );
+            applyOption(stat.thirdOption, value, 'ThirdOption');
+          }
+        });
+
+        if (char.code === SISSELA_CODE) {
+          console.log(`  Final stats after weapon mastery application:`);
+          console.log(`    HP: ${updatedChar.finalMaxHp}`);
+          console.log(`    Attack Power: ${updatedChar.finalAttackPower}`);
+          console.log(`    Defense: ${updatedChar.finalDefense}`);
+          console.log(`    Attack Speed: ${updatedChar.finalAttackSpeed}`);
+          console.log(`    Skill Amp: ${updatedChar.finalSkillAmp}`);
+          console.log('=== END WEAPON MASTERY DEBUG ===');
+        }
+
+        // 探索・防御熟練度によるボーナス（仮実装）
+        // 探索熟練度: 移動速度ボーナス
+        updatedChar.finalMoveSpeed += 0.01 * explorationMasteryLevel;
+
+        // 防御熟練度: 防御力・HPボーナス
+        updatedChar.finalDefense += 2 * defenseMasteryLevel;
+        updatedChar.finalMaxHp += 10 * defenseMasteryLevel;
+
+        result.push(updatedChar);
       });
-
-      return updatedChar;
     });
-  }, [characters, selectedWeapon, masteryLevel, masteryStat]);
 
-  const getCharacterName = (char: CharacterStats): string => {
+    return result;
+  }, [characters, masteryStat, characterLevel, weaponMasteryLevel, explorationMasteryLevel, defenseMasteryLevel]);
+
+  const getCharacterName = useCallback((char: CharacterStats): string => {
     switch (language) {
       case 'kr': return char.nameKr;
       case 'en': return char.nameEn;
       default: return char.nameJpn;
     }
-  };
+  }, [language]);
 
   const getWeaponName = (weaponType: string): string => {
     // キャッシュされた武器名から取得
@@ -380,13 +550,48 @@ const CharacterStatsAdvancedPage: React.FC = () => {
     }
   };
 
-  const filteredCharacters = useMemo(() => {
-    return charactersWithMastery.filter(char => {
+  const handleRequestSort = (property: OrderBy) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+  const filteredAndSortedCharacters = useMemo(() => {
+    const filtered = charactersWithMastery.filter(char => {
       const nameMatch = getCharacterName(char).toLowerCase().includes(searchTerm.toLowerCase());
-      const weaponMatch = selectedWeapon === 'all' || char.availableWeapons.includes(selectedWeapon);
-      return nameMatch && weaponMatch;
+      return nameMatch;
     });
-  }, [charactersWithMastery, searchTerm, selectedWeapon, getCharacterName]);
+
+    return filtered.sort((a, b) => {
+      let compareValue = 0;
+
+      switch (orderBy) {
+        case 'name':
+          compareValue = getCharacterName(a).localeCompare(getCharacterName(b));
+          break;
+        case 'hp':
+          compareValue = a.finalMaxHp - b.finalMaxHp;
+          break;
+        case 'attackPower':
+          compareValue = a.finalAttackPower - b.finalAttackPower;
+          break;
+        case 'defense':
+          compareValue = a.finalDefense - b.finalDefense;
+          break;
+        case 'attackSpeed':
+          compareValue = a.finalAttackSpeed - b.finalAttackSpeed;
+          break;
+        case 'moveSpeed':
+          compareValue = a.finalMoveSpeed - b.finalMoveSpeed;
+          break;
+        case 'skillAmp':
+          compareValue = a.finalSkillAmp - b.finalSkillAmp;
+          break;
+      }
+
+      return order === 'asc' ? compareValue : -compareValue;
+    });
+  }, [charactersWithMastery, searchTerm, getCharacterName, orderBy, order]);
 
   if (loading) {
     return (
@@ -447,45 +652,61 @@ const CharacterStatsAdvancedPage: React.FC = () => {
             </Box>
           </Box>
 
-          {/* 武器選択と熟練度レベル */}
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, alignItems: 'center' }}>
-            <FormControl size="small" sx={{ minWidth: 200 }}>
-              <InputLabel>武器タイプ</InputLabel>
+          {/* レベル設定 */}
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, flexWrap: 'wrap' }}>
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+              <InputLabel>キャラクターLv</InputLabel>
               <Select
-                value={selectedWeapon}
-                onChange={(e) => setSelectedWeapon(e.target.value)}
-                label="武器タイプ"
+                value={characterLevel}
+                onChange={(e) => setCharacterLevel(e.target.value as number)}
+                label="キャラクターLv"
               >
-                <MenuItem value="all">全て（基本ステータス）</MenuItem>
-                <Divider />
-                {allWeaponTypes.map(weaponType => (
-                  <MenuItem key={weaponType} value={weaponType}>
-                    {getWeaponName(weaponType)}
-                  </MenuItem>
+                {Array.from({ length: 20 }, (_, i) => i + 1).map(level => (
+                  <MenuItem key={level} value={level}>Lv {level}</MenuItem>
                 ))}
               </Select>
             </FormControl>
 
-            {selectedWeapon !== 'all' && (
-              <Box sx={{ width: 300, px: 2 }}>
-                <Typography variant="body2" gutterBottom>
-                  武器熟練度レベル: {masteryLevel}
-                </Typography>
-                <Slider
-                  value={masteryLevel}
-                  onChange={(e, newValue) => setMasteryLevel(newValue as number)}
-                  min={1}
-                  max={20}
-                  marks={[
-                    { value: 1, label: '1' },
-                    { value: 10, label: '10' },
-                    { value: 20, label: '20' }
-                  ]}
-                  valueLabelDisplay="auto"
-                />
-              </Box>
-            )}
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+              <InputLabel>武器熟練度</InputLabel>
+              <Select
+                value={weaponMasteryLevel}
+                onChange={(e) => setWeaponMasteryLevel(e.target.value as number)}
+                label="武器熟練度"
+              >
+                {Array.from({ length: 20 }, (_, i) => i + 1).map(level => (
+                  <MenuItem key={level} value={level}>Lv {level}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+              <InputLabel>探索熟練度</InputLabel>
+              <Select
+                value={explorationMasteryLevel}
+                onChange={(e) => setExplorationMasteryLevel(e.target.value as number)}
+                label="探索熟練度"
+              >
+                {Array.from({ length: 20 }, (_, i) => i + 1).map(level => (
+                  <MenuItem key={level} value={level}>Lv {level}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+              <InputLabel>防御熟練度</InputLabel>
+              <Select
+                value={defenseMasteryLevel}
+                onChange={(e) => setDefenseMasteryLevel(e.target.value as number)}
+                label="防御熟練度"
+              >
+                {Array.from({ length: 20 }, (_, i) => i + 1).map(level => (
+                  <MenuItem key={level} value={level}>Lv {level}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
+
         </Box>
       </Box>
 
@@ -494,90 +715,120 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                キャラクター
-              </TableCell>
-              <TableCell align="center" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                使用可能武器
-              </TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                HP
-              </TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                SP
+                <TableSortLabel
+                  active={orderBy === 'name'}
+                  direction={orderBy === 'name' ? order : 'asc'}
+                  onClick={() => handleRequestSort('name')}
+                >
+                  武器 / キャラクター
+                </TableSortLabel>
               </TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                攻撃力
+                <TableSortLabel
+                  active={orderBy === 'hp'}
+                  direction={orderBy === 'hp' ? order : 'asc'}
+                  onClick={() => handleRequestSort('hp')}
+                >
+                  HP
+                </TableSortLabel>
               </TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                防御力
+                <TableSortLabel
+                  active={orderBy === 'attackPower'}
+                  direction={orderBy === 'attackPower' ? order : 'asc'}
+                  onClick={() => handleRequestSort('attackPower')}
+                >
+                  攻撃力
+                </TableSortLabel>
               </TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                攻撃速度
+                <TableSortLabel
+                  active={orderBy === 'defense'}
+                  direction={orderBy === 'defense' ? order : 'asc'}
+                  onClick={() => handleRequestSort('defense')}
+                >
+                  防御力
+                </TableSortLabel>
               </TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
-                移動速度
+                <TableSortLabel
+                  active={orderBy === 'attackSpeed'}
+                  direction={orderBy === 'attackSpeed' ? order : 'asc'}
+                  onClick={() => handleRequestSort('attackSpeed')}
+                >
+                  攻撃速度
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
+                <TableSortLabel
+                  active={orderBy === 'moveSpeed'}
+                  direction={orderBy === 'moveSpeed' ? order : 'asc'}
+                  onClick={() => handleRequestSort('moveSpeed')}
+                >
+                  移動速度
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', backgroundColor: 'background.paper' }}>
+                <TableSortLabel
+                  active={orderBy === 'skillAmp'}
+                  direction={orderBy === 'skillAmp' ? order : 'asc'}
+                  onClick={() => handleRequestSort('skillAmp')}
+                >
+                  スキル増幅
+                </TableSortLabel>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredCharacters.map((character) => (
+            {filteredAndSortedCharacters.map((character, index) => (
               <TableRow
-                key={character.code}
+                key={`${character.code}-${character.weaponType}-${index}`}
                 sx={{
-                  '&:hover': { backgroundColor: 'action.hover' },
-                  opacity: selectedWeapon !== 'all' && !character.availableWeapons.includes(selectedWeapon) ? 0.5 : 1
+                  '&:hover': { backgroundColor: 'action.hover' }
                 }}
               >
                 <TableCell component="th" scope="row">
                   {(() => {
                     const displayName = getCharacterName(character);
+                    const weaponName = character.weaponType ? getWeaponName(character.weaponType) : '';
+                    const fullName = `${weaponName} ${displayName}`;
+
                     if (character.code === 61) { // イレムでデバッグ
                       console.log(`Rendering Irem:`, {
                         language,
                         displayName,
+                        weaponName,
+                        fullName,
                         character: {
                           code: character.code,
                           name: character.name,
                           nameKr: character.nameKr,
                           nameJpn: character.nameJpn,
-                          nameEn: character.nameEn
+                          nameEn: character.nameEn,
+                          weaponType: character.weaponType
                         }
                       });
                     }
                     return language === 'kr' ? (
                       <Tooltip title={`${character.nameEn} (${character.nameJpn})`} placement="right">
-                        <span>{displayName}</span>
+                        <span>{fullName}</span>
                       </Tooltip>
                     ) : (
-                      displayName
+                      fullName
                     );
                   })()}
                 </TableCell>
-                <TableCell align="center">
-                  <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {character.availableWeapons.map(weapon => (
-                      <Chip
-                        key={weapon}
-                        label={getWeaponName(weapon)}
-                        size="small"
-                        color={weapon === selectedWeapon ? 'primary' : 'default'}
-                        variant={weapon === selectedWeapon ? 'filled' : 'outlined'}
-                      />
-                    ))}
-                  </Box>
-                </TableCell>
                 <TableCell align="right">
                   {Math.floor(character.finalMaxHp)}
-                  {selectedWeapon !== 'all' && character.availableWeapons.includes(selectedWeapon) && (
+                  {character.weaponType && (
                     <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
                       (+{Math.floor(character.finalMaxHp - character.maxHp)})
                     </Typography>
                   )}
                 </TableCell>
-                <TableCell align="right">{Math.floor(character.finalMaxSp)}</TableCell>
                 <TableCell align="right">
                   {Math.floor(character.finalAttackPower)}
-                  {selectedWeapon !== 'all' && character.availableWeapons.includes(selectedWeapon) && (
+                  {character.weaponType && (
                     <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
                       (+{Math.floor(character.finalAttackPower - character.attackPower)})
                     </Typography>
@@ -585,14 +836,36 @@ const CharacterStatsAdvancedPage: React.FC = () => {
                 </TableCell>
                 <TableCell align="right">
                   {Math.floor(character.finalDefense)}
-                  {selectedWeapon !== 'all' && character.availableWeapons.includes(selectedWeapon) && (
+                  {character.weaponType && (
                     <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
                       (+{Math.floor(character.finalDefense - character.defense)})
                     </Typography>
                   )}
                 </TableCell>
-                <TableCell align="right">{character.finalAttackSpeed.toFixed(2)}</TableCell>
-                <TableCell align="right">{character.finalMoveSpeed.toFixed(1)}</TableCell>
+                <TableCell align="right">
+                  {character.finalAttackSpeed.toFixed(2)}
+                  {character.weaponType && (
+                    <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
+                      (+{(character.finalAttackSpeed - character.attackSpeed).toFixed(2)})
+                    </Typography>
+                  )}
+                </TableCell>
+                <TableCell align="right">
+                  {character.finalMoveSpeed.toFixed(1)}
+                  {character.weaponType && (
+                    <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
+                      (+{(character.finalMoveSpeed - character.moveSpeed).toFixed(1)})
+                    </Typography>
+                  )}
+                </TableCell>
+                <TableCell align="right">
+                  {(character.finalSkillAmp * 100).toFixed(1)}%
+                  {character.weaponType && character.finalSkillAmp > 0 && (
+                    <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
+                      (+{(character.finalSkillAmp * 100).toFixed(1)}%)
+                    </Typography>
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -601,7 +874,7 @@ const CharacterStatsAdvancedPage: React.FC = () => {
 
       <Box sx={{ mt: 2 }}>
         <Typography variant="caption" color="text.secondary">
-          ※ 熟練度ボーナスは簡易計算です。実際のゲーム内では他の要素も影響します。
+          ※ 設定されたレベルでのステータスを表示しています。実際のゲーム内では他の要素も影響します。
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
           ※ APIデータは最新のゲームバランス調整を反映していない場合があります。

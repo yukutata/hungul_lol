@@ -74,12 +74,21 @@ interface ERMasteryStat {
   code: number;
   type: string;
   characterCode: number;
-  option1: string;
-  optionValue1: number;
-  option2: string;
-  optionValue2: number;
-  option3: string;
-  optionValue3: number;
+  firstOption: string;
+  firstOptionSection1Value: number;
+  firstOptionSection2Value: number;
+  firstOptionSection3Value: number;
+  firstOptionSection4Value: number;
+  secondOption: string;
+  secondOptionSection1Value: number;
+  secondOptionSection2Value: number;
+  secondOptionSection3Value: number;
+  secondOptionSection4Value: number;
+  thirdOption: string;
+  thirdOptionSection1Value: number;
+  thirdOptionSection2Value: number;
+  thirdOptionSection3Value: number;
+  thirdOptionSection4Value: number;
 }
 
 interface ERItemWeapon {
