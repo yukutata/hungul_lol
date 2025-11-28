@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     // Eternal Return APIへのリクエストの場合、APIキーを追加
     const headers = {};
     if (targetUrl.includes('open-api.bser.io')) {
-      const apiKey = process.env.VITE_ETERNAL_RETURN_API_KEY;
+      const apiKey = process.env.VITE_ETERNAL_RETURN_API_KEY || process.env.ETERNAL_RETURN_API_KEY;
       console.log('API Key exists:', !!apiKey);
       console.log('API Key length:', apiKey ? apiKey.length : 0);
       console.log('API Key prefix:', apiKey ? apiKey.substring(0, 8) + '...' : 'none');
