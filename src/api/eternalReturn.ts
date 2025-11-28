@@ -2,8 +2,10 @@
 // API Documentation: https://developer.eternalreturn.io/
 
 const API_KEY = import.meta.env.VITE_ETERNAL_RETURN_API_KEY;
-// 開発環境・本番環境ともにプロキシ経由でアクセス
-const API_BASE_URL = '/api/eternal-return';
+// APIベースURL設定
+const API_BASE_URL = import.meta.env.DEV
+  ? '/api/eternal-return'  // 開発環境: Viteプロキシ
+  : '';  // 本番環境: Vercel Functions経由
 
 // API Response Types
 interface ERCharacter {
@@ -154,18 +156,27 @@ class EternalReturnAPI {
   // 汎用的なfetchメソッド
   private async fetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
     try {
-      // 開発環境ではプロキシがヘッダーを追加、本番環境ではクエリパラメータでAPIキーを渡す
-      const headers = import.meta.env.DEV
-        ? {
-            'accept': 'application/json',
-            ...options?.headers,
-          }
-        : {
-            ...this.headers,
-            ...options?.headers,
-          };
+      let url: string;
+      let headers: HeadersInit;
 
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      if (import.meta.env.DEV) {
+        // 開発環境: Viteプロキシ経由
+        url = `${API_BASE_URL}${endpoint}`;
+        headers = {
+          'accept': 'application/json',
+          ...options?.headers,
+        };
+      } else {
+        // 本番環境: Vercel Functions経由
+        const targetUrl = `https://open-api.bser.io${endpoint}`;
+        url = `/api/proxy?url=${encodeURIComponent(targetUrl)}`;
+        headers = {
+          'accept': 'application/json',
+          ...options?.headers,
+        };
+      }
+
+      const response = await fetch(url, {
         ...options,
         headers,
       });
@@ -176,7 +187,12 @@ class EternalReturnAPI {
         // 403 エラーの場合は、より具体的なメッセージを表示
         if (response.status === 403) {
           errorMessage = 'API キーが無効です。有効な API キーを取得してください。\n' +
-                        'https://developer.eternalreturn.io/ で新しいAPIキーを取得し、.envファイルを更新してください。';
+                        'https://developer.eternalreturn.io/ で新しいAPIキーを取得し、.envファイルを更新してください。\n\n' +
+                        '取得方法:\n' +
+                        '1. 上記URLでアカウント作成/ログイン\n' +
+                        '2. API Keysセクションで新規キー生成\n' +
+                        '3. .envファイルのVITE_ETERNAL_RETURN_API_KEYを更新\n' +
+                        '4. npm run dev で開発サーバーを再起動';
           console.error('API Key Error: Please get a new API key from https://developer.eternalreturn.io/');
         }
 
@@ -299,7 +315,9 @@ class EternalReturnAPI {
         // まずAPIから正しいパスを取得
         const l10Path = await this.getLocalizationPath(language);
         console.log(`Got localization path for ${language}:`, l10Path);
-        url = l10Path.replace('https://d1wkxvul68bth9.cloudfront.net', '/api');
+        url = import.meta.env.DEV
+          ? l10Path.replace('https://d1wkxvul68bth9.cloudfront.net', '/api')
+          : `/api/proxy?url=${encodeURIComponent(l10Path)}`;
       } catch {
         console.warn(`Failed to get localization path from API for ${language}, using fallback`);
         // フォールバック: 既知のURL（複数のパターンを試す）
