@@ -22,9 +22,15 @@ export default async function handler(req, res) {
     const headers = {};
     if (targetUrl.includes('open-api.bser.io')) {
       const apiKey = process.env.VITE_ETERNAL_RETURN_API_KEY;
+      console.log('API Key exists:', !!apiKey);
+      console.log('API Key length:', apiKey ? apiKey.length : 0);
+      console.log('API Key prefix:', apiKey ? apiKey.substring(0, 8) + '...' : 'none');
+
       if (apiKey) {
         headers['x-api-key'] = apiKey;
         headers['accept'] = 'application/json';
+      } else {
+        console.error('API Key is not set in environment variables');
       }
     }
 
@@ -37,6 +43,11 @@ export default async function handler(req, res) {
     });
 
     const contentType = response.headers.get('content-type');
+
+    // レスポンスのステータスを確認
+    if (!response.ok) {
+      console.error('API response error:', response.status, response.statusText);
+    }
 
     if (contentType && contentType.includes('application/json')) {
       const data = await response.json();
