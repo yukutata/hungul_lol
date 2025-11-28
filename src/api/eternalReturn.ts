@@ -154,7 +154,7 @@ class EternalReturnAPI {
   // 汎用的なfetchメソッド
   private async fetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
     try {
-      // 開発環境ではプロキシがヘッダーを追加するため、クライアント側では追加しない
+      // 開発環境ではプロキシがヘッダーを追加、本番環境ではクエリパラメータでAPIキーを渡す
       const headers = import.meta.env.DEV
         ? {
             'accept': 'application/json',
