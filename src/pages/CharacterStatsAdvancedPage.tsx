@@ -20,7 +20,8 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  TableSortLabel
+  TableSortLabel,
+  Divider
 } from '@mui/material';
 import eternalReturnAPI, {
   type ERCharacterLevelUpStat,
@@ -406,7 +407,8 @@ const CharacterStatsAdvancedPage: React.FC = () => {
                 updatedChar.finalDefense += scaledValue;
                 break;
               case 'AttackSpeedRatio':
-                updatedChar.finalAttackSpeed += scaledValue;
+                // 攻撃速度は乗算で適用（基礎値 × (1 + ボーナス率)）
+                updatedChar.finalAttackSpeed = updatedChar.finalAttackSpeed * (1 + scaledValue);
                 break;
               case 'MaxHp':
                 updatedChar.finalMaxHp += scaledValue;
@@ -461,11 +463,35 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           }
 
           // 熟練度レベルに応じたセクションの値を使用
+          // 各セクションの値はレベル1あたりの増加率なので、レベルを掛ける必要がある
           const getSectionValue = (level: number, sec1: number, sec2: number, sec3: number, sec4: number): number => {
-            if (level <= 5) return sec1;
-            else if (level <= 10) return sec2;
-            else if (level <= 15) return sec3;
-            else return sec4;
+            let baseValue: number;
+            let selectedSection: string;
+
+            if (level <= 5) {
+              baseValue = sec1;
+              selectedSection = "Section1 (Lv1-5)";
+            } else if (level <= 10) {
+              baseValue = sec2;
+              selectedSection = "Section2 (Lv6-10)";
+            } else if (level <= 15) {
+              baseValue = sec3;
+              selectedSection = "Section3 (Lv11-15)";
+            } else {
+              baseValue = sec4;
+              selectedSection = "Section4 (Lv16-20)";
+            }
+
+            // 実際のボーナス = セクション値（レベル1あたりの増加率） × 熟練度レベル
+            const actualBonus = baseValue * level;
+
+            if (char.code === SISSELA_CODE) {
+              console.log(`    getSectionValue: Level ${level} → ${selectedSection}`);
+              console.log(`      Base value per level: ${baseValue}`);
+              console.log(`      Total bonus: ${baseValue} × ${level} = ${actualBonus}`);
+            }
+
+            return actualBonus;
           };
 
           // 各オプションを適用
@@ -846,7 +872,7 @@ const CharacterStatsAdvancedPage: React.FC = () => {
                   {character.finalAttackSpeed.toFixed(2)}
                   {character.weaponType && (
                     <Typography variant="caption" color="success.main" sx={{ display: 'block' }}>
-                      (+{(character.finalAttackSpeed - character.attackSpeed).toFixed(2)})
+                      (+{((character.finalAttackSpeed / character.attackSpeed - 1) * 100).toFixed(1)}%)
                     </Typography>
                   )}
                 </TableCell>
@@ -879,6 +905,76 @@ const CharacterStatsAdvancedPage: React.FC = () => {
         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
           ※ APIデータは最新のゲームバランス調整を反映していない場合があります。
         </Typography>
+      </Box>
+
+      {/* デバッグ用：シセラの計算詳細 */}
+      <Box sx={{ mt: 3, p: 2, backgroundColor: 'background.paper', borderRadius: 1 }}>
+        <Typography variant="h6" gutterBottom>シセラの攻撃速度計算詳細</Typography>
+        {(() => {
+          const sissela = filteredAndSortedCharacters.find(char =>
+            char.code === 15 && char.weaponType === 'DirectFire'
+          );
+          if (!sissela) return <Typography>シュリケン シセラが見つかりません</Typography>;
+
+          const baseAS = sissela.attackSpeed;
+          const masteryBonus = sissela.finalAttackSpeed - sissela.attackSpeed;
+
+          return (
+            <Box>
+              <Typography variant="body2">【シュリケン シセラ】</Typography>
+              <Typography variant="body2">基本攻撃速度: {baseAS.toFixed(2)}</Typography>
+              <Typography variant="body2">キャラクターレベル: {characterLevel}</Typography>
+              <Typography variant="body2">武器熟練度レベル: {weaponMasteryLevel}</Typography>
+              <Typography variant="body2">最終攻撃速度: {sissela.finalAttackSpeed.toFixed(2)}</Typography>
+              <Typography variant="body2">増加値: +{masteryBonus.toFixed(2)}</Typography>
+              <Divider sx={{ my: 1 }} />
+              <Typography variant="caption">
+                計算式: 基本値({baseAS.toFixed(2)}) × (1 + 熟練度ボーナス率) = {baseAS.toFixed(2)} × {(sissela.finalAttackSpeed / baseAS).toFixed(3)} = {sissela.finalAttackSpeed.toFixed(2)}
+              </Typography>
+
+              {/* マスタリーデータの詳細 */}
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="body2">【DirectFire マスタリーデータ】</Typography>
+                {(() => {
+                  const directFireMastery = masteryStat.find(stat =>
+                    stat.characterCode === 15 && stat.type === 'DirectFire'
+                  );
+                  if (!directFireMastery) return <Typography variant="caption">データなし</Typography>;
+
+                  return (
+                    <Box sx={{ ml: 2 }}>
+                      <Typography variant="caption" display="block">
+                        FirstOption: {directFireMastery.firstOption}
+                      </Typography>
+                      <Typography variant="caption" display="block">
+                        - Section1 (Lv1-5): {directFireMastery.firstOptionSection1Value}
+                      </Typography>
+                      <Typography variant="caption" display="block">
+                        - Section2 (Lv6-10): {directFireMastery.firstOptionSection2Value}
+                      </Typography>
+                      <Typography variant="caption" display="block">
+                        - Section3 (Lv11-15): {directFireMastery.firstOptionSection3Value}
+                      </Typography>
+                      <Typography variant="caption" display="block">
+                        - Section4 (Lv16-20): {directFireMastery.firstOptionSection4Value}
+                      </Typography>
+                      <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                        現在の熟練度レベル {weaponMasteryLevel} → {(() => {
+                          const baseValue = weaponMasteryLevel <= 5 ? directFireMastery.firstOptionSection1Value :
+                                          weaponMasteryLevel <= 10 ? directFireMastery.firstOptionSection2Value :
+                                          weaponMasteryLevel <= 15 ? directFireMastery.firstOptionSection3Value :
+                                          directFireMastery.firstOptionSection4Value;
+                          const totalBonus = baseValue * weaponMasteryLevel;
+                          return `${baseValue} × ${weaponMasteryLevel} = ${totalBonus.toFixed(3)} (${(totalBonus * 100).toFixed(1)}%)`;
+                        })()}
+                      </Typography>
+                    </Box>
+                  );
+                })()}
+              </Box>
+            </Box>
+          );
+        })()}
       </Box>
     </Container>
   );

@@ -2,10 +2,8 @@
 // API Documentation: https://developer.eternalreturn.io/
 
 const API_KEY = import.meta.env.VITE_ETERNAL_RETURN_API_KEY;
-// 開発環境ではプロキシ経由、本番環境では直接アクセス（要サーバー実装）
-const API_BASE_URL = import.meta.env.DEV
-  ? '/api/eternal-return'
-  : import.meta.env.VITE_ETERNAL_RETURN_API_BASE_URL || 'https://open-api.bser.io';
+// 開発環境・本番環境ともにプロキシ経由でアクセス
+const API_BASE_URL = '/api/eternal-return';
 
 // API Response Types
 interface ERCharacter {
@@ -299,9 +297,7 @@ class EternalReturnAPI {
         // まずAPIから正しいパスを取得
         const l10Path = await this.getLocalizationPath(language);
         console.log(`Got localization path for ${language}:`, l10Path);
-        url = import.meta.env.DEV
-          ? l10Path.replace('https://d1wkxvul68bth9.cloudfront.net', '/api')
-          : l10Path;
+        url = l10Path.replace('https://d1wkxvul68bth9.cloudfront.net', '/api');
       } catch {
         console.warn(`Failed to get localization path from API for ${language}, using fallback`);
         // フォールバック: 既知のURL（複数のパターンを試す）
