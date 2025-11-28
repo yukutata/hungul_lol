@@ -1,14 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/eternal-return/:path*",
-      "destination": "https://open-api.bser.io/:path*"
-    },
-    {
-      "source": "/api/l10n/:path*",
-      "destination": "https://d1wkxvul68bth9.cloudfront.net/:path*"
-    },
-    {
       "source": "/images/(.*)",
       "destination": "/images/$1"
     },
