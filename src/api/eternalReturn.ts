@@ -147,7 +147,7 @@ class EternalReturnAPI {
 
     this.headers = {
       'accept': 'application/json',
-      'x-api-key': API_KEY || '',
+      ...(API_KEY && { 'x-api-key': API_KEY }),
     };
   }
 
@@ -175,7 +175,9 @@ class EternalReturnAPI {
 
         // 403 エラーの場合は、より具体的なメッセージを表示
         if (response.status === 403) {
-          errorMessage = 'API キーが無効です。有効な API キーを取得してください。';
+          errorMessage = 'API キーが無効です。有効な API キーを取得してください。\n' +
+                        'https://developer.eternalreturn.io/ で新しいAPIキーを取得し、.envファイルを更新してください。';
+          console.error('API Key Error: Please get a new API key from https://developer.eternalreturn.io/');
         }
 
         throw new EternalReturnAPIError(

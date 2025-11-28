@@ -632,7 +632,7 @@ const CharacterStatsAdvancedPage: React.FC = () => {
   if (error) {
     return (
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Alert severity="error">{error}</Alert>
+        <Alert severity="error" sx={{ whiteSpace: 'pre-line' }}>{error}</Alert>
       </Container>
     );
   }
