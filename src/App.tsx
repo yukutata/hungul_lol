@@ -11,7 +11,9 @@ import HangulBasicsPage from './pages/HangulBasicsPage';
 import ApiExplorer from './pages/ApiExplorer';
 import CharacterStatsPage from './pages/CharacterStatsPage';
 import CharacterStatsAdvancedPage from './pages/CharacterStatsAdvancedPage';
+import { LearningSystemPage } from './pages/LearningSystemPage';
 import { CustomThemeProvider, useTheme } from './contexts/ThemeContext';
+import { LearningProgressProvider } from './contexts/LearningProgressContext';
 import { getTheme } from './utils/theme';
 
 function ThemedApp() {
@@ -37,6 +39,7 @@ function ThemedApp() {
             <Route path="/api-explorer" element={<ApiExplorer />} />
             <Route path="/character-stats" element={<CharacterStatsPage />} />
             <Route path="/character-stats-advanced" element={<CharacterStatsAdvancedPage />} />
+            <Route path="/learning-system" element={<LearningSystemPage />} />
           </Routes>
         </Box>
       </Router>
@@ -47,7 +50,9 @@ function ThemedApp() {
 function App() {
   return (
     <CustomThemeProvider>
-      <ThemedApp />
+      <LearningProgressProvider>
+        <ThemedApp />
+      </LearningProgressProvider>
     </CustomThemeProvider>
   );
 }
