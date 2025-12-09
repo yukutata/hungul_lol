@@ -136,12 +136,10 @@ export async function fetchWithCache<T>(
   // キャッシュから取得を試みる
   const cached = apiCache.get<T>(key);
   if (cached !== null) {
-    console.log(`Cache hit for key: ${key}`);
     return cached;
   }
 
   // キャッシュミスの場合、APIから取得
-  console.log(`Cache miss for key: ${key}, fetching from API...`);
   try {
     const data = await fetcher();
     // 成功したらキャッシュに保存

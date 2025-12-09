@@ -109,24 +109,25 @@ export const LessonViewMUI: React.FC<LessonViewProps> = ({ lesson, onComplete })
         lastOccurrence: new Date().toISOString()
       });
     }
+  };
 
-    setTimeout(() => {
-      setShowFeedback(false);
-      setUserAnswer('');
+  const handleNextPractice = () => {
+    setShowFeedback(false);
+    setIsCorrect(null);
+    setUserAnswer('');
 
-      if (currentPracticeIndex < lesson.practiceItems.length - 1) {
-        setCurrentPracticeIndex(currentPracticeIndex + 1);
-      } else {
-        // Lesson completed
-        if (sessionId) {
-          endSession(sessionId, score, mistakes);
-        }
-        if (score >= lesson.requiredScore) {
-          completeLesson(lesson.id, score);
-        }
-        onComplete();
+    if (currentPracticeIndex < lesson.practiceItems.length - 1) {
+      setCurrentPracticeIndex(currentPracticeIndex + 1);
+    } else {
+      // Lesson completed
+      if (sessionId) {
+        endSession(sessionId, score, mistakes);
       }
-    }, 2000);
+      if (score >= lesson.requiredScore) {
+        completeLesson(lesson.id, score);
+      }
+      onComplete();
+    }
   };
 
   const playAudio = (text: string) => {
@@ -429,20 +430,32 @@ export const LessonViewMUI: React.FC<LessonViewProps> = ({ lesson, onComplete })
             )}
 
             {showFeedback && (
-              <Alert
-                severity={isCorrect ? 'success' : 'error'}
-                sx={{ mt: 3 }}
-                icon={isCorrect ? <CheckIcon /> : <CancelIcon />}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                  {isCorrect ? '正解！' : '不正解'}
-                </Typography>
-                {!isCorrect && currentPractice.explanation && (
-                  <Typography variant="body2" sx={{ mt: 1 }}>
-                    {currentPractice.explanation}
+              <>
+                <Alert
+                  severity={isCorrect ? 'success' : 'error'}
+                  sx={{ mt: 3 }}
+                  icon={isCorrect ? <CheckIcon /> : <CancelIcon />}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                    {isCorrect ? '正解！' : '不正解'}
                   </Typography>
-                )}
-              </Alert>
+                  {!isCorrect && currentPractice.explanation && (
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {currentPractice.explanation}
+                    </Typography>
+                  )}
+                </Alert>
+                <Box sx={{ mt: 3, textAlign: 'center' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNextPractice}
+                    size="large"
+                  >
+                    {currentPracticeIndex < lesson.practiceItems.length - 1 ? '次の問題' : 'レッスン完了'}
+                  </Button>
+                </Box>
+              </>
             )}
           </Box>
         </CardContent>

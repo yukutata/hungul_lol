@@ -139,16 +139,12 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           fetchWithCache('characterMastery', () => eternalReturnAPI.getCharacterMastery()),
           fetchWithCache('masteryStat', async () => {
             const data = await eternalReturnAPI.getMasteryStat();
-            console.log('MasteryStat API Response:', data);
             if (data && data.length > 0) {
-              console.log('First MasteryStat item:', data[0]);
-              console.log('Sample MasteryStat for Sissela:', data.find(d => d.characterCode === 15));
             }
             return data;
           })
         ]);
 
-        console.log('Advanced Page - Localization data loaded:', {
           koreanLocType: koreanLoc instanceof Map,
           koreanLocSize: koreanLoc instanceof Map ? koreanLoc.size : 0,
           japaneseLocType: japaneseLoc instanceof Map,
@@ -173,17 +169,11 @@ const CharacterStatsAdvancedPage: React.FC = () => {
         setMasteryStat(masteryStatData);
 
         // MasteryStat データの構造を確認
-        console.log('=== MASTERY STAT DATA STRUCTURE CHECK ===');
-        console.log('Total MasteryStat items:', masteryStatData.length);
         if (masteryStatData.length > 0) {
-          console.log('First item full structure:', JSON.stringify(masteryStatData[0], null, 2));
-          console.log('First item keys:', Object.keys(masteryStatData[0]));
 
           // シセラの熟練度データを確認
           const sisselaMasteryStats = masteryStatData.filter(stat => stat.characterCode === 15);
-          console.log('Sissela mastery stats:', sisselaMasteryStats);
           sisselaMasteryStats.forEach((stat, index) => {
-            console.log(`Sissela stat [${index}]:`, JSON.stringify(stat, null, 2));
           });
         }
 
@@ -211,7 +201,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
 
           // デバッグ: イレムの名前を確認
           if (char.code === 61) {
-            console.log('Irem localization:', {
               code: char.code,
               baseName: char.name,
               koreanName,
@@ -291,7 +280,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           try {
             const name = await getWeaponTypeName(weaponType, language);
             weaponNameMap.set(weaponType, name);
-            console.log(`Loaded weapon name: ${weaponType} -> ${name} (${language})`);
           } catch (error) {
             console.error(`Failed to get name for weapon type ${weaponType}:`, error);
             // フォールバック
@@ -332,33 +320,17 @@ const CharacterStatsAdvancedPage: React.FC = () => {
 
         // シセラのみデバッグログを表示
         if (char.code === SISSELA_CODE) {
-          console.log('=== WEAPON MASTERY DEBUG ===');
-          console.log(`Character: ${char.nameEn || char.name} (Code: ${char.code})`);
-          console.log(`  Names: JP=${char.nameJpn}, KR=${char.nameKr}, EN=${char.nameEn}`);
-          console.log(`  Weapon Type: ${weaponType}`);
-          console.log(`  Available Weapons: [${char.availableWeapons.join(', ')}]`);
-          console.log(`  Total mastery stats in system: ${masteryStat.length}`);
-          console.log(`  Filtering for characterCode=${char.code} AND type=${weaponType}`);
-          console.log(`  Relevant mastery stats found: ${relevantMasteryStats.length}`);
 
           // Show all mastery stats for this character
           const characterMasteryStats = masteryStat.filter(stat => stat.characterCode === char.code);
-          console.log(`  All mastery stats for this character (${characterMasteryStats.length} total):`);
           characterMasteryStats.forEach((stat, index) => {
-            console.log(`    [${index}] Type: ${stat.type}, Options: ${stat.firstOption}=${stat.firstOptionSection4Value}, ${stat.secondOption}=${stat.secondOptionSection4Value}, ${stat.thirdOption}=${stat.thirdOptionSection4Value}`);
           });
 
           // Show specific relevant mastery stats
           if (relevantMasteryStats.length > 0) {
-            console.log(`  Relevant mastery stats for ${weaponType}:`);
             relevantMasteryStats.forEach((stat, index) => {
-              console.log(`    [${index}] Code: ${stat.code}, Type: ${stat.type}`);
-              console.log(`      FirstOption: ${stat.firstOption} = Sec1:${stat.firstOptionSection1Value}, Sec2:${stat.firstOptionSection2Value}, Sec3:${stat.firstOptionSection3Value}, Sec4:${stat.firstOptionSection4Value}`);
-              console.log(`      SecondOption: ${stat.secondOption} = Sec1:${stat.secondOptionSection1Value}, Sec2:${stat.secondOptionSection2Value}, Sec3:${stat.secondOptionSection3Value}, Sec4:${stat.secondOptionSection4Value}`);
-              console.log(`      ThirdOption: ${stat.thirdOption} = Sec1:${stat.thirdOptionSection1Value}, Sec2:${stat.thirdOptionSection2Value}, Sec3:${stat.thirdOptionSection3Value}, Sec4:${stat.thirdOptionSection4Value}`);
             });
           } else {
-            console.log(`  ❌ NO relevant mastery stats found for ${weaponType}!`);
           }
         }
 
@@ -376,20 +348,9 @@ const CharacterStatsAdvancedPage: React.FC = () => {
         const weaponMasteryMultiplier = 1; // セクション値を直接使用
 
         if (char.code === SISSELA_CODE) {
-          console.log(`  Weapon Mastery Level: ${weaponMasteryLevel}, Multiplier: ${weaponMasteryMultiplier}`);
-          console.log(`  Base stats before mastery application:`);
-          console.log(`    HP: ${updatedChar.finalMaxHp}`);
-          console.log(`    Attack Power: ${updatedChar.finalAttackPower}`);
-          console.log(`    Defense: ${updatedChar.finalDefense}`);
-          console.log(`    Attack Speed: ${updatedChar.finalAttackSpeed}`);
-          console.log(`    Skill Amp: ${updatedChar.finalSkillAmp}`);
 
           // 実際のオブジェクト構造を確認
           if (relevantMasteryStats.length > 0) {
-            console.log('  === ACTUAL MASTERY STAT OBJECT STRUCTURE ===');
-            console.log('  Full object:', relevantMasteryStats[0]);
-            console.log('  Object keys:', Object.keys(relevantMasteryStats[0]));
-            console.log('  JSON:', JSON.stringify(relevantMasteryStats[0], null, 2));
           }
         }
 
@@ -428,38 +389,28 @@ const CharacterStatsAdvancedPage: React.FC = () => {
             }
 
             if (char.code === SISSELA_CODE && option && value !== 0) {
-              console.log(`    Applying ${optionName}: ${option} = ${value} (scaled: ${scaledValue})`);
               switch (option) {
                 case 'AttackPower':
-                  console.log(`      Attack Power: ${oldValue.finalAttackPower} → ${updatedChar.finalAttackPower} (+${scaledValue})`);
                   break;
                 case 'Defense':
-                  console.log(`      Defense: ${oldValue.finalDefense} → ${updatedChar.finalDefense} (+${scaledValue})`);
                   break;
                 case 'AttackSpeedRatio':
-                  console.log(`      Attack Speed: ${oldValue.finalAttackSpeed} → ${updatedChar.finalAttackSpeed} (+${scaledValue})`);
                   break;
                 case 'MaxHp':
-                  console.log(`      Max HP: ${oldValue.finalMaxHp} → ${updatedChar.finalMaxHp} (+${scaledValue})`);
                   break;
                 case 'HpRegen':
-                  console.log(`      HP Regen (to Max HP): ${oldValue.finalMaxHp} → ${updatedChar.finalMaxHp} (+${updatedChar.maxHp * scaledValue})`);
                   break;
                 case 'IncreaseBasicAttackDamageRatio':
-                  console.log(`      Basic Attack Damage Ratio: ${oldValue.finalAttackPower} → ${updatedChar.finalAttackPower} (*${1 + scaledValue})`);
                   break;
                 case 'SkillAmpRatio':
-                  console.log(`      Skill Amp: ${oldValue.finalSkillAmp} → ${updatedChar.finalSkillAmp} (+${scaledValue})`);
                   break;
                 default:
-                  console.log(`      ⚠️ UNKNOWN OPTION: ${option} with value ${scaledValue}`);
                   break;
               }
             }
           };
 
           if (char.code === SISSELA_CODE) {
-            console.log(`  Processing mastery stat [${statIndex}] with code ${stat.code}:`);
           }
 
           // 熟練度レベルに応じたセクションの値を使用
@@ -486,9 +437,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
             const actualBonus = baseValue * level;
 
             if (char.code === SISSELA_CODE) {
-              console.log(`    getSectionValue: Level ${level} → ${selectedSection}`);
-              console.log(`      Base value per level: ${baseValue}`);
-              console.log(`      Total bonus: ${baseValue} × ${level} = ${actualBonus}`);
             }
 
             return actualBonus;
@@ -527,13 +475,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
         });
 
         if (char.code === SISSELA_CODE) {
-          console.log(`  Final stats after weapon mastery application:`);
-          console.log(`    HP: ${updatedChar.finalMaxHp}`);
-          console.log(`    Attack Power: ${updatedChar.finalAttackPower}`);
-          console.log(`    Defense: ${updatedChar.finalDefense}`);
-          console.log(`    Attack Speed: ${updatedChar.finalAttackSpeed}`);
-          console.log(`    Skill Amp: ${updatedChar.finalSkillAmp}`);
-          console.log('=== END WEAPON MASTERY DEBUG ===');
         }
 
         // 探索・防御熟練度によるボーナス（仮実装）
@@ -820,7 +761,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
                     const fullName = `${weaponName} ${displayName}`;
 
                     if (character.code === 61) { // イレムでデバッグ
-                      console.log(`Rendering Irem:`, {
                         language,
                         displayName,
                         weaponName,

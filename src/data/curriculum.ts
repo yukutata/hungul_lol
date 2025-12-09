@@ -241,22 +241,10 @@ export function getLessonsByStage(stageId: string): LessonModule[] {
         ? [{ type: 'consonants' as const, characters: module.focusCharacters }]
         : stage.focusAreas;
 
-      console.log(`Generating practice items for ${module.id}:`, {
-        focusCharacters: module.focusCharacters,
-        focusAreas
-      });
-
       const practiceItems = generatePracticeItems(
         focusAreas,
         module.level,
         module.level === 'beginner' ? 5 : 8
-      );
-
-      console.log(`Generated ${practiceItems.length} items for ${module.id}:`,
-        practiceItems.map(item => ({
-          character: item.characterName,
-          answer: item.correctAnswer
-        }))
       );
 
       return {

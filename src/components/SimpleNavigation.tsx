@@ -157,6 +157,15 @@ const SimpleNavigation: React.FC = () => {
             <Button
               color="inherit"
               component={Link}
+              to="/infinite-practice"
+              variant={location.pathname === '/infinite-practice' ? 'outlined' : 'text'}
+              startIcon={<SportsEsportsIcon />}
+            >
+              無限練習
+            </Button>
+            <Button
+              color="inherit"
+              component={Link}
               to="/character-stats"
               variant={location.pathname === '/character-stats' ? 'outlined' : 'text'}
             >
@@ -204,6 +213,9 @@ const SimpleNavigation: React.FC = () => {
           </MenuItem>
           <MenuItem onClick={() => { navigate('/learning-system'); handleMobileMenuClose(); }}>
             <SchoolIcon sx={{ mr: 1 }} /> 学習カリキュラム
+          </MenuItem>
+          <MenuItem onClick={() => { navigate('/infinite-practice'); handleMobileMenuClose(); }}>
+            <SportsEsportsIcon sx={{ mr: 1 }} /> 無限練習
           </MenuItem>
           <MenuItem onClick={() => { navigate('/character-stats'); handleMobileMenuClose(); }}>
             ステータス一覧

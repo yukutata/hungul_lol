@@ -256,32 +256,28 @@ class EternalReturnAPI {
 
   // ローカライゼーションファイルのURLを取得
   async getLocalizationPath(language: 'Korean' | 'Japanese' | 'English'): Promise<string> {
-    console.log(`Getting localization path for ${language}`);
 
     // v1エンドポイントを最初に試す（v1の方が安定している）
     try {
       const response = await this.fetch<ERApiResponse<ERLocalizationResponse>>(`/v1/l10n/${language}`);
-      console.log(`V1 Localization response for ${language}:`, response);
       if (response.data && response.data.l10Path) {
         return response.data.l10Path;
       }
     } catch {
-      console.log(`V1 failed for ${language}, trying V2`);
+      // Error handling for V1/V2 endpoints
     }
 
     // v2エンドポイントを試す
     try {
       const response = await this.fetch<ERApiResponse<ERLocalizationResponse>>(`/v2/l10n/${language}`);
-      console.log(`V2 Localization response for ${language}:`, response);
       if (response.data && response.data.l10Path) {
         return response.data.l10Path;
       }
     } catch {
-      console.log(`V2 also failed for ${language}`);
+      // Error handling for V1/V2 endpoints
     }
 
     // APIキーをクエリパラメータとして試す
-    console.log(`Trying with API key in query parameter for ${language}`);
     const apiKey = import.meta.env.VITE_ETERNAL_RETURN_API_KEY;
     if (apiKey) {
       // v1エンドポイントでAPIキーを試す
@@ -292,7 +288,6 @@ class EternalReturnAPI {
         if (response.ok) {
           const data = await response.json();
           if (data.data && data.data.l10Path) {
-            console.log(`Success with v1 + API key for ${language}`);
             return data.data.l10Path;
           }
         }
@@ -307,14 +302,12 @@ class EternalReturnAPI {
   // ローカライゼーションデータを取得してパース
   async getLocalizationData(language: 'Korean' | 'Japanese' | 'English'): Promise<Map<string, string>> {
     try {
-      console.log(`Fetching localization data for ${language}`);
 
       let url: string;
 
       try {
         // まずAPIから正しいパスを取得
         const l10Path = await this.getLocalizationPath(language);
-        console.log(`Got localization path for ${language}:`, l10Path);
         url = import.meta.env.DEV
           ? l10Path.replace('https://d1wkxvul68bth9.cloudfront.net', '/api')
           : `/api/proxy?url=${encodeURIComponent(l10Path)}`;
@@ -340,7 +333,6 @@ class EternalReturnAPI {
         url = paths[0];
       }
 
-      console.log(`Fetching from URL:`, url);
 
       // UTF-8でテキストを取得
       let response = await fetch(url, {
@@ -349,20 +341,17 @@ class EternalReturnAPI {
         }
       });
 
-      console.log(`Response status for ${language}: ${response.status}`);
 
       // 403エラーの場合、APIキーをクエリパラメータとして試す
       if (response.status === 403) {
         const apiKey = import.meta.env.VITE_ETERNAL_RETURN_API_KEY;
         if (apiKey) {
-          console.log(`Retrying with API key in query parameter for ${language} localization file`);
           const urlWithKey = url.includes('?') ? `${url}&api_key=${apiKey}` : `${url}?api_key=${apiKey}`;
           response = await fetch(urlWithKey, {
             headers: {
               'Accept-Charset': 'utf-8'
             }
           });
-          console.log(`Retry response status for ${language}: ${response.status}`);
         }
       }
 
@@ -379,9 +368,7 @@ class EternalReturnAPI {
       // テキストをパース
       const locMap = new Map<string, string>();
       const lines = text.split('\n');
-      console.log(`Parsing ${language} localization: ${lines.length} lines, text length: ${text.length}`);
 
-      let parsedCount = 0;
       for (const line of lines) {
         if (!line.trim()) continue;
 
@@ -391,25 +378,21 @@ class EternalReturnAPI {
           const key = parts[0].trim();
           const value = parts[1].trim();
           locMap.set(key, value);
-          parsedCount++;
         } else if (line.includes('\t')) {
           // タブ区切りの場合
           const [key, ...valueParts] = line.split('\t');
           if (key && valueParts.length > 0) {
             locMap.set(key.trim(), valueParts.join('\t').trim());
-            parsedCount++;
           }
         }
       }
 
-      console.log(`Parsed ${parsedCount} entries for ${language}. Map size: ${locMap.size}`);
       if (locMap.size > 0) {
-        console.log(`Sample entries:`, Array.from(locMap.entries()).slice(0, 5));
+        // Localization data loaded successfully
       }
 
       return locMap;
-    } catch (error) {
-      console.error(`Failed to load ${language} localization:`, error);
+    } catch {
       return new Map<string, string>();
     }
   }

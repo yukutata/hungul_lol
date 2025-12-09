@@ -8,11 +8,9 @@
 //
 // 2. 全武器タイプの名前マップを取得:
 //    const nameMap = await getWeaponNameMap('jp');
-//    console.log(nameMap.get('Pistol')); // "ピストル"
 //
 // 3. 武器タイプの詳細情報を取得:
 //    const details = await getWeaponTypeDetails('AssaultRifle');
-//    console.log(details.localizedNames); // { jp: "アサルトライフル", kr: "돌격 소총", en: "Assault Rifle" }
 //
 // 4. 全武器タイプのリスト取得:
 //    const allTypes = await getAllWeaponTypes(); // ['Glove', 'Tonfa', 'Bat', ...]

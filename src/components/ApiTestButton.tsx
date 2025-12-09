@@ -22,8 +22,6 @@ const ApiTestButton: React.FC = () => {
 
         // キャラクター数も取得してみる
         const characters = await eternalReturnAPI.getCharacters();
-        console.log(`取得したキャラクター数: ${characters.length}`);
-        console.log('最初の3キャラクター:', characters.slice(0, 3));
 
         setResult({
           success: true,

@@ -276,7 +276,6 @@ const ApiExplorer: React.FC = () => {
     try {
       const result = await endpoint.testFunction();
       setResults(prev => ({ ...prev, [endpoint.name]: result }));
-      console.log(`${endpoint.name}:`, result);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : '不明なエラー';
       setErrors(prev => ({ ...prev, [endpoint.name]: errorMessage }));

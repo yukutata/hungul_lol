@@ -106,7 +106,6 @@ const CharacterStatsPage: React.FC = () => {
           fetchWithCache('localization-japanese', () => eternalReturnAPI.getLocalizationData('Japanese'))
         ]);
 
-        console.log('Localization data loaded:', {
           koreanLocType: koreanLoc instanceof Map,
           koreanLocSize: koreanLoc instanceof Map ? koreanLoc.size : 0,
           japaneseLocType: japaneseLoc instanceof Map,
@@ -133,7 +132,6 @@ const CharacterStatsPage: React.FC = () => {
 
           // デバッグ: イレムの名前を確認
           if (char.code === 61) {
-            console.log('CharacterStatsPage - Irem localization:', {
               code: char.code,
               baseName: char.name,
               koreanName,
@@ -420,7 +418,6 @@ const CharacterStatsPage: React.FC = () => {
                   {(() => {
                     const displayName = getCharacterName(character);
                     if (character.code === 61) { // イレムでデバッグ
-                      console.log(`CharacterStatsPage - Rendering Irem:`, {
                         language,
                         displayName,
                         character: {

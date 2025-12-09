@@ -12,6 +12,7 @@ import ApiExplorer from './pages/ApiExplorer';
 import CharacterStatsPage from './pages/CharacterStatsPage';
 import CharacterStatsAdvancedPage from './pages/CharacterStatsAdvancedPage';
 import { LearningSystemPage } from './pages/LearningSystemPage';
+import { InfinitePracticePage } from './pages/InfinitePracticePage';
 import { CustomThemeProvider, useTheme } from './contexts/ThemeContext';
 import { LearningProgressProvider } from './contexts/LearningProgressContext';
 import { getTheme } from './utils/theme';
@@ -40,6 +41,7 @@ function ThemedApp() {
             <Route path="/character-stats" element={<CharacterStatsPage />} />
             <Route path="/character-stats-advanced" element={<CharacterStatsAdvancedPage />} />
             <Route path="/learning-system" element={<LearningSystemPage />} />
+            <Route path="/infinite-practice" element={<InfinitePracticePage />} />
           </Routes>
         </Box>
       </Router>
