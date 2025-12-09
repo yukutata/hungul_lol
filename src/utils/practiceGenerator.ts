@@ -97,8 +97,19 @@ export function generatePracticeItems(
     level === 'advanced' ? ['recognition', 'pronunciation', 'writing'] :
     ['recognition', 'pronunciation', 'writing', 'listening'];
 
+  // Create a list of characters repeated to ensure each character appears multiple times
+  const characterPool: Character[] = [];
+  const timesPerCharacter = Math.ceil(count / uniqueCharacters.length);
+
+  for (let i = 0; i < timesPerCharacter; i++) {
+    characterPool.push(...uniqueCharacters);
+  }
+
+  // Shuffle the pool to ensure randomness
+  const shuffledPool = shuffleArray(characterPool).slice(0, count);
+
   for (let i = 0; i < count; i++) {
-    const character = uniqueCharacters[i % uniqueCharacters.length];
+    const character = shuffledPool[i];
     const itemType = itemTypes[i % itemTypes.length];
 
     let item: PracticeItem;

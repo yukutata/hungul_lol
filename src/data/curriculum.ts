@@ -142,7 +142,8 @@ export const lessonModules: Record<string, LessonModule> = {
     ],
     practiceItems: [],
     requiredScore: 80,
-    estimatedMinutes: 15
+    estimatedMinutes: 15,
+    focusCharacters: ['ㄱ', 'ㄴ', 'ㄷ']
   },
   'module-1-2': {
     id: 'module-1-2',
@@ -181,7 +182,8 @@ export const lessonModules: Record<string, LessonModule> = {
     ],
     practiceItems: [],
     requiredScore: 80,
-    estimatedMinutes: 10
+    estimatedMinutes: 10,
+    focusCharacters: ['ㄹ', 'ㅁ']
   },
   'module-1-3': {
     id: 'module-1-3',
@@ -220,7 +222,8 @@ export const lessonModules: Record<string, LessonModule> = {
     ],
     practiceItems: [],
     requiredScore: 80,
-    estimatedMinutes: 10
+    estimatedMinutes: 10,
+    focusCharacters: ['ㅂ', 'ㅅ']
   }
 };
 
@@ -233,11 +236,27 @@ export function getLessonsByStage(stageId: string): LessonModule[] {
       const module = lessonModules[moduleId];
       if (!module) return null;
 
-      // Generate practice items for this module
+      // Generate practice items based on the module's specific focus characters
+      const focusAreas = module.focusCharacters
+        ? [{ type: 'consonants' as const, characters: module.focusCharacters }]
+        : stage.focusAreas;
+
+      console.log(`Generating practice items for ${module.id}:`, {
+        focusCharacters: module.focusCharacters,
+        focusAreas
+      });
+
       const practiceItems = generatePracticeItems(
-        stage.focusAreas,
+        focusAreas,
         module.level,
         module.level === 'beginner' ? 5 : 8
+      );
+
+      console.log(`Generated ${practiceItems.length} items for ${module.id}:`,
+        practiceItems.map(item => ({
+          character: item.characterName,
+          answer: item.correctAnswer
+        }))
       );
 
       return {

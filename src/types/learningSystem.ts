@@ -38,6 +38,7 @@ export interface LessonModule {
   practiceItems: PracticeItem[];
   requiredScore: number;
   estimatedMinutes: number;
+  focusCharacters?: string[];
 }
 
 export interface LessonContent {
