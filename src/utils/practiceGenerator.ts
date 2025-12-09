@@ -12,12 +12,17 @@ interface Character {
 
 // Combine both games' characters
 const allCharacters: Character[] = [
-  ...championsData.champions,
-  ...eternalReturnData.characters.map(char => ({
+  ...championsData.map(champ => ({
+    id: champ.id,
+    name: champ.nameEn,
+    korean: champ.nameKo,
+    romaja: champ.nameJa
+  })),
+  ...eternalReturnData.map(char => ({
     id: char.id,
-    name: char.name,
-    korean: char.korean,
-    romaja: char.romaja
+    name: char.nameEn,
+    korean: char.nameKo,
+    romaja: char.nameJa
   }))
 ];
 

@@ -1,5 +1,6 @@
 import { Curriculum, LessonModule } from '../types/learningSystem';
 import { generatePracticeItems } from '../utils/practiceGenerator';
+import { getHangulPronunciationSyllable } from './hangulPronunciation';
 
 export const koreanCurriculum: Curriculum = {
   stages: [
@@ -115,7 +116,8 @@ export const lessonModules: Record<string, LessonModule> = {
         examples: [
           { korean: '가렌', romanization: 'Garen', meaning: 'ガレン' },
           { korean: '갱플랭크', romanization: 'Gangplank', meaning: 'ガングプランク' }
-        ]
+        ],
+        audioText: getHangulPronunciationSyllable('ㄱ')
       },
       {
         type: 'explanation',
@@ -124,7 +126,8 @@ export const lessonModules: Record<string, LessonModule> = {
         examples: [
           { korean: '나미', romanization: 'Nami', meaning: 'ナミ' },
           { korean: '누누', romanization: 'Nunu', meaning: 'ヌヌ' }
-        ]
+        ],
+        audioText: getHangulPronunciationSyllable('ㄴ')
       },
       {
         type: 'explanation',
@@ -133,7 +136,8 @@ export const lessonModules: Record<string, LessonModule> = {
         examples: [
           { korean: '다리우스', romanization: 'Darius', meaning: 'ダリウス' },
           { korean: '드레이븐', romanization: 'Draven', meaning: 'ドレイヴン' }
-        ]
+        ],
+        audioText: getHangulPronunciationSyllable('ㄷ')
       }
     ],
     practiceItems: [],
@@ -156,6 +160,7 @@ export const lessonModules: Record<string, LessonModule> = {
         type: 'explanation',
         title: 'ㄹ（リウル）',
         content: '日本語の「ら行」に近い音ですが、語頭では「r」、語中では「l」の音になります。',
+        audioText: getHangulPronunciationSyllable('ㄹ'),
         examples: [
           { korean: '럭스', romanization: 'Lux', meaning: 'ラックス' },
           { korean: '리븐', romanization: 'Riven', meaning: 'リヴェン' },
@@ -166,6 +171,7 @@ export const lessonModules: Record<string, LessonModule> = {
         type: 'explanation',
         title: 'ㅁ（ミウム）',
         content: '英語の「m」と同じ音です。',
+        audioText: getHangulPronunciationSyllable('ㅁ'),
         examples: [
           { korean: '마스터 이', romanization: 'Master Yi', meaning: 'マスター・イー' },
           { korean: '모르가나', romanization: 'Morgana', meaning: 'モルガナ' },
@@ -193,6 +199,7 @@ export const lessonModules: Record<string, LessonModule> = {
         type: 'explanation',
         title: 'ㅂ（ビウプ）',
         content: '英語のb/pの音に近い子音です。語頭では「b」、語中では「p」の音になります。',
+        audioText: getHangulPronunciationSyllable('ㅂ'),
         examples: [
           { korean: '브라움', romanization: 'Braum', meaning: 'ブラウム' },
           { korean: '바이', romanization: 'Vi', meaning: 'ヴァイ' },
@@ -203,6 +210,7 @@ export const lessonModules: Record<string, LessonModule> = {
         type: 'explanation',
         title: 'ㅅ（シオッ）',
         content: '英語の「s」の音です。「ㅣ」母音の前では「sh」の音になることがあります。',
+        audioText: getHangulPronunciationSyllable('ㅅ'),
         examples: [
           { korean: '소나', romanization: 'Sona', meaning: 'ソナ' },
           { korean: '세트', romanization: 'Sett', meaning: 'セト' },

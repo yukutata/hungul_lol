@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { LearningDashboard } from '../components/LearningDashboard';
-import { StageDetail } from '../components/StageDetail';
+import { LearningDashboardMUI } from '../components/LearningDashboardMUI';
+import { StageDetailMUI } from '../components/StageDetailMUI';
 import { koreanCurriculum } from '../data/curriculum';
 import { CurriculumStage } from '../types/learningSystem';
 import { useLearningProgress } from '../contexts/LearningProgressContext';
@@ -27,12 +27,12 @@ export const LearningSystemPage: React.FC = () => {
 
   if (selectedStage) {
     return (
-      <StageDetail
+      <StageDetailMUI
         stage={selectedStage}
         onBack={() => setSelectedStage(null)}
       />
     );
   }
 
-  return <LearningDashboard onStageSelect={handleStageSelect} />;
+  return <LearningDashboardMUI onStageSelect={handleStageSelect} />;
 };

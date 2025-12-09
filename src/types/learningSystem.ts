@@ -45,6 +45,7 @@ export interface LessonContent {
   title: string;
   content: string;
   examples?: Example[];
+  audioText?: string;
 }
 
 export interface Example {
