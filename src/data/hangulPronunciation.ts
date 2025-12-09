@@ -43,7 +43,6 @@ export const hangulPronunciation: Record<string, string> = {
   'ㅘ': '와', // ワ
   'ㅙ': '왜', // ウェ
   'ㅚ': '외', // ウェ
-  'ㅛ': '요', // ヨ
   'ㅝ': '워', // ウォ
   'ㅞ': '웨', // ウェ
   'ㅟ': '위', // ウィ

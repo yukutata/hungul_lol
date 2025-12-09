@@ -106,14 +106,6 @@ const CharacterStatsPage: React.FC = () => {
           fetchWithCache('localization-japanese', () => eternalReturnAPI.getLocalizationData('Japanese'))
         ]);
 
-          koreanLocType: koreanLoc instanceof Map,
-          koreanLocSize: koreanLoc instanceof Map ? koreanLoc.size : 0,
-          japaneseLocType: japaneseLoc instanceof Map,
-          japaneseLocSize: japaneseLoc instanceof Map ? japaneseLoc.size : 0,
-          sampleKorean: koreanLoc instanceof Map ? koreanLoc.get('Character/Name/61') : null,
-          sampleJapanese: japaneseLoc instanceof Map ? japaneseLoc.get('Character/Name/61') : null
-        });
-
 
 
         // レベルアップデータをコードでマッピング
@@ -130,16 +122,6 @@ const CharacterStatsPage: React.FC = () => {
           const koreanName = (koreanLoc instanceof Map ? koreanLoc.get(`Character/Name/${char.code}`) : null) || char.name;
           const japaneseName = (japaneseLoc instanceof Map ? japaneseLoc.get(`Character/Name/${char.code}`) : null) || char.name;
 
-          // デバッグ: イレムの名前を確認
-          if (char.code === 61) {
-              code: char.code,
-              baseName: char.name,
-              koreanName,
-              japaneseName,
-              koreanLocType: koreanLoc instanceof Map,
-              japaneseLocType: japaneseLoc instanceof Map
-            });
-          }
 
           return {
           code: char.code,
@@ -417,18 +399,6 @@ const CharacterStatsPage: React.FC = () => {
                 <TableCell component="th" scope="row">
                   {(() => {
                     const displayName = getCharacterName(character);
-                    if (character.code === 61) { // イレムでデバッグ
-                        language,
-                        displayName,
-                        character: {
-                          code: character.code,
-                          name: character.name,
-                          nameKr: character.nameKr,
-                          nameJpn: character.nameJpn,
-                          nameEn: character.nameEn
-                        }
-                      });
-                    }
                     return language === 'kr' ? (
                       <Tooltip title={`${character.nameEn} (${character.nameJpn})`} placement="right">
                         <span>{displayName}</span>

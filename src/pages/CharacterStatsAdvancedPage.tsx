@@ -145,16 +145,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           })
         ]);
 
-          koreanLocType: koreanLoc instanceof Map,
-          koreanLocSize: koreanLoc instanceof Map ? koreanLoc.size : 0,
-          japaneseLocType: japaneseLoc instanceof Map,
-          japaneseLocSize: japaneseLoc instanceof Map ? japaneseLoc.size : 0,
-          englishLocType: englishLoc instanceof Map,
-          englishLocSize: englishLoc instanceof Map ? englishLoc.size : 0,
-          sampleKorean: koreanLoc instanceof Map ? koreanLoc.get('Character/Name/61') : null,
-          sampleJapanese: japaneseLoc instanceof Map ? japaneseLoc.get('Character/Name/61') : null
-        });
-
         // レベルアップデータをコードでマッピング
         const levelUpMap = new Map<number, ERCharacterLevelUpStat>();
         levelUpData.forEach(stat => {
@@ -199,16 +189,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
           const koreanName = (koreanLoc instanceof Map ? koreanLoc.get(`Character/Name/${char.code}`) : null) || char.name;
           const japaneseName = (japaneseLoc instanceof Map ? japaneseLoc.get(`Character/Name/${char.code}`) : null) || char.name;
 
-          // デバッグ: イレムの名前を確認
-          if (char.code === 61) {
-              code: char.code,
-              baseName: char.name,
-              koreanName,
-              japaneseName,
-              koreanLocType: koreanLoc instanceof Map,
-              japaneseLocType: japaneseLoc instanceof Map
-            });
-          }
 
           // 使用可能な武器を取得
           const availableWeapons: string[] = [];
@@ -760,21 +740,6 @@ const CharacterStatsAdvancedPage: React.FC = () => {
                     const weaponName = character.weaponType ? getWeaponName(character.weaponType) : '';
                     const fullName = `${weaponName} ${displayName}`;
 
-                    if (character.code === 61) { // イレムでデバッグ
-                        language,
-                        displayName,
-                        weaponName,
-                        fullName,
-                        character: {
-                          code: character.code,
-                          name: character.name,
-                          nameKr: character.nameKr,
-                          nameJpn: character.nameJpn,
-                          nameEn: character.nameEn,
-                          weaponType: character.weaponType
-                        }
-                      });
-                    }
                     return language === 'kr' ? (
                       <Tooltip title={`${character.nameEn} (${character.nameJpn})`} placement="right">
                         <span>{fullName}</span>
